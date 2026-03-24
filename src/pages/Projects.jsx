@@ -68,7 +68,7 @@ function ProjectHero({ count }) {
         }}
       />
 
-      <div style={{
+      <div className="project-hero-grid" style={{
         position: 'relative', zIndex: 1, width: '100%',
         display: 'grid',
         gridTemplateColumns: 'minmax(200px, 1fr) minmax(260px, 1fr)',
@@ -202,6 +202,7 @@ export default function Projects() {
         {/* 4 cards per row grid */}
         <motion.div
           layout
+          className="projects-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
@@ -220,6 +221,7 @@ export default function Projects() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
                 onMouseEnter={() => playSound('hover')}
+                className="project-card-wrapper"
                 style={{
                   gridColumn: 'span 3',
                   minWidth: 0,
@@ -257,6 +259,14 @@ export default function Projects() {
           <div>TOTAL_MODULES: {projects.length} | LAST_UPDATED: {new Date().toISOString().split('T')[0]}</div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .project-hero-grid { grid-template-columns: 1fr !important; }
+          .projects-grid { display: flex !important; flex-direction: column !important; }
+          .project-card-wrapper { grid-column: auto !important; width: 100% !important; }
+        }
+      `}</style>
     </PageTransition>
   );
 }

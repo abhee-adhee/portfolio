@@ -351,6 +351,9 @@ export default function Skills() {
           0%, 100% { box-shadow: 0 0 0 rgba(168, 85, 247, 0); opacity: 0.7; }
           50%       { box-shadow: 0 0 14px rgba(168, 85, 247, 0.25); opacity: 1; }
         }
+        @media (max-width: 768px) {
+          .skills-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+        }
       `}</style>
     </section>
   );

@@ -199,7 +199,7 @@ export default function ProjectCard({ project, index = 0, isFeatured = false }) 
           </div>
 
           {/* Card body (landscape if featured) */}
-          <div style={{
+          <div className="project-card-body" style={{
             padding: isFeatured ? '2.5rem' : '1.5rem',
             flex: 1, display: 'flex',
             flexDirection: isFeatured ? 'row' : 'column',
@@ -399,6 +399,9 @@ export default function ProjectCard({ project, index = 0, isFeatured = false }) 
           0% { border-style: dashed; }
           50% { border-style: dotted; }
           100% { border-style: dashed; }
+        }
+        @media (max-width: 768px) {
+          .project-card-body { flex-direction: column !important; padding: 1.5rem !important; }
         }
       `}</style>
         </motion.div>{/* END FRONT FACE */}

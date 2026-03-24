@@ -9,9 +9,14 @@ export default function CustomCursor() {
   const ringPos = useRef({ x: -100, y: -100 });
 
   const [hovering, setHovering] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
   const animId = useRef(null);
 
   useEffect(() => {
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      setIsTouch(true);
+      return;
+    }
     const lerp = (a, b, t) => a + (b - a) * t;
 
     const onMove = (e) => {
@@ -100,6 +105,8 @@ export default function CustomCursor() {
       observer.disconnect();
     };
   }, []);
+
+  if (isTouch) return null;
 
   return (
     <>

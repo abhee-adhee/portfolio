@@ -253,7 +253,7 @@ export default function ProjectDetail() {
       </div>
 
       <style>{`
-        @media (max-width: 640px) { .pao-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 768px) { .pao-grid { grid-template-columns: 1fr !important; } }
       `}</style>
     </PageTransition>
   );

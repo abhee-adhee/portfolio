@@ -182,7 +182,7 @@ export default function Contact() {
         </div>
 
         <style>{`
-          @media (max-width: 900px) {
+          @media (max-width: 768px) {
             .contact-grid { grid-template-columns: 1fr !important; }
           }
         `}</style>

@@ -447,7 +447,7 @@ export default function Experience() {
           50%  { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .exp-content-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>

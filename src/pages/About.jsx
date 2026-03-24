@@ -209,7 +209,7 @@ export default function About() {
       </div>
 
       <style>{`
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .about-grid { grid-template-columns: 1fr !important; }
           .hide-on-mobile { display: none !important; }
         }
