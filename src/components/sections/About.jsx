@@ -46,7 +46,7 @@ export default function About() {
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                 <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
               </div>
-              <p className="ml-4 text-xs font-mono text-gray-400">aadhi@portfolio: ~/about</p>
+              <p className="ml-4 text-xs font-mono text-gray-400">abinav@portfolio: ~/about</p>
             </div>
 
             {/* Terminal Content */}

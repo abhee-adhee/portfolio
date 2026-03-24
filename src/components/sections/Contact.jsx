@@ -72,7 +72,7 @@ export default function Contact() {
         transition={{ delay: 0.6 }}
         className="mt-12 text-gray-600 font-mono text-sm"
       >
-        <p>Built by Aadhi</p>
+        <p>Built by Abinav</p>
         <div className="w-px h-12 bg-gray-800 mx-auto mt-4"></div>
       </motion.div>
 
