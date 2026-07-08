@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 
 export function Modal({ isOpen, onClose, title, children, footer }) {
   useEffect(() => {

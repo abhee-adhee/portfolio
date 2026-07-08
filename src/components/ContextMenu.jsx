@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 
 export default function ContextMenu() {
   const [menu, setMenu] = useState(null); // { x, y } or null

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 import GlitchText from '../GlitchText';
 import { useCounter } from '../../utils/useCounter';
 import { useSound } from '../../context/SoundContext';
@@ -20,10 +20,10 @@ const TERMINAL_LINES = [
 
 /* ── Process list lines ───────────────────────────────── */
 const PROCESSES = [
-  { id: '01', text: 'Studying Computer Science' },
-  { id: '02', text: 'Building real-world ML systems' },
-  { id: '03', text: 'Open to internships + freelance' },
-  { id: '04', text: 'Competing in hackathons' },
+  { id: '01', text: 'Building Python-based Sentinel IDS' },
+  { id: '02', text: 'Learning Offensive Security & SOC Operations' },
+  { id: '03', text: 'Developing AI-powered applications' },
+  { id: '04', text: 'Seeking cybersecurity internship opportunities' },
 ];
 
 /* ── Stat cards data ──────────────────────────────────── */
@@ -275,10 +275,10 @@ export default function AboutSnapshot() {
           style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
         >
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.85 }}>
-            I'm Abinav — a developer and researcher operating at the intersection of machine learning, cybersecurity, and full-stack engineering. I build systems that are not just functional, but intelligent and resilient.
+            I'm Abinav Aaditya — a Computer Science student building at the intersection of cybersecurity, artificial intelligence, and software engineering.
           </p>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.85 }}>
-            From training ML models on live network traffic to shipping real-time dashboards with WebSocket streaming, I'm drawn to problems where the stakes are real. Currently pursuing my degree while building things that matter.
+            My work focuses on network security, web application security, and intelligent software systems. I enjoy understanding how systems work, identifying how they fail, and designing practical solutions through hands-on projects, internships, and hackathons.
           </p>
 
           <div className="glass-card" style={{ padding: '1.25rem', borderRadius: 8 }}>

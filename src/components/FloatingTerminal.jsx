@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 import { projects } from '../data/projects';
 import { skillGroups } from '../data/skills';
 

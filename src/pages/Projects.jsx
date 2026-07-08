@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import ProjectCard from '../components/ProjectCard';
 import PageTransition from '../components/PageTransition';

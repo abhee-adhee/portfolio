@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useParams, Link } from 'react-router-dom';
 
 import { projects } from '../data/projects';

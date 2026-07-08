@@ -3,7 +3,7 @@ import { AdminLayout } from '../components/layout/AdminLayout';
 import { LoadingSkeleton } from '../components/ui/LoadingSkeleton';
 import { ROADMAP_PHASES } from '../constants/mockData';
 import { Sparkles, ChevronDown, ChevronUp, CheckCircle2, Circle, AlertCircle, Clock } from 'lucide-react';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 
 export function FutureFeatures() {
   const [loading, setLoading] = useState(true);

@@ -8,7 +8,7 @@ import { LoadingSkeleton } from '../components/ui/LoadingSkeleton';
 import { EXPERIENCE_DATA, CERTIFICATES_DATA } from '../constants/mockData';
 import { Plus, Edit2, Trash2, Briefcase, Award, ExternalLink, ShieldCheck } from 'lucide-react';
 import clsx from 'clsx';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 
 export function Experience() {
   const [loading, setLoading] = useState(true);

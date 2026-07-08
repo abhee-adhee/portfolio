@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 
 import { showTransmissionToast } from '../Toast';
 import { usePortfolioData } from '../../context/PortfolioDataContext';

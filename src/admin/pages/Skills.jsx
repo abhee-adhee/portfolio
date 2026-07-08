@@ -6,7 +6,7 @@ import { LoadingSkeleton } from '../components/ui/LoadingSkeleton';
 import { usePortfolioData } from '../../context/PortfolioDataContext';
 import { Plus, Edit2, Trash2, ChevronDown, ChevronUp, Save, X, CheckCircle } from 'lucide-react';
 import clsx from 'clsx';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 
 function SkillBar({ skill, onEdit, onDelete }) {
   return (

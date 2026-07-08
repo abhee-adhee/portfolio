@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { usePortfolioData } from '../../context/PortfolioDataContext';
 import { skillGroups } from '../../data/skills';

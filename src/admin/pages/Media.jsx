@@ -7,7 +7,7 @@ import { LoadingSkeleton } from '../components/ui/LoadingSkeleton';
 import { MEDIA_ITEMS } from '../constants/mockData';
 import { UploadCloud, Image as ImageIcon, Film, FileText, Eye, Link, Trash2, Search } from 'lucide-react';
 import clsx from 'clsx';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 
 export function Media() {
   const [loading, setLoading] = useState(true);

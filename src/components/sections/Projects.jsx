@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 
 import { ExternalLink, Github, Activity, Brain, Shield, Radio, BookOpen } from 'lucide-react';
 

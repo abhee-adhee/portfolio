@@ -13,16 +13,14 @@ const defaultHero = {
 
 const defaultAbout = {
   bio: [
-    "I'm Abinav — a developer working at the intersection of machine learning, cybersecurity, and full-stack engineering.",
-    "I have built an ML-based intrusion detection system and participated in IBM Datathon 2025 as a backend developer.",
-    "In the hackathon, I worked on building a real-time application integrating maps and voice features.",
-    "Currently building a mini Cloud SOC (Security Operations Center) system in my college technical society.",
-    "I focus on solving real-world problems with scalable and efficient systems.",
+    "I'm Abinav Aaditya — a Computer Science student building at the intersection of cybersecurity, artificial intelligence, and software engineering.",
+    "My work focuses on network security, web application security, and intelligent software systems. I enjoy understanding how systems work, identifying how they fail, and designing practical solutions through hands-on projects, internships, and hackathons.",
   ],
   processes: [
-    'Building Cloud-based SOC system for threat monitoring and analysis',
-    'Exploring ML + Cybersecurity integrations (IDS, anomaly detection)',
-    'Open to internships, freelance work, and hackathon collaborations',
+    'Building Python-based Sentinel IDS',
+    'Learning Offensive Security & SOC Operations',
+    'Developing AI-powered applications',
+    'Seeking cybersecurity internship opportunities',
   ]
 };
 
@@ -205,7 +203,7 @@ const INITIAL_STATE = {
 };
 
 const STORAGE_KEY = 'aadhi_portfolio_state';
-const STORAGE_VERSION = 3;
+const STORAGE_VERSION = 4;
 
 function loadInitialData() {
   try {
@@ -231,7 +229,7 @@ function loadInitialData() {
       };
     }
 
-    if (parsed.__version === 2) {
+    if (parsed.__version === 2 || parsed.__version === 3) {
       return {
         ...INITIAL_STATE,
         ...parsed,

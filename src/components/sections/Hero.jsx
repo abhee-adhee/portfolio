@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useScroll, useTransform } from 'framer-motion';
+import { motion,  useScroll, useTransform } from 'framer-motion';
 import GlitchText from '../GlitchText';
 import { useSound } from '../../context/SoundContext';
 import { usePortfolioData } from '../../context/PortfolioDataContext';

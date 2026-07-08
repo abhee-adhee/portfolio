@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion,  AnimatePresence } from 'framer-motion';
 
 const NODES = [
   { id: 'chennai', cx: 700, cy: 300, name: 'Chennai', country: 'IND', tz: 'IST', lat: 13, lng: 80 },
