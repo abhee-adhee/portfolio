@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+
 import { useSound } from '../context/SoundContext';
 import TransitionOverlay from './TransitionOverlay';
 

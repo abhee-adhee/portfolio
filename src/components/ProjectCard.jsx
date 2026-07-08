@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+
 
 const STATUS_CLASS = {
   DEPLOYED: 'badge-deployed',
@@ -310,7 +310,6 @@ export default function ProjectCard({ project, index = 0, isFeatured = false }) 
                   style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.65rem',
-                    color: 'var(--accent-cyan)',
                     textDecoration: 'none',
                     border: '1px solid rgba(0,245,255,0.3)',
                     padding: '5px 18px',

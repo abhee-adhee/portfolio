@@ -1,26 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useScroll, useTransform } from 'framer-motion';
 import GlitchText from '../GlitchText';
 import { useSound } from '../../context/SoundContext';
+import { usePortfolioData } from '../../context/PortfolioDataContext';
 import WorldMap from '../WorldMap';
 import { useMagnetic } from '../../utils/useMagnetic';
 
-const ROLES = [
-  'Full Stack Developer',
-  'ML Engineer',
-  'Cybersecurity Researcher',
-  'Hackathon Builder',
-];
-
-function Typewriter() {
+function Typewriter({ roles }) {
   const [roleIdx, setRoleIdx] = useState(0);
   const [displayed, setDisplayed] = useState('');
   const [deleting, setDeleting] = useState(false);
   const timeout = useRef(null);
 
   useEffect(() => {
-    const full = ROLES[roleIdx];
+    const full = roles[roleIdx];
     if (!deleting) {
       if (displayed.length < full.length) {
         timeout.current = setTimeout(() => setDisplayed(full.slice(0, displayed.length + 1)), 70);
@@ -31,8 +25,10 @@ function Typewriter() {
       if (displayed.length > 0) {
         timeout.current = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 40);
       } else {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setDeleting(false);
-        setRoleIdx(prev => (prev + 1) % ROLES.length);
+        setRoleIdx(prev => (prev + 1) % roles.length);
       }
     }
     return () => clearTimeout(timeout.current);
@@ -49,11 +45,12 @@ function Typewriter() {
 
 
 export default function Hero() {
+  const { data } = usePortfolioData();
   const { playSound } = useSound();
   const today = new Date().toISOString().split('T')[0];
 
   // Typewriter heading logic
-  const fullHeading = "ABINAV.SYS";
+  const fullHeading = data.hero.name;
   const [headingText, setHeadingText] = useState("");
   useEffect(() => {
     let i = 0;
@@ -67,6 +64,8 @@ export default function Hero() {
 
   // Parallax Globe logic
   const { scrollY } = useScroll();
+  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars
   const globeRotation = useTransform(scrollY, [0, 2000], [0, 90]);
   const btnProjectsRef = useMagnetic(12, 60);
   const btnResumeRef = useMagnetic(12, 60);
@@ -91,7 +90,7 @@ export default function Hero() {
         userSelect: 'none', pointerEvents: 'none',
         letterSpacing: '-0.05em', whiteSpace: 'nowrap',
       }}>
-        ABINAV.SYS
+        {data.hero.name}
       </div>
 
       {/* Two column layout */}
@@ -124,7 +123,7 @@ export default function Hero() {
               background: '#4ade80', boxShadow: '0 0 6px #4ade80',
               animation: 'blink 2s ease-in-out infinite',
             }} />
-            SYSTEM_ONLINE
+            {data.hero.statusText}
             <span style={{ color: 'var(--border-color)' }}>|</span>
             v1.0.0
             <span style={{ color: 'var(--border-color)' }}>|</span>
@@ -160,17 +159,16 @@ export default function Hero() {
             marginBottom: '2.5rem',
             minHeight: '2rem',
           }}>
-            <Typewriter />
+            <Typewriter roles={data.hero.roles} />
           </div>
 
-          {/* CTA Buttons */}
           <div style={{
             display: 'flex', gap: '1rem',
             flexWrap: 'wrap', marginBottom: '1.5rem',
           }}>
             <Link
               ref={btnProjectsRef}
-              to="/projects"
+              to={data.hero.cta1.link}
               className="btn-interactive btn-filled"
               style={{
                 fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
@@ -184,11 +182,11 @@ export default function Hero() {
               onMouseEnter={() => playSound('hover')}
               onClick={() => playSound('click')}
             >
-              [ ACCESS_PROJECTS ]
+              [ {data.hero.cta1.text} ]
             </Link>
             <a
               ref={btnResumeRef}
-              href="/resume.pdf"
+              href={data.hero.cta2.link}
               download
               className="btn-interactive btn-outline"
               style={{
@@ -203,7 +201,7 @@ export default function Hero() {
               onMouseEnter={() => playSound('hover')}
               onClick={() => playSound('click')}
             >
-              [ DOWNLOAD_RESUME ]
+              [ {data.hero.cta2.text} ]
             </a>
           </div>
 

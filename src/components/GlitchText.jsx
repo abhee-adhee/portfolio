@@ -1,5 +1,5 @@
 /* Reusable glitch text heading */
-export default function GlitchText({ text, as: Tag = 'h1', className = '', style = {} }) {
+export default function GlitchText({ text, /* eslint-disable-next-line no-unused-vars */ /* eslint-disable-next-line no-unused-vars */ as: Tag = 'h1', className = '', style = {} }) {
   return (
     <Tag
       className={`relative inline-block ${className}`}

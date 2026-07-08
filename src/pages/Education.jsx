@@ -1,45 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+
 import PageTransition from '../components/PageTransition';
 import BackButton from '../components/BackButton';
 import { useSound } from '../context/SoundContext';
-
-const TIMELINE = [
-  {
-    id: 'ENTRY_01',
-    status: 'ACTIVE',
-    institution: 'Saveetha Engineering College',
-    level: 'Undergraduate',
-    degree: '[BE - Computer Science]',
-    year: '2024 — Present',
-    notes: '[Tech Society , CGPA : 8.2 ]',
-    subjects: ['Data Structures', 'Machine Learning', 'Computer Networks', 'Operating Systems', 'Cybersecurity'],
-  },
-  {
-    id: 'ENTRY_02',
-    status: 'COMPLETE',
-    institution: 'AVM Rajeshwari Matriculation Higher Secondary School',
-    level: 'Higher Secondary (Class 12)',
-    stream: '[Computer Science ]',
-    year: '2023',
-    score: '[79%]',
-  },
-  {
-    id: 'ENTRY_03',
-    status: 'COMPLETE',
-    institution: '[Narayana E-Techno School]',
-    level: 'Secondary (Class 10)',
-    year: '2021',
-    score: '[85%]',
-  },
-];
-
-const CERTS = [
-  { name: 'International Math Olympiad', issuer: 'Science Olympiad Foundation', year: '2019', color: 'var(--accent-primary)' },
-  { name: 'National Science Olympiad', issuer: 'Science Olympiad Foundation', year: '2018', color: 'var(--accent-secondary)' },
-  { name: 'International English Olympiad', issuer: 'Science Olympiad Foundation', year: '2018', color: '#4ade80' },
-];
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 // Animated scanning text — runs per card when it enters view
 function ScanningText() {
@@ -90,6 +55,9 @@ function ScanningText() {
 }
 
 export default function Education() {
+  const { data } = usePortfolioData();
+  const TIMELINE = data.education;
+  const CERTS = data.eduCerts;
   const { playSound } = useSound();
   return (
     <PageTransition>

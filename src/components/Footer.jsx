@@ -39,7 +39,7 @@ export default function Footer() {
   }, []);
 
   const copyEmail = () => {
-    navigator.clipboard.writeText('youremail@example.com');
+    navigator.clipboard.writeText('abinavaaditya@gmail.com');
     // We could trigger a toast here if we imported useToast
   };
 
@@ -133,10 +133,10 @@ export default function Footer() {
               <button onClick={copyEmail} className="footer-connect-link" style={{ background: 'transparent', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer' }}>
                 <Mail size={16} /> <span style={{ flex: 1 }}>EMAIL</span> <ArrowRight size={14} className="arrow" />
               </button>
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="footer-connect-link">
+              <a href="https://github.com/abhee-adhee" target="_blank" rel="noreferrer" className="footer-connect-link">
                 <Github size={16} /> <span style={{ flex: 1 }}>GITHUB</span> <ArrowRight size={14} className="arrow" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="footer-connect-link">
+              <a href="https://www.linkedin.com/in/abinav-aaditya-86a952305/" target="_blank" rel="noreferrer" className="footer-connect-link">
                 <Linkedin size={16} /> <span style={{ flex: 1 }}>LINKEDIN</span> <ArrowRight size={14} className="arrow" />
               </a>
               <a href="/resume.pdf" download style={{

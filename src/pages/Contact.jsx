@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+
 import PageTransition from '../components/PageTransition';
 import { showTransmissionToast } from '../components/Toast';
 import BackButton from '../components/BackButton';

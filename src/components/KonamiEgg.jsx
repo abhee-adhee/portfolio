@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 
 const SEQUENCE = [
   'ArrowUp','ArrowUp','ArrowDown','ArrowDown',

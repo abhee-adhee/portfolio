@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 
-const SKILLS = [
-  { label: 'Python',       level: 90, color: 'var(--accent-primary)' },
-  { label: 'React',        level: 82, color: 'var(--accent-secondary)' },
-  { label: 'ML / AI',      level: 80, color: '#4ade80' },
-  { label: 'Node.js',      level: 72, color: '#f59e0b' },
-  { label: 'Cybersec',     level: 75, color: '#ef4444' },
-  { label: 'SQL',          level: 68, color: 'var(--accent-secondary)' },
-  { label: 'Docker',       level: 60, color: 'var(--accent-primary)' },
-  { label: 'TypeScript',   level: 70, color: '#fbbf24' },
-];
+import { skillGroups } from '../data/skills';
+
+const SKILLS = skillGroups.flatMap((group, groupIndex) =>
+  group.skills.map(skill => ({
+    label: skill.name,
+    level: skill.level,
+    color: ['var(--accent-primary)', 'var(--accent-secondary)', '#4ade80', '#f59e0b', '#ef4444'][groupIndex % 5],
+  }))
+);
 
 function polarToCart(cx, cy, r, angleDeg) {
   const rad = ((angleDeg - 90) * Math.PI) / 180;

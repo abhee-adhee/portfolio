@@ -1,60 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { projects } from '../../data/projects';
-
-const TABS = [
-  {
-    id: 'LANGUAGES',
-    icon: '⌨',
-    skills: [
-      { name: 'Python', level: 90, tag: 'PY', label: 'EXPERT' },
-      { name: 'JavaScript', level: 82, tag: 'JS', label: 'ADVANCED' },
-    ],
-  },
-  {
-    id: 'FRONTEND',
-    icon: '◈',
-    skills: [
-      { name: 'React', level: 88, tag: 'RCT', label: 'ADVANCED' },
-      { name: 'Tailwind CSS', level: 90, tag: 'TWD', label: 'ADVANCED' },
-      { name: 'Framer Motion', level: 80, tag: 'FM', label: 'ADVANCED' },
-      { name: 'Recharts', level: 75, tag: 'RC', label: 'INTERMEDIATE' },
-    ],
-  },
-  {
-    id: 'BACKEND',
-    icon: '⚙',
-    skills: [
-      { name: 'FastAPI', level: 85, tag: 'FAPI', label: 'ADVANCED' },
-      { name: 'WebSockets', level: 80, tag: 'WS', label: 'INTERMEDIATE' },
-      { name: 'Asyncio', level: 78, tag: 'ASIO', label: 'INTERMEDIATE' },
-    ],
-  },
-  {
-    id: 'ML / DATA',
-    icon: '◉',
-    skills: [
-      { name: 'Scikit-learn', level: 85, tag: 'SKL', label: 'ADVANCED' },
-      { name: 'XGBoost', level: 88, tag: 'XGB', label: 'ADVANCED' },
-      { name: 'Pandas', level: 90, tag: 'PD', label: 'EXPERT' },
-      { name: 'NumPy', level: 90, tag: 'NP', label: 'ADVANCED' },
-      { name: 'Joblib', level: 75, tag: 'JBL', label: 'INTERMEDIATE' },
-    ],
-  },
-  {
-    id: 'TOOLS',
-    icon: '⊕',
-    skills: [
-      { name: 'Git', level: 88, tag: 'GIT', label: 'ADVANCED' },
-      { name: 'Scapy', level: 82, tag: 'SCY', label: 'INTERMEDIATE' },
-      { name: 'Linux/Ubuntu', level: 80, tag: 'LNX', label: 'ADVANCED' },
-      { name: 'Npcap', level: 70, tag: 'NPC', label: 'INTERMEDIATE' },
-    ],
-  },
-];
-
-const ACQUIRING = ['Docker', 'Kubernetes', 'LangChain', 'Rust'];
+import { usePortfolioData } from '../../context/PortfolioDataContext';
+import { skillGroups } from '../../data/skills';
 
 const LABEL_COLOR = {
   EXPERT: 'var(--accent-primary)',
@@ -63,6 +11,8 @@ const LABEL_COLOR = {
 };
 
 function SkillBar({ name, level, tag, label, animate, itemVariants }) {
+  const { data } = usePortfolioData();
+  const projects = data.projects;
   const [fill, setFill] = useState(0);
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
@@ -73,6 +23,8 @@ function SkillBar({ name, level, tag, label, animate, itemVariants }) {
     .map(p => p.title);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!animate) { setFill(0); return; }
     const t = setTimeout(() => setFill(level), 80);
     return () => clearTimeout(t);
@@ -189,6 +141,10 @@ const tableItemVariants = {
 };
 
 export default function Skills() {
+  const { data } = usePortfolioData();
+  const TABS = data.skills;
+  const ACQUIRING = skillGroups.flatMap(group => group.skills.map(skill => skill.name)).slice(0, 4);
+
   const [activeTab, setActiveTab] = useState(0);
   const [shouldAnimate, setShouldAnimate] = useState(true);
   const sectionRef = useRef(null);
@@ -255,7 +211,7 @@ export default function Skills() {
 
           {TABS.map((t, i) => (
             <button
-              key={t.id}
+              key={t.label || t.id}
               onClick={() => handleTab(i)}
               className={`skill-tab${activeTab === i ? ' skill-tab-active' : ''}`}
               style={{
@@ -274,7 +230,7 @@ export default function Skills() {
               }}
             >
               <span style={{ opacity: 0.7 }}>{t.icon}</span>
-              {t.id}
+              {t.label || t.id}
             </button>
           ))}
         </motion.div>

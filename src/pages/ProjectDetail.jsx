@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+
 import { projects } from '../data/projects';
 import PageTransition from '../components/PageTransition';
 import GlitchText from '../components/GlitchText';
@@ -39,7 +39,7 @@ export default function ProjectDetail() {
         <BackButton />
         {/* Title block */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 20 }}Fsystem
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
           style={{ marginBottom: '2.5rem' }}

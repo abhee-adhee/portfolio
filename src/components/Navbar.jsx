@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { useSound } from '../context/SoundContext';
 import { showToast } from './Toast';
@@ -47,7 +47,7 @@ const MoonIcon = () => (
 
 export default function Navbar() {
   const { theme, triggerRipple } = useTheme();
-  const { soundOn, toggle: toggleSound } = useSound();
+  const { soundOn, toggle: toggleSound, playSound } = useSound();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { pathname } = useLocation();
@@ -85,6 +85,8 @@ export default function Navbar() {
   }, []);
 
   // Close mobile menu on route change
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   return (

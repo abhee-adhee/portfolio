@@ -1,81 +1,163 @@
 export const projects = [
   {
-    id: 'ps-43-ids',
-    codename: 'PS_43',
-    title: 'Intrusion Detection System',
-    subtitle: 'Using Network Traffic Anomalies',
+    id: 'mini-soc-01',
+    codename: 'SOC_01',
+    title: 'Mini SOC',
+    subtitle: 'SOC Monitoring & Defense Demonstration',
     status: 'DEPLOYED',
-    tags: ['ML', 'CYBERSEC'],
-    stack: ['Scapy', 'XGBoost', 'FastAPI', 'React', 'Recharts', 'Tailwind'],
-    description: 'ML-powered network IDS detecting DDoS, port scanning, and MITM attacks in real time using the CICIDS 2017 dataset with a live React dashboard.',
-    shortDesc: 'ML-powered network IDS detecting DDoS, port scanning, and MITM attacks in real time using the CICIDS 2017 dataset with a live React dashboard.',
-    fullDesc: 'ML-powered network IDS detecting DDoS, port scanning, and MITM attacks in real time using the CICIDS 2017 dataset with a live React dashboard.',
-    features: [
-      'Real-time packet capture and flow feature extraction using Scapy',
-      'XGBoost classifier trained on CICIDS 2017 dataset',
-      'FastAPI backend with WebSocket streaming',
-      'React dashboard with Recharts visualization'
+    tags: ['CYBERSEC', 'SOC'],
+    stack: [
+      'Windows Defender',
+      'PowerShell',
+      'Windows Event Logs',
+      'Python',
+      'Monitoring'
     ],
-    screenshots: [
-      { src: '/screenshots/ids-1.png', caption: 'LIVE_DASHBOARD' }
-    ]
-  },
-  {
-    id: 'ghost-02',
-    codename: 'GHOST_02',
-    title: 'Project Ghost',
-    subtitle: 'Classified Operation',
-    status: 'CLASSIFIED',
-    tags: ['WEB'],
-    stack: ['REDACTED'],
-    description: 'Details redacted. Access restricted.',
-    shortDesc: 'Details redacted. Access restricted.',
-    fullDesc: 'Details redacted. Access restricted.',
-    features: ['[REDACTED]', '[REDACTED]', '[REDACTED]'],
+    description:
+      'A Security Operations Center (SOC) demonstration showcasing endpoint monitoring, threat detection, and defensive workflows using Windows Defender and a custom PowerShell monitoring solution.',
+    shortDesc:
+      'SOC monitoring and defensive security demonstration using Windows Defender and PowerShell.',
+    fullDesc:
+      'Mini SOC demonstrates how endpoint security events can be monitored and analyzed using Windows Defender together with a custom-built PowerShell monitoring script. The project focuses on SOC-style visibility, alert generation, and defensive monitoring concepts.',
+    features: [
+      'Windows Defender monitoring',
+      'Custom PowerShell SOC monitor',
+      'Event log monitoring',
+      'Security event visualization',
+      'SOC workflow demonstration'
+    ],
     screenshots: []
   },
+
   {
-    id: 'nova-03',
-    codename: 'NOVA_03',
-    title: 'Project Nova',
-    subtitle: 'Currently Compiling',
-    status: 'IN_PROGRESS',
-    progress: 34,
-    tags: ['WEB', 'ML'],
-    stack: ['React', 'Python', 'FastAPI'],
-    description: 'Currently under development. Stay tuned.',
-    shortDesc: 'Currently under development. Stay tuned.',
-    fullDesc: 'Currently under development. Stay tuned.',
-    features: ['Active development', 'Architecture Phase'],
-    screenshots: []
-  },
-  {
-    id: 'cipher-04',
-    codename: 'CIPHER_04',
-    title: 'Cipher Dashboard',
-    subtitle: 'Data Visualization Platform',
-    status: 'IN_PROGRESS',
-    progress: 60,
-    tags: ['WEB'],
-    stack: ['React', 'Recharts', 'FastAPI', 'Tailwind'],
-    description: 'Full-stack analytics dashboard for visualizing and exploring complex datasets.',
-    shortDesc: 'Full-stack analytics dashboard for visualizing and exploring complex datasets.',
-    fullDesc: 'Full-stack analytics dashboard for visualizing and exploring complex datasets.',
-    features: ['Data visualization', 'Real-time analytics'],
-    screenshots: []
-  },
-  {
-    id: 'nexus-05',
-    codename: 'NEXUS_05',
-    title: 'Nexus Hub',
-    subtitle: 'Central Infrastructure',
+    id: 'voiceforall-02',
+    codename: 'VF_02',
+    title: 'VoiceForAll',
+    subtitle: 'IBM Z Datathon 2025 Project',
     status: 'DEPLOYED',
-    tags: ['WEB', 'CYBERSEC'],
-    stack: ['Node.js', 'Express', 'JWT', 'MongoDB'],
-    description: 'Centralized hub for managing cross-module communication and security protocols.',
-    shortDesc: 'Centralized hub for managing cross-module communication and security protocols.',
-    fullDesc: 'Centralized hub for managing cross-module communication and security protocols.',
-    features: ['Auth systems', 'API Gateway'],
+    tags: ['AI', 'SOCIAL IMPACT', 'DATATHON'],
+    stack: [
+      'Streamlit',
+      'Python',
+      'SQLite',
+      'Pandas',
+      'TextBlob',
+      'Plotly'
+    ],
+    description:
+      'Accessibility reporting platform that enables people with disabilities to submit accessibility issues using voice or text while generating actionable insights through sentiment analysis and interactive dashboards.',
+    shortDesc:
+      'IBM Z Datathon project empowering accessibility reporting through AI-driven insights.',
+    fullDesc:
+      'VoiceForAll empowers individuals with disabilities to report accessibility barriers using text or voice input. Reports are analyzed for sentiment and urgency, visualized on interactive maps, and transformed into actionable insights for NGOs and policymakers.',
+    features: [
+      'Voice & text accessibility reporting',
+      'Interactive accessibility map',
+      'NLP sentiment analysis using TextBlob',
+      'Analytics dashboard',
+      'Timestamped report integrity',
+      'Cloud deployment'
+    ],
+    screenshots: []
+  },
+
+  {
+    id: 'sentinel-03',
+    codename: 'SENTINEL_03',
+    title: 'Sentinel IDS',
+    subtitle: 'Python Network Intrusion Detection System',
+    status: 'IN_PROGRESS',
+    progress: 82,
+    tags: ['CYBERSEC', 'NETWORKING', 'PYTHON'],
+    stack: [
+      'Python',
+      'Scapy',
+      'SQLite',
+      'Matplotlib',
+      'Custom Detection Engine'
+    ],
+    description:
+      'A modular Network Intrusion Detection System built from scratch for real-time packet inspection, attack detection, offline PCAP analysis, and SOC-style monitoring.',
+    shortDesc:
+      'Python-based IDS with real-time packet capture and attack detection.',
+    fullDesc:
+      'Sentinel IDS is a modular intrusion detection system built entirely in Python to understand packet processing, network security, and SOC operations. It performs real-time traffic inspection, configurable attack detection, alert logging, offline PCAP analysis, and dashboard visualization.',
+    features: [
+      'Real-time packet capture using Scapy',
+      'Modular packet parsing pipeline',
+      'Configurable detection engine',
+      'SYN Flood detection',
+      'Port Scan detection',
+      'SQLite alert logging',
+      'SOC dashboard',
+      'PDF & TXT report generation',
+      'Offline PCAP analysis',
+      'Configurable detection rules'
+    ],
+    screenshots: []
+  },
+
+  {
+    id: 'edumate-04',
+    codename: 'EDUMATE_04',
+    title: 'EduMate',
+    subtitle: "ITRYX'25 Hackathon Project",
+    status: 'DEPLOYED',
+    tags: ['AI', 'COMPUTER VISION', 'EDTECH'],
+    stack: [
+      'Python',
+      'OpenCV',
+      'FER',
+      'Machine Learning',
+      'React'
+    ],
+    description:
+      'AI-powered adaptive learning platform that analyzes learner engagement using facial expression recognition and dynamically personalizes learning experiences.',
+    shortDesc:
+      'Adaptive learning platform powered by facial expression recognition.',
+    fullDesc:
+      'EduMate enhances digital learning by continuously monitoring learner engagement through facial expression recognition, automatically adapting lesson pacing, providing contextual hints, and generating detailed learning analytics.',
+    features: [
+      'Live facial expression recognition',
+      'Adaptive learning pace',
+      'Context-aware learning hints',
+      'Emotion analytics dashboard',
+      'Learning efficiency reports'
+    ],
+    screenshots: []
+  },
+
+  {
+    id: 'sandbox-05',
+    codename: 'SANDBOX_05',
+    title: 'Policy-Based Execution Sandbox',
+    subtitle: 'Secure Runtime for Autonomous AI Agents',
+    status: 'PLANNING',
+    progress: 12,
+    tags: ['AI SECURITY', 'RESEARCH', 'LINUX'],
+    stack: [
+      'Python',
+      'FastAPI',
+      'Docker',
+      'Open Policy Agent',
+      'seccomp',
+      'ptrace',
+      'React'
+    ],
+    description:
+      'Research project exploring runtime policy enforcement and behavioral monitoring for autonomous AI agents executing tools, shell commands, APIs, and file operations.',
+    shortDesc:
+      'Research-oriented execution sandbox for secure autonomous AI agents.',
+    fullDesc:
+      'A research-focused execution sandbox designed to enforce security policies on autonomous AI agents using Linux syscall interception, runtime policy enforcement, and behavioral anomaly detection. The project aims to improve the safety of agentic AI systems.',
+    features: [
+      'Policy-based execution engine',
+      'Runtime syscall interception',
+      'Behavioral anomaly detection',
+      'Docker-based isolation',
+      'Policy violation monitoring',
+      'Security analytics dashboard'
+    ],
     screenshots: []
   }
 ];

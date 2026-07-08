@@ -1,107 +1,13 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+
 import PageTransition from '../components/PageTransition';
 import GlitchText from '../components/GlitchText';
 import SectionDivider from '../components/SectionDivider';
 import BackButton from '../components/BackButton';
 import { useSound } from '../context/SoundContext';
 
-/* ─────────────────────────────────────────────────
-   DATA
-───────────────────────────────────────────────── */
-const CERTS = [
-  {
-    id: 'Specialization_01',
-    name: 'IT Fundamentals of CyberSecurity',
-    issuer: 'IBM',
-    platform: 'Coursera',
-    date: 'Dec 2025',
-    color: 'var(--accent-primary)',
-    url: 'https://coursera.org/share/da96f98c2db242ed94289f81daf73d2f',
-  },
-  {
-    id: 'CERT_01',
-    name: 'OPerating System',
-    issuer: 'IBM',
-    platform: 'Coursera',
-    date: 'Dec 2025',
-    color: 'var(--accent-secondary)',
-    url: 'https://coursera.org/share/2b12349976cbe0581da0056d8a81ea7f',
-  },
-  {
-    id: 'CERT_02',
-    name: 'Computer Networks and Network Security',
-    issuer: 'IBM',
-    platform: 'Coursera',
-    date: 'Dec 2025',
-    color: '#4ade80',
-    url: 'https://coursera.org/share/9d223e6e1c535bc7373d876cf4faea13',
-  },
-  {
-    id: 'CERT_03',
-    name: 'Cybersecurity Fundamentals',
-    issuer: 'IBM',
-    platform: 'IBM SkillsBuild',
-    date: 'Mar 2024',
-    color: '#f59e0b',
-    url: '#',
-  },
-  {
-    id: 'CERT_05',
-    name: 'React Developer Certificate',
-    issuer: 'Placeholder',
-    platform: 'Platform',
-    date: '2024',
-    color: 'var(--accent-secondary)',
-    url: '#',
-  },
-];
-
-const EXPERIENCE = [
-  {
-    id: 'EXP_01',
-    status: 'COMPLETED',
-    role: 'Backend Developer — IBM Datathon 2025',
-    org: 'IBM Datathon',
-    duration: '2025',
-    tasks: [
-      { id: '01', text: 'Engineered backend systems for a real-time application integrating maps and voice interaction' },
-      { id: '02', text: 'Designed APIs and data pipelines to handle location-based processing and user input' },
-      { id: '03', text: 'Collaborated with team to build an end-to-end functional prototype under hackathon constraints' },
-      { id: '04', text: 'Delivered a working demo with seamless integration of backend, UI, and voice modules' },
-    ],
-    stack: ['Python', 'FastAPI', 'React', 'Maps API', 'Speech Recognition'],
-  },
-  {
-    id: 'EXP_02',
-    status: 'COMPLETED',
-    role: 'Junior Web Developer Intern',
-    org: 'AssureFM Services Pvt Ltd',
-    duration: 'June 2024 (30 Days)',
-    tasks: [
-      { id: '01', text: 'Developed and optimized frontend components for internal and client-facing web applications' },
-      { id: '02', text: 'Worked on responsive UI design using modern web technologies and best practices' },
-      { id: '03', text: 'Collaborated with senior developers to debug issues and improve performance' },
-      { id: '04', text: 'Gained hands-on experience in real-world development workflows and deployment cycles' },
-    ],
-    stack: ['React', 'JavaScript', 'HTML', 'CSS', 'REST APIs'],
-  },
-  {
-    id: 'EXP_03',
-    status: 'ACTIVE',
-    role: 'Core Member — Cloud SOC Initiative',
-    org: 'College Technical Society',
-    duration: '2024 — Present',
-    tasks: [
-      { id: '01', text: 'Building a mini Cloud Security Operations Center (SOC) for threat monitoring and analysis' },
-      { id: '02', text: 'Implementing network traffic inspection and anomaly detection techniques' },
-      { id: '03', text: 'Working with cybersecurity tools to simulate real-world attack detection scenarios' },
-      { id: '04', text: 'Collaborating with team members to design scalable and secure cloud-based systems' },
-    ],
-    stack: ['Python', 'Linux', 'Networking', 'Scapy', 'Cloud Computing'],
-  },
-];
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 /* ─────────────────────────────────────────────────
    CERT CARD
@@ -363,6 +269,10 @@ function ExpCard({ exp, index }) {
    PAGE
 ───────────────────────────────────────────────── */
 export default function Experience() {
+  const { data } = usePortfolioData();
+  const CERTS = data.certificates;
+  const EXPERIENCE = data.experience;
+
   return (
     <PageTransition>
       <Helmet>

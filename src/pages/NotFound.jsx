@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+
 import GlitchText from '../components/GlitchText';
 import PageTransition from '../components/PageTransition';
 import BackButton from '../components/BackButton';

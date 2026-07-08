@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { projects } from '../data/projects';
+import { skillGroups } from '../data/skills';
 
-const SKILLS = ['Python', 'JavaScript', 'React', 'Tailwind CSS', 'Framer Motion',
-  'FastAPI', 'WebSockets', 'Asyncio', 'Scikit-learn', 'XGBoost', 'Pandas', 'NumPy',
-  'Scapy', 'Git', 'Linux/Ubuntu'];
+const SKILLS = skillGroups.flatMap(group => group.skills.map(skill => skill.name));
+const ACQUIRING = SKILLS.slice(0, 4);
 
 const COMMANDS = {
   help: () => [
@@ -32,7 +32,7 @@ const COMMANDS = {
   'cat skills.txt': () => [
     '  === SKILL_MANIFEST.txt ===',
     ...SKILLS.map(s => `  > ${s}`),
-    '  Acquiring: Docker, Kubernetes, LangChain, Rust',
+    `  Acquiring: ${ACQUIRING.join(', ')}`,
   ],
   'ping abinav': () => [
     '  PING abinav.sys 56(84) bytes of data.',

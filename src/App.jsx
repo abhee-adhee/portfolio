@@ -93,6 +93,19 @@ function AnimatedRoutes() {
 
 function AppInner() {
   const [loaded, setLoaded] = useState(() => sessionStorage.getItem('abinav-loaded') === 'true');
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
+
+  useEffect(() => {
+    if (isAdmin) {
+      document.body.classList.remove('public-cursor');
+    } else {
+      document.body.classList.add('public-cursor');
+    }
+    return () => {
+      document.body.classList.remove('public-cursor');
+    };
+  }, [isAdmin]);
 
   return (
     <div
@@ -107,8 +120,9 @@ function AppInner() {
       {/* Global overlays */}
       <DecorativeMargins />
       <ScrollProgressBar />
-      <CustomCursor />
-      <AnimatedBackground />
+      {!isAdmin && <CustomCursor />}
+      {!isAdmin && <AnimatedBackground />}
+
       <ThemeRipple />
       <Toast />
       <MatrixRain />

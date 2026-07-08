@@ -1,128 +1,292 @@
-import { motion } from 'framer-motion';
-import { ExternalLink, Github, Activity, Brain, Shield } from 'lucide-react';
+
+import { ExternalLink, Github, Activity, Brain, Shield, Radio, BookOpen } from 'lucide-react';
 
 const projectsData = [
   {
-    title: "Mini Cloud SOC (Security Operations Center)",
-    tags: ["Cloud Computing", "Cybersecurity", "Real-Time"],
-    description: "An ML-powered network intrusion detection system that identifies DDoS, port scanning, and MITM attacks in real time using network traffic anomalies. Built on the CICIDS 2017 dataset with XGBoost classification, a FastAPI backend, WebSocket streaming, and a live React dashboard.",
-    stack: ["PowerShell", "Windows OS", "Windows Forms (GUI alerts)", "File System Monitoring", "Log Management"],
-    github: "https://github.com/sectechsociety/CloudSEC-Sandbox",
+    id: 'sentinel-ids',
+    codename: 'SENT_01',
+    title: 'Sentinel IDS',
+    subtitle: 'Network Intrusion Detection System',
+    tags: ['Cybersecurity', 'Python', 'Real-Time'],
+    status: 'IN_PROGRESS',
+    description: 'A Python-based Network IDS built from scratch featuring real-time packet capture via Scapy, modular detection engine for SYN Flood & Port Scan attacks, SQLite alert logging, live SOC-style dashboard with charts, PDF/TXT report generation, and offline PCAP analysis support.',
+    stack: ['Python', 'Scapy', 'SQLite', 'FastAPI', 'React'],
+    github: 'https://github.com/abhee-adhee',
+    demo: null,
+    icon: Shield,
+    featured: true,
+    highlights: [
+      'Real-time packet capture via Scapy',
+      'SYN Flood + Port Scan detection',
+      'Live SOC dashboard with analytics',
+      'PDF & TXT report generation',
+    ],
+  },
+  {
+    id: 'voice-for-all',
+    codename: 'VSOC_02',
+    title: 'VoiceForAll',
+    subtitle: 'IBM Z Datathon — Accessibility Platform',
+    tags: ['NLP', 'Data Science', 'Social Impact'],
+    status: 'DEPLOYED',
+    description: 'Empowers individuals with disabilities to report accessibility barriers via text or voice. Uses TextBlob NLP for sentiment and urgency analysis, visualizes reports on an interactive Plotly map, and surfaces actionable insights for NGOs and policymakers.',
+    stack: ['Streamlit', 'Python', 'TextBlob', 'Plotly', 'SQLite', 'Pandas'],
+    github: 'https://github.com/abhee-adhee',
+    demo: null,
+    icon: Radio,
+    featured: true,
+    highlights: [
+      'Text & voice report submission',
+      'Sentiment & urgency NLP analysis',
+      'Interactive geolocation map',
+      'Live on Streamlit Cloud',
+    ],
+  },
+  {
+    id: 'mini-soc',
+    codename: 'SOC_03',
+    title: 'Mini SOC',
+    subtitle: 'Security Operations Center Demo',
+    tags: ['Cybersecurity', 'SOC', 'Windows'],
+    status: 'DEPLOYED',
+    description: 'A SOC monitoring and defense demonstration using Windows Defender integration and a custom PowerShell SOC monitor. Simulates real analyst workflows with live alert triage, file system monitoring, and log management.',
+    stack: ['PowerShell', 'Windows Defender', 'Windows Forms', 'File System Monitor', 'Log Management'],
+    github: 'https://github.com/sectechsociety/CloudSEC-Sandbox',
+    demo: null,
     icon: Activity,
     featured: true,
+    highlights: [
+      'Windows Defender integration',
+      'Custom PowerShell SOC monitor',
+      'Live alert triage workflow',
+      'File system & log monitoring',
+    ],
   },
   {
-    title: "Snake AI - Reinforcement Learning Agent",
-    tags: ["Machine Learning", "Reinforcement Learning", "Deep Learning"],
-    description: "A Deep Q-Learning based agent that learns to play Snake through trial and error. The model improves its performance over multiple games using reward-based learning, experience replay, and epsilon-greedy exploration. Includes real-time training visualization (score vs episodes) to track learning progress.",
-    stack: ["Python", "PyTorch", "Pygame", "NumPy", "Matplotlib"],
-    github: "https://github.com/balasaravanank/snake-ai-pytorch",
+    id: 'edumate',
+    codename: 'EDU_04',
+    title: 'EduMate',
+    subtitle: 'ITERYX\'25 — Emotion-Aware Learning',
+    tags: ['ML', 'Computer Vision', 'EdTech'],
+    status: 'DEPLOYED',
+    description: 'Adaptive learning platform using live facial expression recognition to continuously detect engagement, confusion, and frustration. Automatically adjusts content pacing based on real-time cognitive load and provides scaffolded hints with comprehensive session analytics.',
+    stack: ['FER', 'FastAPI', 'WebSockets', 'React', 'Python', 'OpenCV'],
+    github: 'https://github.com/abhee-adhee',
+    demo: null,
     icon: Brain,
     featured: true,
+    highlights: [
+      'Live facial expression recognition',
+      'Real-time adaptive pacing',
+      'Scaffolded contextual hints',
+      'Post-session emotion analytics',
+    ],
   },
   {
-    title: "JWT Attack & Defence Lab",
-    tags: ["Security", "Web", "AppSec"],
-    description: "Implemented 6 real-world JWT attacks — alg:none, key confusion, brute-force, kid injection, jku spoofing, and claim tampering — then built a hardened auth service that blocks all of them.",
-    stack: ["Python", "Flask", "PyJWT", "Cryptography"],
+    id: 'policy-sandbox',
+    codename: 'SAND_05',
+    title: 'Agent Execution Sandbox',
+    subtitle: 'Agentic AI Security Research',
+    tags: ['AI Security', 'Research', 'Systems'],
+    status: 'PLANNED',
+    description: 'Runtime policy enforcement for LLM-based autonomous agents using a 3-layer model: static OPA policy declaration, Linux seccomp/ptrace syscall interception, and LSTM behavioral anomaly detection. Targets prompt injection, jailbreaks, and lateral movement.',
+    stack: ['Python', 'seccomp', 'ptrace', 'OPA', 'LangChain', 'LSTM', 'FastAPI', 'Docker'],
+    github: null,
+    demo: null,
     icon: Shield,
-    placeholder: true,
-  }
+    featured: false,
+    highlights: [
+      'OPA static policy declaration',
+      'Linux seccomp/ptrace interception',
+      'LSTM behavioral anomaly detection',
+      'Prompt injection defense',
+    ],
+  },
 ];
+
+const statusConfig = {
+  DEPLOYED:    { label: 'DEPLOYED ✓',     color: '#4ade80', bg: 'rgba(74,222,128,0.08)',   border: 'rgba(74,222,128,0.3)' },
+  IN_PROGRESS: { label: 'IN_PROGRESS ⚙',  color: '#f59e0b', bg: 'rgba(245,158,11,0.08)',  border: 'rgba(245,158,11,0.3)' },
+  PLANNED:     { label: 'UNDER_PLANNING', color: '#6366f1', bg: 'rgba(99,102,241,0.08)',   border: 'rgba(99,102,241,0.3)' },
+};
 
 export default function Projects() {
   return (
     <section id="projects" className="w-full py-24 flex items-center justify-center max-w-6xl mx-auto px-6 relative z-10">
       <div className="w-full">
 
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
           className="flex items-end justify-between mb-16"
         >
           <div>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.15em', color: 'var(--accent-violet)', marginBottom: 8 }}>
+              // ARCHIVE_RETRIEVAL
+            </p>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Featured Work</h2>
-            <div className="h-[2px] w-24 bg-accent-purple rounded-full"></div>
+            <div className="h-[2px] w-24 bg-accent-purple rounded-full" />
+          </div>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--text-muted)', letterSpacing: '0.1em', textAlign: 'right' }}>
+            <div>TOTAL_MODULES: {projectsData.length}</div>
+            <div style={{ color: '#4ade80' }}>DEPLOYED: {projectsData.filter(p => p.status === 'DEPLOYED').length}</div>
+            <div style={{ color: '#f59e0b' }}>IN_PROGRESS: {projectsData.filter(p => p.status === 'IN_PROGRESS').length}</div>
           </div>
         </motion.div>
 
-        <div className="flex flex-col gap-12">
-          {projectsData.map((project, idx) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: idx * 0.1, duration: 0.6 }}
-              className={`glass rounded-2xl p-8 md:p-10 border transition-all duration-500 group ${project.featured
-                ? 'border-accent-purple/30 hover:shadow-[0_0_30px_rgba(124,58,237,0.15)] hover:border-accent-purple/60'
-                : 'border-white/5 opacity-80 hover:opacity-100'
-                }`}
-            >
-              <div className="flex flex-col md:flex-row gap-8 justify-between">
-
-                <div className="flex-1 flex flex-col items-start text-left">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="px-3 py-1 text-xs font-mono uppercase bg-white/5 text-gray-300 rounded-md border border-white/10">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-accent-blue transition-colors">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-gray-400 leading-relaxed mb-6 max-w-2xl text-lg">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-3 mb-8">
-                    {project.stack.map((tech) => (
-                      <span key={tech} className="text-sm font-medium text-gray-500 flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent-purple/50"></span>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {!project.placeholder && (
-                    <div className="flex gap-4 mt-auto">
-                      <a
-                        href={project.github}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10"
-                      >
-                        <Github size={18} />
-                        Code
-                      </a>
-                    </div>
-                  )}
-
-                  {project.placeholder && (
-                    <div className="mt-auto inline-flex items-center px-4 py-2 rounded-lg bg-white/5 text-gray-500 font-mono text-sm border border-white/5">
-                      Building...
-                    </div>
-                  )}
+        {/* Cards */}
+        <div className="flex flex-col gap-8">
+          {projectsData.map((project, idx) => {
+            const st = statusConfig[project.status];
+            const Icon = project.icon || Activity;
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ delay: idx * 0.08, duration: 0.6 }}
+                className="glass rounded-2xl overflow-hidden border transition-all duration-500 group"
+                style={{
+                  borderColor: project.status === 'PLANNED'
+                    ? 'rgba(99,102,241,0.2)'
+                    : project.featured
+                    ? 'rgba(168,85,247,0.25)'
+                    : 'rgba(255,255,255,0.05)',
+                  borderStyle: project.status === 'PLANNED' ? 'dashed' : 'solid',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = 'rgba(168,85,247,0.5)';
+                  e.currentTarget.style.boxShadow = '0 0 30px rgba(168,85,247,0.1)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = project.status === 'PLANNED'
+                    ? 'rgba(99,102,241,0.2)'
+                    : project.featured ? 'rgba(168,85,247,0.25)' : 'rgba(255,255,255,0.05)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                {/* Terminal bar */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  padding: '10px 20px',
+                  borderBottom: '1px solid rgba(255,255,255,0.05)',
+                  background: 'rgba(0,0,0,0.2)',
+                }}>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#ef4444' }} />
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#f59e0b' }} />
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ade80' }} />
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: 'var(--text-muted)', marginLeft: 6 }}>
+                    {project.codename}_{project.id.toUpperCase().replace(/-/g, '_')}.exe
+                  </span>
+                  <span style={{
+                    marginLeft: 'auto',
+                    fontFamily: 'var(--font-mono)', fontSize: '0.55rem',
+                    color: st.color, background: st.bg,
+                    border: `1px solid ${st.border}`,
+                    padding: '1px 8px', borderRadius: 2, letterSpacing: '0.08em',
+                  }}>
+                    {st.label}
+                  </span>
                 </div>
 
-                {project.featured && (
-                  <div className="hidden md:flex w-1/3 bg-base-800 rounded-xl border border-white/5 overflow-hidden relative items-center justify-center p-6 shadow-2xl">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,245,255,0.1)_0,transparent_100%)]"></div>
-                    <div className="absolute top-4 left-4 right-4 h-6 border-b border-white/5 flex gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-500/50"></span>
-                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></span>
-                      <span className="w-2.5 h-2.5 rounded-full bg-green-500/50"></span>
-                    </div>
-                    {/* Abstract placeholder for the dashboard visualization */}
-                    {project.icon ? <project.icon size={64} className="text-accent-blue/30 mt-8" /> : <Activity size={64} className="text-accent-blue/30 mt-8" />}
-                  </div>
-                )}
+                <div className="p-8 md:p-10">
+                  <div className="flex flex-col md:flex-row gap-8 justify-between">
 
-              </div>
-            </motion.div>
-          ))}
+                    {/* Left — content */}
+                    <div className="flex-1 flex flex-col items-start text-left">
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map(tag => (
+                          <span key={tag} className="px-3 py-1 text-xs font-mono uppercase rounded-md border"
+                            style={{ background: 'rgba(168,85,247,0.06)', borderColor: 'rgba(168,85,247,0.2)', color: 'rgba(168,85,247,0.8)' }}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-accent-purple transition-colors"
+                        style={{ fontFamily: 'var(--font-subheading)', letterSpacing: '0.06em' }}>
+                        {project.title}
+                      </h3>
+                      <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--accent-violet)', letterSpacing: '0.08em', marginBottom: 16, opacity: 0.8 }}>
+                        {project.subtitle}
+                      </p>
+
+                      <p className="text-gray-400 leading-relaxed mb-6 max-w-2xl" style={{ fontSize: '0.9rem' }}>
+                        {project.description}
+                      </p>
+
+                      {/* Stack */}
+                      <div className="flex flex-wrap gap-3 mb-6">
+                        {project.stack.map(tech => (
+                          <span key={tech} className="text-sm font-medium text-gray-500 flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'rgba(168,85,247,0.5)' }} />
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Buttons */}
+                      <div className="flex gap-3 mt-auto flex-wrap">
+                        {project.github && (
+                          <a href={project.github} target="_blank" rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-lg border transition-all"
+                            style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.1)', color: 'white' }}
+                            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(168,85,247,0.1)'; e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
+                          >
+                            <Github size={16} />
+                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.08em' }}>SOURCE</span>
+                          </a>
+                        )}
+                        {project.demo && (
+                          <a href={project.demo} target="_blank" rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-lg transition-all"
+                            style={{ background: 'var(--accent-violet)', color: 'white', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.08em' }}>
+                            <ExternalLink size={16} />
+                            LIVE_DEMO
+                          </a>
+                        )}
+                        {project.status === 'PLANNED' && (
+                          <span className="flex items-center px-4 py-2.5 rounded-lg border"
+                            style={{ background: 'rgba(99,102,241,0.06)', borderColor: 'rgba(99,102,241,0.2)', color: 'rgba(99,102,241,0.8)', fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.08em' }}>
+                            UNDER_PLANNING...
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Right — highlights panel */}
+                    {project.featured && (
+                      <div className="hidden md:flex w-72 rounded-xl border overflow-hidden relative flex-col"
+                        style={{ background: 'rgba(10,10,15,0.5)', borderColor: 'rgba(168,85,247,0.15)' }}>
+                        <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(168,85,247,0.1)', fontFamily: 'var(--font-mono)', fontSize: '0.55rem', color: 'rgba(168,85,247,0.5)', letterSpacing: '0.12em' }}>
+                          KEY_FEATURES.log
+                        </div>
+                        <div style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                          {project.highlights.map((h, i) => (
+                            <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: '#4ade80', marginTop: 2, flexShrink: 0 }}>&gt;</span>
+                              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.5 }}>{h}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div style={{ padding: '10px 16px', borderTop: '1px solid rgba(168,85,247,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <Icon size={28} style={{ color: 'rgba(168,85,247,0.25)' }} />
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
       </div>

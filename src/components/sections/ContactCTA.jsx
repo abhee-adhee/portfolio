@@ -1,11 +1,10 @@
-import { motion } from 'framer-motion';
-import { showTransmissionToast } from '../Toast';
 
-const GH_URL = 'https://github.com/abhee-adhee';
-const LI_URL = 'https://www.linkedin.com/in/abinav-aaditya-86a952305/';
-const EMAIL = 'youremail@example.com';
+import { showTransmissionToast } from '../Toast';
+import { usePortfolioData } from '../../context/PortfolioDataContext';
 
 export default function ContactCTA() {
+  const { data } = usePortfolioData();
+  const { email, github, linkedin } = data.contact;
   return (
     <section
       id="contact-cta"
@@ -64,7 +63,7 @@ export default function ContactCTA() {
         {/* Buttons */}
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>
           <a
-            href={`mailto:${EMAIL}`}
+            href={`mailto:${email}`}
             onClick={() => showTransmissionToast()}
             style={{
               fontFamily: 'var(--font-mono)',
@@ -82,7 +81,7 @@ export default function ContactCTA() {
             [ SEND_MESSAGE ]
           </a>
           <a
-            href={GH_URL}
+            href={github}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -103,7 +102,7 @@ export default function ContactCTA() {
             [ GITHUB ]
           </a>
           <a
-            href={LI_URL}
+            href={linkedin}
             target="_blank"
             rel="noopener noreferrer"
             style={{

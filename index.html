@@ -4,12 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>abinav-portfolio</title>
+    <title>Aadhi | Software Engineer & Security Researcher</title>
+    <meta name="description" content="Portfolio of Aadhi, a software engineer and security researcher specializing in scalable systems and cybersec." />
+    <meta name="author" content="Aadhi" />
+    <meta property="og:title" content="Aadhi | Portfolio" />
+    <meta property="og:description" content="Portfolio of Aadhi, a software engineer and security researcher specializing in scalable systems and cybersec." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aadhi.dev/" />
+    <link rel="canonical" href="https://aadhi.dev/" />
     <script>
       (function() {
         try {
-          var saved = localStorage.getItem('theme') || 'dark';
-          document.documentElement.setAttribute('data-theme', saved);
+          var saved = localStorage.getItem('abinav-theme') || 'dark';
+          if (saved === 'light') document.documentElement.classList.add('light');
         } catch (e) {}
       })();
     </script>

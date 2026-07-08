@@ -14,13 +14,22 @@ export default function CustomCursor() {
 
   useEffect(() => {
     if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsTouch(true);
       return;
     }
     const lerp = (a, b, t) => a + (b - a) * t;
+    let hasMoved = false;
 
     const onMove = (e) => {
       pos.current = { x: e.clientX, y: e.clientY };
+      if (!hasMoved) {
+        ringPos.current = { x: e.clientX, y: e.clientY };
+        hasMoved = true;
+        if (dotRef.current) dotRef.current.style.opacity = '1';
+        if (ringRef.current) ringRef.current.style.opacity = hovering ? '1' : '0.6';
+      }
     };
 
     const onClick = (e) => {
@@ -40,6 +49,9 @@ export default function CustomCursor() {
       // Dot (sharp + glow)
       if (dotRef.current) {
         dotRef.current.style.transform = `translate(${pos.current.x - 4}px, ${pos.current.y - 4}px)`;
+        if (hasMoved) {
+          dotRef.current.style.opacity = '1';
+        }
       }
 
       // Smooth lagging ring
@@ -52,6 +64,9 @@ export default function CustomCursor() {
         ringRef.current.style.transform = `translate(${ringPos.current.x - size / 2}px, ${ringPos.current.y - size / 2}px) scale(${hovering ? 1.2 : 1})`;
         ringRef.current.style.width = `${size}px`;
         ringRef.current.style.height = `${size}px`;
+        if (hasMoved) {
+          ringRef.current.style.opacity = hovering ? '1' : '0.6';
+        }
 
         // COOL EFFECTS
         ringRef.current.style.borderColor = hovering
@@ -124,6 +139,8 @@ export default function CustomCursor() {
           boxShadow: '0 0 12px var(--accent-primary), 0 0 20px var(--accent-secondary)',
           zIndex: 99999,
           pointerEvents: 'none',
+          opacity: 0,
+          transition: 'opacity 0.25s ease',
         }}
       />
 
@@ -140,7 +157,8 @@ export default function CustomCursor() {
           border: '1px solid rgba(168,85,247,0.7)',
           zIndex: 99998,
           pointerEvents: 'none',
-          transition: 'width 0.2s, height 0.2s',
+          transition: 'width 0.2s, height 0.2s, opacity 0.2s',
+          opacity: 0,
         }}
       />
 

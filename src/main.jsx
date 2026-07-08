@@ -5,13 +5,21 @@ import { HelmetProvider } from 'react-helmet-async';
 import './index.css';
 import App from './App.jsx';
 import { ErrorBoundary } from './ErrorBoundary.jsx';
+import AdminApp from './admin/AdminApp.jsx';
+import { Routes, Route } from 'react-router-dom';
+import { PortfolioDataProvider } from './context/PortfolioDataContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HelmetProvider>
       <BrowserRouter>
         <ErrorBoundary>
-          <App />
+          <PortfolioDataProvider>
+            <Routes>
+              <Route path="/admin/*" element={<AdminApp />} />
+              <Route path="/*" element={<App />} />
+            </Routes>
+          </PortfolioDataProvider>
         </ErrorBoundary>
       </BrowserRouter>
     </HelmetProvider>

@@ -95,6 +95,9 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+body.public-cursor {
   cursor: none;
 }
 

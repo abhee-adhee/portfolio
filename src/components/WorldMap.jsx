@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 
 const NODES = [
   { id: 'chennai', cx: 700, cy: 300, name: 'Chennai', country: 'IND', tz: 'IST', lat: 13, lng: 80 },
@@ -111,6 +111,8 @@ export default function WorldMap() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80', animation: 'blink 1.5s infinite' }} />
               <span style={{ fontSize: '0.6rem', color: '#4ade80', letterSpacing: '0.1em' }}>
+                {/* eslint-disable-next-line react-hooks/purity */}
+                {/* eslint-disable-next-line react-hooks/purity */}
                 ACTIVE  |  {Math.floor(Math.random() * 80) + 20}ms
               </span>
             </div>

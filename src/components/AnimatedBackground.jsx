@@ -1,5 +1,5 @@
 import { useEffect, useRef, memo } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useScroll, useTransform } from 'framer-motion';
 
 const AnimatedBackground = memo(function AnimatedBackground() {
   const canvasRef = useRef(null);

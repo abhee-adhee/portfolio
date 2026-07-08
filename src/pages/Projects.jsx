@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
-import { projects } from '../data/projects';
 import ProjectCard from '../components/ProjectCard';
 import PageTransition from '../components/PageTransition';
 import BackButton from '../components/BackButton';
 import { useSound } from '../context/SoundContext';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 const FILTERS = ['ALL', 'ML', 'WEB', 'CYBERSEC', 'IN_PROGRESS'];
 
@@ -119,6 +119,8 @@ function ProjectHero({ count }) {
 }
 
 export default function Projects() {
+  const { data } = usePortfolioData();
+  const projects = data.projects;
   const [active, setActive] = useState('ALL');
   const [searchParams] = useSearchParams();
   const { playSound } = useSound();
