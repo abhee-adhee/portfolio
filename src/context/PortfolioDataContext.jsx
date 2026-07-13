@@ -182,6 +182,14 @@ const defaultEducation = [
     stream: '[Computer Science ]',
     year: '2023',
     score: '[79%]',
+  },
+  {
+    id: 'ENTRY_03',
+    status: 'COMPLETE',
+    institution: 'Narayana e-Techno School',
+    level: 'Middle School',
+    classes: '[Class 5 – Class 10]',
+    year: '2016 – 2022',
   }
 ];
 
@@ -203,7 +211,7 @@ const INITIAL_STATE = {
 };
 
 const STORAGE_KEY = 'aadhi_portfolio_state';
-const STORAGE_VERSION = 4;
+const STORAGE_VERSION = 6;
 
 function loadInitialData() {
   try {
@@ -229,18 +237,18 @@ function loadInitialData() {
       };
     }
 
-    if (parsed.__version === 2 || parsed.__version === 3) {
+    if (parsed.__version === 2 || parsed.__version === 3 || parsed.__version === 4 || parsed.__version === 5) {
       return {
         ...INITIAL_STATE,
         ...parsed,
         hero: parsed.hero || INITIAL_STATE.hero,
         about: parsed.about || INITIAL_STATE.about,
         contact: parsed.contact || INITIAL_STATE.contact,
-        projects: parsed.projects || INITIAL_STATE.projects,
+        projects: INITIAL_STATE.projects, // Force refresh projects
         skills: INITIAL_STATE.skills,
         experience: parsed.experience || INITIAL_STATE.experience,
         certificates: parsed.certificates || INITIAL_STATE.certificates,
-        education: parsed.education || INITIAL_STATE.education,
+        education: INITIAL_STATE.education, // Force refresh education
         eduCerts: parsed.eduCerts || INITIAL_STATE.eduCerts,
       };
     }

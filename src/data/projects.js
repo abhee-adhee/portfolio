@@ -1,6 +1,6 @@
 export const projects = [
   {
-    id: 'mini-soc-01',
+    id: 'mini-soc',
     codename: 'SOC_01',
     title: 'Mini SOC',
     subtitle: 'SOC Monitoring & Defense Demonstration',
@@ -26,16 +26,21 @@ export const projects = [
       'Security event visualization',
       'SOC workflow demonstration'
     ],
-    screenshots: []
+    screenshots: [],
+    repository: 'https://github.com/sectechsociety/CloudSEC-Sandbox/tree/Mini-SOC',
+    demo: null,
+    problem: 'Students often lack access to realistic Security Operations Center environments for understanding monitoring and defensive workflows.',
+    approach: 'Built a lightweight SOC demonstration using Windows Defender, Windows Event Logs, and PowerShell monitoring to simulate endpoint monitoring and security event analysis.',
+    outcome: 'Created a practical environment demonstrating SOC workflows, endpoint monitoring, and defensive analysis suitable for cybersecurity learning.'
   },
 
   {
-    id: 'voiceforall-02',
+    id: 'voice-for-all',
     codename: 'VF_02',
     title: 'VoiceForAll',
     subtitle: 'IBM Z Datathon 2025 Project',
     status: 'DEPLOYED',
-    tags: ['AI', 'SOCIAL IMPACT', 'DATATHON'],
+    tags: ['WEB'],
     stack: [
       'Streamlit',
       'Python',
@@ -58,17 +63,22 @@ export const projects = [
       'Timestamped report integrity',
       'Cloud deployment'
     ],
-    screenshots: []
+    screenshots: [],
+    repository: 'https://github.com/abhee-adhee/voice-forall-access',
+    demo: 'https://voice-for-all-phi.vercel.app/',
+    problem: 'People with disabilities frequently encounter accessibility barriers without an easy way to report them or visualize accessibility trends.',
+    approach: 'Developed a Streamlit-based platform allowing users to submit accessibility issues through voice or text. Integrated sentiment analysis, interactive maps, SQLite storage, and analytical dashboards.',
+    outcome: 'Produced a working accessibility reporting platform showcased during IBM Z Datathon that transforms accessibility reports into actionable insights.'
   },
 
   {
-    id: 'sentinel-03',
+    id: 'sentinel-ids',
     codename: 'SENTINEL_03',
     title: 'Sentinel IDS',
     subtitle: 'Python Network Intrusion Detection System',
-    status: 'IN_PROGRESS',
+    status: 'ACTIVE',
     progress: 82,
-    tags: ['CYBERSEC', 'NETWORKING', 'PYTHON'],
+    tags: ['CYBERSEC', 'WEB', 'PYTHON'],
     stack: [
       'Python',
       'Scapy',
@@ -94,16 +104,21 @@ export const projects = [
       'Offline PCAP analysis',
       'Configurable detection rules'
     ],
-    screenshots: []
+    screenshots: [],
+    repository: 'https://github.com/abhee-adhee/Network-IDS',
+    demo: null,
+    problem: 'Organizations need an accessible intrusion detection system capable of monitoring network traffic in real time while remaining modular and easy to extend for learning and experimentation.',
+    approach: 'Developed a Python-based IDS using Scapy for packet capture and parsing. Built a modular detection engine with configurable rules, SQLite alert logging, live dashboard integration, PDF/TXT reporting, and offline PCAP analysis.',
+    outcome: 'Successfully implemented SYN Flood detection, Port Scan detection, live monitoring, configurable rules, reporting features, and a SOC-style dashboard. The project continues to evolve with additional attack signatures and performance improvements.'
   },
 
   {
-    id: 'edumate-04',
+    id: 'edumate',
     codename: 'EDUMATE_04',
     title: 'EduMate',
     subtitle: "ITRYX'25 Hackathon Project",
     status: 'DEPLOYED',
-    tags: ['AI', 'COMPUTER VISION', 'EDTECH'],
+    tags: ['ML', 'WEB', 'COMPUTER VISION', 'EDTECH'],
     stack: [
       'Python',
       'OpenCV',
@@ -124,17 +139,22 @@ export const projects = [
       'Emotion analytics dashboard',
       'Learning efficiency reports'
     ],
-    screenshots: []
+    screenshots: [],
+    repository: 'https://github.com/nishanthrs0312/emotion-aware-learning-companion',
+    demo: 'https://emotion-aware-learning-companion.vercel.app',
+    problem: 'Traditional online learning platforms cannot adapt to a student\'s emotional engagement during learning sessions.',
+    approach: 'Developed an AI-assisted learning platform capable of detecting facial expressions and adjusting learning support through adaptive pacing, scaffolded hints, and session analytics.',
+    outcome: 'Built a functional prototype demonstrating emotion-aware learning and personalized educational assistance.'
   },
 
   {
-    id: 'sandbox-05',
+    id: 'policy-sandbox',
     codename: 'SANDBOX_05',
     title: 'Policy-Based Execution Sandbox',
     subtitle: 'Secure Runtime for Autonomous AI Agents',
-    status: 'PLANNING',
+    status: 'IN_PROGRESS',
     progress: 12,
-    tags: ['AI SECURITY', 'RESEARCH', 'LINUX'],
+    tags: ['CYBERSEC', 'RESEARCH', 'LINUX'],
     stack: [
       'Python',
       'FastAPI',

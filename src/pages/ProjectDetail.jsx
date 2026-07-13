@@ -206,9 +206,9 @@ export default function ProjectDetail() {
           transition={{ delay: 0.4 }}
           style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
         >
-          {project.github && (
+          {project.repository && (
             <a
-              href={project.github}
+              href={project.repository}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => playSound('click')}
@@ -225,10 +225,11 @@ export default function ProjectDetail() {
                 fontWeight: 700,
               }}
             >
-              [ VIEW_SOURCE ]
+              [ GITHUB_REPOSITORY ]
             </a>
           )}
-          {project.demo && (
+          
+          {project.demo ? (
             <a
               href={project.demo}
               target="_blank"
@@ -249,6 +250,24 @@ export default function ProjectDetail() {
             >
               [ LIVE_DEMO ]
             </a>
+          ) : (
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.72rem',
+                letterSpacing: '0.1em',
+                color: 'var(--text-muted)',
+                background: 'transparent',
+                border: '1px dashed var(--border-color)',
+                padding: '10px 22px',
+                borderRadius: 3,
+                opacity: 0.6,
+                cursor: 'not-allowed',
+                display: 'inline-block'
+              }}
+            >
+              [ NO_LIVE_DEMO_AVAILABLE ]
+            </span>
           )}
         </motion.div>
       </div>

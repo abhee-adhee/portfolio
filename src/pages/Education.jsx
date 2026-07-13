@@ -168,7 +168,7 @@ export default function Education() {
                     </h3>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(120px, 1fr) 2fr', gap: '0.75rem', marginBottom: 16 }}>
-                      {[['LEVEL', entry.level || entry.degree], ['YEAR', entry.year], entry.stream && ['STREAM', entry.stream], entry.score && ['SCORE', entry.score], entry.notes && ['NOTES', entry.notes]]
+                      {[['LEVEL', entry.level || entry.degree], ['YEAR', entry.year], entry.classes && ['CLASSES', entry.classes], entry.stream && ['STREAM', entry.stream], entry.score && ['SCORE', entry.score], entry.notes && ['NOTES', entry.notes]]
                         .filter(Boolean).map(([key, val]) => (
                           <div key={key} style={{ display: 'contents' }}>
                             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--text-muted)', letterSpacing: '0.1em', alignSelf: 'center' }}>{key}: </span>

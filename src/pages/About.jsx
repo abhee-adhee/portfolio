@@ -101,22 +101,18 @@ export default function About() {
             className="hide-on-mobile"
           >
             {/* Profile photo */}
-            <div style={{
-              width: 180, height: 180,
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, var(--accent-subtle), var(--accent-subtle))',
-              border: '2px solid var(--accent-primary)',
-              boxShadow: 'var(--accent-glow), inset 0 0 40px var(--accent-subtle)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              flexShrink: 0,
-            }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--text-muted)', letterSpacing: '0.1em', textAlign: 'center', padding: '0 1rem' }}>
-                PHOTO<br />PLACEHOLDER
-              </span>
-            </div>
+            <img
+              src="/profile.jpg"
+              alt="Abinav Aaditya"
+              style={{
+                width: 180, height: 180,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '2px solid var(--accent-primary)',
+                boxShadow: 'var(--accent-glow)',
+                flexShrink: 0,
+              }}
+            />
 
             <a
               href="/resume.pdf"

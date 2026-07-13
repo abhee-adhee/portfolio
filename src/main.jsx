@@ -9,6 +9,9 @@ import AdminApp from './admin/AdminApp.jsx';
 import { Routes, Route } from 'react-router-dom';
 import { PortfolioDataProvider } from './context/PortfolioDataContext.jsx';
 
+// Configuration flag to temporarily disable public access to the admin dashboard
+const ADMIN_ENABLED = false;
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HelmetProvider>
@@ -16,7 +19,7 @@ createRoot(document.getElementById('root')).render(
         <ErrorBoundary>
           <PortfolioDataProvider>
             <Routes>
-              <Route path="/admin/*" element={<AdminApp />} />
+              {ADMIN_ENABLED && <Route path="/admin/*" element={<AdminApp />} />}
               <Route path="/*" element={<App />} />
             </Routes>
           </PortfolioDataProvider>
