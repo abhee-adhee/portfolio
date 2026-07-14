@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion,  AnimatePresence } from 'framer-motion';
-import GlitchText from '../GlitchText';
+import { motion, AnimatePresence } from 'framer-motion';
+import SectionHeading from '../SectionHeading';
 import { useCounter } from '../../utils/useCounter';
 import { useSound } from '../../context/SoundContext';
 
@@ -9,7 +9,7 @@ import { useSound } from '../../context/SoundContext';
 const TERMINAL_LINES = [
   { text: '> scanning profile...', color: 'var(--text-muted)' },
   { text: '> NAME: Abinav', color: 'var(--accent-primary)' },
-  { text: '> ROLE: Full Stack + ML Developer', color: 'var(--accent-primary)' },
+  { text: '> ROLE: Pentester, ML Developer', color: 'var(--accent-primary)' },
   { text: '> LOCATION: Chennai, IND', color: 'var(--accent-primary)' },
   { text: '> STATUS: Available for hire', color: '#4ade80' },
   { text: '> CLEARANCE: Level 3', color: 'var(--accent-secondary)' },
@@ -18,12 +18,13 @@ const TERMINAL_LINES = [
   { text: '> scan complete. no anomalies found.', color: '#4ade80' },
 ];
 
-/* ── Process list lines ───────────────────────────────── */
-const PROCESSES = [
-  { id: '01', text: 'Building Python-based Sentinel IDS' },
-  { id: '02', text: 'Learning Offensive Security & SOC Operations' },
-  { id: '03', text: 'Developing AI-powered applications' },
-  { id: '04', text: 'Seeking cybersecurity internship opportunities' },
+/* ── Current-focus panel data ─────────────────────────── */
+const FOCUS_LINES = [
+  { key: 'ROLE',         value: 'Computer Science Student' },
+  { key: 'SPECIALIZATION', value: 'Cybersecurity' },
+  { key: 'CURRENT_BUILD', value: 'Sentinel IDS' },
+  { key: 'INTERESTS',   value: 'SOC  •  Web Security  •  AI Security' },
+  { key: 'NEXT_TARGET', value: 'Security Engineering Internship' },
 ];
 
 /* ── Stat cards data ──────────────────────────────────── */
@@ -105,8 +106,8 @@ function TerminalWidget() {
   );
 }
 
-/* ── Process list with staggered type-in on scroll ──────── */
-function ProcessList() {
+/* ── Current-focus panel with staggered reveal ───────────── */
+function CurrentFocusPanel() {
   const [revealed, setRevealed] = useState(0);
   const ref = useRef(null);
   const started = useRef(false);
@@ -115,8 +116,8 @@ function ProcessList() {
     const observer = new IntersectionObserver(([e]) => {
       if (e.isIntersecting && !started.current) {
         started.current = true;
-        PROCESSES.forEach((_, i) => {
-          setTimeout(() => setRevealed(r => Math.max(r, i + 1)), 300 + i * 320);
+        FOCUS_LINES.forEach((_, i) => {
+          setTimeout(() => setRevealed(r => Math.max(r, i + 1)), 300 + i * 200);
         });
       }
     }, { threshold: 0.3 });
@@ -125,28 +126,66 @@ function ProcessList() {
   }, []);
 
   return (
-    <div ref={ref} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-      {PROCESSES.map((p, i) => (
+    <div
+      ref={ref}
+      className="glass-card"
+      style={{
+        padding: '1.25rem 1.5rem',
+        borderRadius: 8,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.75rem',
+      }}
+    >
+      <div
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.55rem',
+          letterSpacing: '0.22em',
+          color: 'var(--accent-primary)',
+          opacity: 0.8,
+          marginBottom: '0.25rem',
+          textTransform: 'uppercase',
+        }}
+      >
+        CURRENT_FOCUS
+      </div>
+      {FOCUS_LINES.map((line, i) => (
         <div
-          key={p.id}
+          key={line.key}
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.75rem',
-            color: i < revealed ? 'var(--text-secondary)' : 'transparent',
-            display: 'flex',
-            gap: 10,
+            display: 'grid',
+            gridTemplateColumns: '130px 1fr',
+            gap: '0.75rem',
             opacity: i < revealed ? 1 : 0,
             transform: i < revealed ? 'none' : 'translateX(-8px)',
-            transition: 'opacity 0.4s ease, transform 0.4s ease, color 0.2s',
+            transition: 'opacity 0.35s ease, transform 0.35s ease',
           }}
         >
-          <span style={{ color: '#4ade80', flexShrink: 0 }}>
-            &gt; PROCESS_{p.id}:
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.65rem',
+              color: 'rgba(168,85,247,0.6)',
+              alignSelf: 'center',
+              letterSpacing: '0.08em',
+            }}
+          >
+            &gt; {line.key}
           </span>
-          <span>{p.text}</span>
-          {i === revealed - 1 && revealed < PROCESSES.length && (
-            <span className="blink" style={{ color: 'var(--accent-primary)' }}>_</span>
-          )}
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.75rem',
+              color: 'var(--text-secondary)',
+              letterSpacing: '0.02em',
+            }}
+          >
+            {line.value}
+            {i === revealed - 1 && revealed < FOCUS_LINES.length && (
+              <span className="blink" style={{ color: 'var(--accent-primary)', marginLeft: 2 }}>_</span>
+            )}
+          </span>
         </div>
       ))}
     </div>
@@ -244,25 +283,18 @@ export default function AboutSnapshot() {
   return (
     <section id="about-snap" className="section-container" style={{ overflowX: 'hidden' }}>
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20, scale: 0.98 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true }}
-        style={{ marginBottom: '3rem' }}
-      >
-        <div className="terminal-label" style={{ marginBottom: 10 }}>// IDENTITY_MANIFEST</div>
-        <GlitchText
-          text="WHO AM I?"
-          as="h2"
-          style={{
-            fontSize: 'clamp(1.8rem, 5vw, 3rem)',
-            fontFamily: 'var(--font-heading)',
-            fontWeight: 900,
-            color: 'var(--text-primary)',
-            letterSpacing: '0.05em',
-          }}
-        />
-      </motion.div>
+      <SectionHeading
+        pageLabel="PERSONAL_PROFILE"
+        title="Building Secure Digital Systems."
+        subtitle="One project at a time."
+        metaLines={[
+          { label: '> SPECIALIZATION:', value: 'Cybersecurity + AI' },
+          { label: '> AVAILABILITY:',   value: 'Open to Internships' },
+        ]}
+        accent="var(--accent-primary)"
+        cursor={true}
+        animate={true}
+      />
 
       {/* Two-column layout */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2.5rem', marginBottom: '3.5rem', alignItems: 'stretch' }} className="about-snap-grid">
@@ -274,16 +306,35 @@ export default function AboutSnapshot() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
         >
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.85 }}>
-            I'm Abinav Aaditya — a Computer Science student building at the intersection of cybersecurity, artificial intelligence, and software engineering.
-          </p>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.85 }}>
-            My work focuses on network security, web application security, and intelligent software systems. I enjoy understanding how systems work, identifying how they fail, and designing practical solutions through hands-on projects, internships, and hackathons.
+          <p
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '0.92rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.9,
+              maxWidth: '480px',
+            }}
+          >
+            I'm Abinav Aaditya, a Computer Science student focused on cybersecurity, secure software engineering, and applied AI.
+            I enjoy building practical systems—from intrusion detection and SOC monitoring to intelligent web applications—because
+            the best way to learn is by building.
           </p>
 
-          <div className="glass-card" style={{ padding: '1.25rem', borderRadius: 8 }}>
-            <div className="terminal-label" style={{ marginBottom: 14 }}>// CURRENTLY_RUNNING</div>
-            <ProcessList />
+          <CurrentFocusPanel />
+
+          {/* Identity quote */}
+          <div
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.68rem',
+              color: 'rgba(168,85,247,0.5)',
+              letterSpacing: '0.1em',
+              borderLeft: '2px solid rgba(168,85,247,0.25)',
+              paddingLeft: '0.85rem',
+              fontStyle: 'italic',
+            }}
+          >
+            "Learning by building. Improving by breaking."
           </div>
 
           <Link

@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import PageTransition from '../components/PageTransition';
 import { showTransmissionToast } from '../components/Toast';
 import BackButton from '../components/BackButton';
+import SectionHeading from '../components/SectionHeading';
 import { useSound } from '../context/SoundContext';
 import GlitchText from '../components/GlitchText';
 
@@ -32,22 +33,18 @@ export default function Contact() {
 
           {/* LEFT: Heading, Desc & CTA */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-            <motion.div
-              initial={{ opacity: 0, filter: 'contrast(250%) brightness(150%) blur(4px) hue-rotate(90deg)', x: -40, skewX: -20 }}
-              animate={{ opacity: 1, filter: 'contrast(100%) brightness(100%) blur(0px) hue-rotate(0deg)', x: 0, skewX: 0 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-            >
-              <div className="terminal-label" style={{ marginBottom: 12 }}>// OPEN_CHANNEL</div>
-              <GlitchText
-                text="Get in Touch"
-                as="h1"
-                style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', letterSpacing: '0.05em', fontWeight: 900, fontFamily: 'var(--font-heading)', color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.1 }}
-              />
-              <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, maxWidth: 480 }}>
-                I'm currently open to internships, freelance work, and hackathon collabs.
-                If you have something interesting, let's talk.
-              </p>
-            </motion.div>
+          <SectionHeading
+            pageLabel="SECURE_CHANNEL"
+            title="Get in Touch"
+            subtitle="Open to internships, freelance work, and hackathon collabs."
+            metaLines={[
+              { label: "> PROTOCOL:", value: "Async Communication" },
+              { label: "> RESPONSE TIME:", value: "< 24 Hours" }
+            ]}
+            accent="var(--accent-primary)"
+            cursor={true}
+            animate={false}
+          />
 
             <motion.div
               initial={{ opacity: 0, scale: 0.3 }}

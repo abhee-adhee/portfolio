@@ -6,6 +6,7 @@ import PageTransition from '../components/PageTransition';
 import GlitchText from '../components/GlitchText';
 import ScreenshotViewer from '../components/ScreenshotViewer';
 import BackButton from '../components/BackButton';
+import SectionHeading from '../components/SectionHeading';
 import { useSound } from '../context/SoundContext';
 
 const STATUS_CLASS = {
@@ -39,41 +40,18 @@ export default function ProjectDetail() {
       <div className="page-container">
         <BackButton />
         {/* Title block */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}Fsystem
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          style={{ marginBottom: '2.5rem' }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.65rem',
-                color: 'var(--accent-secondary)',
-                letterSpacing: '0.15em',
-              }}
-            >
-              [{project.codename}]
-            </span>
-            <span className={`badge ${STATUS_CLASS[project.status]}`}>{project.status}</span>
-          </div>
-          <GlitchText
-            text={project.title}
-            as="h1"
-            style={{
-              fontSize: 'clamp(2.2rem, 5.5vw, 3.3rem)',
-              fontWeight: 800,
-              fontFamily: 'var(--font-heading)',
-              letterSpacing: '0.05em',
-              color: 'var(--text-primary)',
-              marginBottom: 8,
-            }}
-          />
-          <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', fontSize: '1rem' }}>
-            {project.subtitle}
-          </p>
-        </motion.div>
+        <SectionHeading
+          pageLabel={project.codename}
+          title={project.title}
+          subtitle={project.subtitle}
+          metaLines={[
+            { label: "> CURRENT_STATUS:", value: project.status.replace('_', ' ') },
+            { label: "> DOMAIN:", value: project.tags.join(' / ') }
+          ]}
+          accent="var(--accent-primary)"
+          cursor={true}
+          animate={true}
+        />
 
         {/* Screenshot carousel */}
         <motion.div

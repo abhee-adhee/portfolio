@@ -1,18 +1,86 @@
-import { motion } from 'framer-motion';
-import { Terminal, Database, Shield, Zap, Target, Cpu, Activity, Coffee } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
+import { Trophy, Code, Briefcase, Layers } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+
+function AnimatedCounter({ from = 0, to, duration = 1.2 }) {
+  const [count, setCount] = useState(from);
+  const nodeRef = useRef();
+  const inView = useInView(nodeRef, { once: true });
+
+  useEffect(() => {
+    if (!inView) return;
+    let startTime;
+    let animationFrame;
+
+    const update = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      const easeOut = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.floor(easeOut * (to - from) + from));
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(update);
+      }
+    };
+    animationFrame = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [inView, to, from, duration]);
+
+  return <span ref={nodeRef}>{count}</span>;
+}
+
+import SectionHeading from '../SectionHeading';
 
 export default function About() {
   const stats = [
-    { label: "Hackathons", value: "2+", icon: <Terminal size={20} className="text-accent-blue" />, color: "from-accent-blue/20 to-transparent", border: "hover:border-accent-blue/50" },
-    { label: "Projects", value: "5+", icon: <Database size={20} className="text-accent-purple" />, href: "#projects", color: "from-accent-purple/20 to-transparent", border: "hover:border-accent-purple/50" },
-    { label: "Stack", value: "Full", icon: <Shield size={20} className="text-emerald-400" />, href: "#skills", color: "from-emerald-500/20 to-transparent", border: "hover:border-emerald-500/50" },
+    { label: "HACKATHONS_ENTERED", sub: "Top finishes", value: 2, suffix: "+", icon: <Trophy size={16} /> },
+    { label: "PROJECTS_SHIPPED", sub: "Real systems", value: 5, suffix: "+", icon: <Code size={16} /> },
+    { label: "INTERNSHIPS", sub: "Industry XP", value: 2, suffix: "", icon: <Briefcase size={16} /> },
+    { label: "TECHS_MASTERED", sub: "Full stack", value: 10, suffix: "+", icon: <Layers size={16} /> },
   ];
 
-  const focusAreas = [
-    { text: "Advanced Penetration Testing", icon: <Target size={16} className="text-red-400" /> },
-    { text: "Reinforcement Learning Agents", icon: <Cpu size={16} className="text-purple-400" /> },
-    { text: "Scalable Web Architectures", icon: <Activity size={16} className="text-blue-400" /> },
+  const idLines = [
+    { label: "NAME", value: "Abinav Aaditya" },
+    { label: "ALIAS", value: "Aadhi" },
+    { label: "ROLE", value: "CS Student + Dev" },
+    { label: "BASE", value: "Chennai, IND" },
+    { label: "STATUS", value: "● AVAILABLE", isStatus: true },
+    { label: "YEAR", value: "3rd Year B.Tech" },
+    { label: "FOCUS", value: "Cybersec + ML + Web" },
   ];
+
+  const clearanceLines = [
+    { label: "THREAT_LEVEL", value: "[ CURIOUS ]" },
+    { label: "CLEARANCE", value: "[ LEVEL 03 ]" },
+    { label: "BUILD", value: "[ PASSING ✓ ]" },
+  ];
+
+  const processes = [
+    "> PROCESS_01: Studying CS @ Saveetha Engineering",
+    "> PROCESS_02: Building Sentinel IDS",
+    "> PROCESS_03: Interning @ BugBustersLab",
+    "> PROCESS_04: Open to internships + collabs",
+  ];
+
+  const listVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.08, delayChildren: 0.6 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0 }
+  };
+
+  const processListVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 1.0 }
+    }
+  };
 
   return (
     <section id="about" className="w-full min-h-screen py-24 flex items-center justify-center max-w-6xl mx-auto px-6 relative z-10">
@@ -21,137 +89,191 @@ export default function About() {
       <div className="absolute top-1/4 left-0 w-64 h-64 bg-accent-blue/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-accent-purple/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
 
-      <div className="flex flex-col lg:flex-row items-stretch justify-between gap-12 w-full">
+      <div className="w-full flex flex-col gap-12">
+        <SectionHeading
+          pageLabel="ARCHITECT_PROFILE"
+          title="Mindset & Philosophy"
+          subtitle="I build systems that defend, learn, and scale."
+          metaLines={[
+            { label: "> SPECIALIZATION:", value: "Offensive Security & Systems" },
+            { label: "> CURRENT FOCUS:", value: "Agentic AI Defense" }
+          ]}
+          accent="var(--accent-primary)"
+          cursor={true}
+          animate={true}
+        />
 
-        {/* Left Side: Terminal Window Bio */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="w-full lg:w-1/2 flex flex-col"
-        >
-          <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-white">About Me</h2>
-            <div className="h-[2px] w-24 bg-gradient-to-r from-accent-blue to-transparent"></div>
-          </div>
+        {/* TWO COLUMN LAYOUT */}
+        <div className="flex flex-col md:flex-row gap-10 items-stretch">
 
-          <div className="glass rounded-xl overflow-hidden shadow-2xl border border-white/10 flex-1 relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 to-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-
-            {/* Terminal Top Bar */}
-            <div className="bg-base-900/80 px-4 py-3 flex items-center border-b border-white/5 relative z-10">
-              <div className="flex gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-              </div>
-              <p className="ml-4 text-xs font-mono text-gray-400">abinav@portfolio: ~/about</p>
-            </div>
-
-            {/* Terminal Content */}
-            <div className="p-6 md:p-8 font-mono text-sm md:text-base relative z-10 flex flex-col gap-5">
-              <div>
-                <span className="text-accent-blue">➜</span> <span className="text-accent-purple">~</span> <span className="text-white">whoami</span>
-              </div>
-              <p className="text-gray-300 leading-relaxed pl-4 border-l-2 border-white/10">
-                I'm Abinav Aaditya, a CS student who's genuinely obsessed with building systems that scale and secure ecosystems.<br /><br />
-                My interests sit at the intersection of <span className="text-red-400">cybersecurity</span>, <span className="text-purple-400">machine learning</span>, and <span className="text-blue-400">full-stack development</span>.
-              </p>
-
-              <div>
-                <span className="text-accent-blue">➜</span> <span className="text-accent-purple">~</span> <span className="text-white">cat mindset.txt</span>
-              </div>
-              <p className="text-gray-300 leading-relaxed pl-4 border-l-2 border-white/10">
-                From training ML models on real network traffic to shipping live, glassmorphic dashboards, I optimize for technical depth over shortcuts. I'm always searching for the next hard problem.
-              </p>
-
-              <div className="mt-2 flex items-center gap-2 animate-pulse">
-                <span className="text-accent-blue">➜</span> <span className="text-accent-purple">~</span> <span className="w-2 h-5 bg-white inline-block"></span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Right Side: Stats & Details */}
-        <div className="w-full lg:w-1/2 flex flex-col gap-6 pt-0 lg:pt-16">
-
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {stats.map((stat, i) => {
-              const Component = stat.href ? motion.a : motion.div;
-              return (
-                <Component
-                  key={stat.label}
-                  href={stat.href}
-                  initial={{ scale: 0.9, opacity: 0, y: 30 }}
-                  whileInView={{ scale: 1, opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 + (i * 0.1), duration: 0.5, type: "spring" }}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className={`glass p-6 rounded-2xl flex flex-col items-start gap-4 border border-white/5 transition-all duration-300 overflow-hidden relative group ${i === 2 ? 'sm:col-span-2' : ''} ${stat.href ? 'cursor-pointer' : ''} ${stat.border}`}
-                >
-                  {/* Background gradient injection */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}></div>
-
-                  <div className="p-3 bg-white/5 rounded-xl border border-white/5 relative z-10 backdrop-blur-md">
-                    {stat.icon}
-                  </div>
-                  <div className="relative z-10">
-                    <motion.h3
-                      className="text-4xl md:text-5xl font-black text-white mb-1 tracking-tight"
-                    >
-                      {stat.value}
-                    </motion.h3>
-                    <p className="text-sm font-mono text-gray-400 uppercase tracking-wider flex items-center gap-2">
-                      {stat.label}
-                      {stat.href && <span className="w-1.5 h-1.5 rounded-full bg-white/50 animate-pulse"></span>}
-                    </p>
-                  </div>
-                </Component>
-              );
-            })}
-          </div>
-
-          {/* Current Focus / Vibe Block */}
+          {/* LEFT COLUMN: ID CARD */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="glass p-6 md:p-8 rounded-2xl border border-white/5 flex-1 relative overflow-hidden group hover:border-accent-blue/30 transition-all duration-500"
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="w-full md:w-[45%] flex flex-col"
+            style={{
+              background: 'rgba(10,10,15,0.8)',
+              border: '1px solid rgba(168,85,247,0.25)',
+              borderRadius: '10px',
+              boxShadow: '0 0 30px rgba(168,85,247,0.06)',
+              fontFamily: 'var(--font-mono), monospace',
+            }}
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-accent-blue/5 rounded-bl-[100px] pointer-events-none"></div>
+            {/* Top Bar */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '16px', borderBottom: '1px solid rgba(168,85,247,0.15)' }}>
+              <div style={{ display: 'flex', gap: '6px' }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(168,85,247,0.5)' }}></span>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(168,85,247,0.5)' }}></span>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(168,85,247,0.5)' }}></span>
+              </div>
+              <span style={{ fontSize: '11px', color: 'rgba(168,85,247,0.7)', marginLeft: '8px', letterSpacing: '1px' }}>IDENTITY_SCAN.exe</span>
+            </div>
 
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-              <Zap size={20} className="text-accent-blue" /> Currently Exploring
-            </h3>
-
-            <div className="flex flex-col gap-4">
-              {focusAreas.map((focus, idx) => (
-                <div key={idx} className="flex items-center gap-4 group/item">
-                  <div className="p-2 bg-white/5 rounded-lg border border-white/5 group-hover/item:border-white/20 transition-colors">
-                    {focus.icon}
-                  </div>
-                  <p className="text-gray-300 font-medium group-hover/item:text-white transition-colors">
-                    {focus.text}
-                  </p>
+            {/* Photo & Details */}
+            <div style={{ padding: '2rem 1.5rem', flex: 1 }}>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+              <div style={{ position: 'relative', width: 100, height: 100 }}>
+                <div style={{
+                  position: 'absolute', inset: -8, borderRadius: '50%',
+                  border: '1px dashed rgba(168,85,247,0.5)',
+                  animation: 'spin 10s linear infinite'
+                }}></div>
+                <div style={{
+                  width: '100%', height: '100%', borderRadius: '50%',
+                  border: '2px solid rgba(168,85,247,0.8)',
+                  boxShadow: '0 0 20px rgba(168,85,247,0.3)',
+                  background: 'rgba(168,85,247,0.1)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'rgba(168,85,247,0.8)', fontSize: '24px', fontWeight: 'bold'
+                }}>
+                  AA
                 </div>
+              </div>
+            </div>
+
+            <div style={{ width: '100%', height: '1px', background: 'rgba(168,85,247,0.15)', marginBottom: '1.5rem' }}></div>
+
+            <motion.div variants={listVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '1.5rem' }}>
+              {idLines.map((line, i) => (
+                <motion.div key={i} variants={itemVariants} style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '1rem' }}>
+                  <span style={{ color: 'rgba(168,85,247,0.5)', fontSize: '11px', alignSelf: 'center' }}>{line.label}:</span>
+                  <span style={{ color: 'white', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    {line.isStatus && <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 8px #4ade80', animation: 'pulse 2s infinite' }}></span>}
+                    {!line.isStatus && line.value}
+                    {line.isStatus && line.value.replace('● ', '')}
+                  </span>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
-            <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
-              <span className="text-sm font-mono text-gray-500 flex items-center gap-2">
-                <Coffee size={14} /> Fueled by caffeine & curiosity
-              </span>
-              <span className="text-xs px-2 py-1 rounded bg-white/5 text-gray-400 font-mono border border-white/10">
-                v2.0
-              </span>
-            </div>
-          </motion.div>
+            <div style={{ width: '100%', height: '1px', background: 'rgba(168,85,247,0.15)', marginBottom: '1.5rem' }}></div>
 
+            <motion.div variants={listVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {clearanceLines.map((line, i) => (
+                <motion.div key={i} variants={itemVariants} style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: '1rem' }}>
+                  <span style={{ color: 'rgba(168,85,247,0.5)', fontSize: '11px', alignSelf: 'center' }}>{line.label}:</span>
+                  <span style={{ color: 'white', fontSize: '13px' }}>{line.value}</span>
+                </motion.div>
+              ))}
+            </motion.div>
         </div>
-      </div>
-    </section>
+      </motion.div>
+
+      {/* RIGHT COLUMN: BIO */}
+      <motion.div
+        initial={{ opacity: 0, x: 60 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="w-full md:w-[55%] flex flex-col justify-center"
+      >
+        <div style={{ marginBottom: '2rem' }}>
+          <div style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)' }}>
+                // CS student. Security engineer in progress.
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2.5rem' }}>
+          <p style={{ fontFamily: 'Inter, var(--font-sans), sans-serif', fontSize: '0.88rem', lineHeight: 1.85, color: 'rgba(255,255,255,0.7)' }}>
+            I'm Abinav Aaditya, a CS student who's genuinely obsessed with building systems that scale and secure ecosystems.<br /><br />
+            My interests sit at the intersection of <span className="text-red-400">cybersecurity</span>, <span className="text-purple-400">machine learning</span>, and <span className="text-blue-400">full-stack development</span>.
+          </p>
+          <p style={{ fontFamily: 'Inter, var(--font-sans), sans-serif', fontSize: '0.88rem', lineHeight: 1.85, color: 'rgba(255,255,255,0.7)' }}>
+            From training ML models on real network traffic to shipping live, glassmorphic dashboards, I optimize for technical depth over shortcuts. I'm always searching for the next hard problem.
+          </p>
+        </div>
+
+        <div>
+          <div style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '0.75rem', color: 'rgba(168,85,247,0.8)', marginBottom: '1rem', letterSpacing: '1px' }}>
+            CURRENTLY_RUNNING
+          </div>
+          <motion.div variants={processListVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {processes.map((proc, i) => {
+              const [label, ...rest] = proc.split(': ');
+              return (
+                <motion.div key={i} variants={itemVariants} style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '0.75rem', display: 'flex', gap: '8px' }}>
+                  <span style={{ color: 'rgba(168,85,247,0.7)' }}>{label}:</span>
+                  <span style={{ color: 'rgba(255,255,255,0.6)' }}>{rest.join(': ')}</span>
+                </motion.div>
+              )
+            })}
+          </motion.div>
+        </div>
+      </motion.div>
+    </div>
+
+        {/* STAT COUNTERS ROW */ }
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+    {stats.map((stat, i) => (
+      <motion.div
+        key={i}
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.8 + i * 0.1, type: "spring" }}
+        whileHover={{ y: -4, borderColor: 'rgba(168,85,247,0.5)', boxShadow: '0 10px 30px -10px rgba(168,85,247,0.2)' }}
+        style={{
+          background: 'rgba(255,255,255,0.03)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255,255,255,0.05)',
+          borderRadius: '12px',
+          padding: '1.5rem',
+          display: 'flex', flexDirection: 'column', gap: '12px',
+          transition: 'all 0.3s ease'
+        }}
+      >
+        <div style={{ color: 'rgba(168,85,247,0.8)' }}>
+          {stat.icon}
+        </div>
+        <div>
+          <div style={{ fontSize: '2rem', fontWeight: 800, color: 'white', fontFamily: 'var(--font-heading), sans-serif', lineHeight: 1 }}>
+            <AnimatedCounter from={0} to={stat.value} duration={1.2} />{stat.suffix}
+          </div>
+          <div style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '0.65rem', color: 'rgba(168,85,247,0.7)', letterSpacing: '1px', marginTop: '8px', marginBottom: '4px' }}>
+            {stat.label}
+          </div>
+          <div style={{ fontFamily: 'Inter, var(--font-sans), sans-serif', fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>
+            {stat.sub}
+          </div>
+        </div>
+      </motion.div>
+    ))}
+  </div>
+
+      </div >
+
+    <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(0.9); }
+        }
+      `}</style>
+    </section >
   );
 }

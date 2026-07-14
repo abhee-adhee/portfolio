@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 
 import PageTransition from '../components/PageTransition';
 import BackButton from '../components/BackButton';
+import SectionHeading from '../components/SectionHeading';
 import { useSound } from '../context/SoundContext';
 import { usePortfolioData } from '../context/PortfolioDataContext';
 
@@ -68,15 +69,18 @@ export default function Education() {
       </Helmet>
       <div className="page-container">
         <BackButton />
-        {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: '3.5rem' }}>
-          <div className="terminal-label" style={{ marginBottom: 8 }}>
-            // ACADEMIC_RECORDS | IDENTITY: ABINAV
-          </div>
-          <h1 style={{ fontSize: 'clamp(2.2rem, 5.5vw, 3.3rem)', fontWeight: 800, fontFamily: 'var(--font-heading)', letterSpacing: '0.05em', color: 'var(--text-primary)' }}>
-            Education
-          </h1>
-        </motion.div>
+        <SectionHeading
+          pageLabel="KNOWLEDGE_FOUNDATION"
+          title="Education"
+          subtitle="Academic formation and applied learning."
+          metaLines={[
+            { label: "> INSTITUTION:", value: "Saveetha Engineering College" },
+            { label: "> DEGREE:", value: "B.Tech Computer Science" }
+          ]}
+          accent="var(--accent-secondary)"
+          cursor={false}
+          animate={true}
+        />
 
         {/* Two-Column Layout */}
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(280px, 35%) 1fr', gap: '4rem', alignItems: 'start' }} className="edu-grid">

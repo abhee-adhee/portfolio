@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SectionHeading from '../SectionHeading';
 
 import { showTransmissionToast } from '../Toast';
 import { usePortfolioData } from '../../context/PortfolioDataContext';
@@ -32,34 +33,19 @@ export default function ContactCTA() {
         viewport={{ once: true }}
         style={{ position: 'relative', zIndex: 1 }}
       >
-        <div className="terminal-label" style={{ marginBottom: 16 }}>
-          &gt; INITIATING_TRANSMISSION...
-        </div>
-        <h2
-          style={{
-            fontSize: 'clamp(2rem, 6vw, 3.5rem)',
-            fontWeight: 800,
-            fontFamily: 'var(--font-mono)',
-            color: 'var(--text-primary)',
-            marginBottom: '1rem',
-            letterSpacing: '-0.02em',
-          }}
-        >
-          INITIATE_TRANSMISSION
-        </h2>
-        <p
-          style={{
-            fontFamily: 'var(--font-sans)',
-            color: 'var(--text-secondary)',
-            fontSize: '1rem',
-            marginBottom: '2.5rem',
-            maxWidth: 480,
-            margin: '0 auto 2.5rem',
-          }}
-        >
-          I'm open to internships, hackathon collabs, and interesting projects.
-          Let's build something.
-        </p>
+        <SectionHeading
+          pageLabel="SECURE_CHANNEL"
+          title="Initiate Handshake"
+          subtitle="Open for internships, hackathon collabs, and interesting projects. Let's build something."
+          metaLines={[
+            { label: "> PROTOCOL:", value: "Asynchronous Comm" },
+            { label: "> RESPONSE TIME:", value: "< 24 Hours" }
+          ]}
+          accent="var(--accent-primary)"
+          align="center"
+          cursor={true}
+          animate={true}
+        />
 
         {/* Buttons */}
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>

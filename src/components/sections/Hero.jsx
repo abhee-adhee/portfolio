@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion,  useScroll, useTransform } from 'framer-motion';
 import GlitchText from '../GlitchText';
+import SectionHeading from '../SectionHeading';
 import { useSound } from '../../context/SoundContext';
 import { usePortfolioData } from '../../context/PortfolioDataContext';
 import WorldMap from '../WorldMap';
@@ -110,24 +111,20 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{ textAlign: 'left' }}
         >
-          {/* Status badge */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-            letterSpacing: '0.12em', color: 'var(--text-muted)',
-            padding: '4px 12px', border: '1px solid var(--border-color)',
-            borderRadius: 2, marginBottom: '1.5rem',
-          }}>
-            <span style={{
-              width: 6, height: 6, borderRadius: '50%',
-              background: '#4ade80', boxShadow: '0 0 6px #4ade80',
-              animation: 'blink 2s ease-in-out infinite',
-            }} />
-            {data.hero.statusText}
-            <span style={{ color: 'var(--border-color)' }}>|</span>
-            v1.0.0
-            <span style={{ color: 'var(--border-color)' }}>|</span>
-            Chennai, IND
+          {/* Section Heading */}
+          <div style={{ marginBottom: '2rem' }}>
+            <SectionHeading
+              pageLabel="ORIGIN_STATE"
+              title=""
+              subtitle=""
+              metaLines={[
+                { label: "> OPERATING_ENVIRONMENT:", value: "Linux / Web" },
+                { label: "> PRIMARY_OBJECTIVE:", value: "Build & Defend Systems" }
+              ]}
+              accent="var(--accent-primary)"
+              cursor={false}
+              animate={true}
+            />
           </div>
 
           {/* Glitch heading */}

@@ -140,6 +140,8 @@ const tableItemVariants = {
   show: { opacity: 1, x: 0, transition: { duration: 0.3 } }
 };
 
+import SectionHeading from '../SectionHeading';
+
 export default function Skills() {
   const { data } = usePortfolioData();
   const TABS = data.skills;
@@ -166,19 +168,18 @@ export default function Skills() {
 
   return (
     <section ref={sectionRef} id="skills" className="section-container">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        style={{ marginBottom: '3.5rem' }}
-      >
-        <div className="terminal-label" style={{ marginBottom: 12 }}>// TECHNICAL_ARSENAL</div>
-        <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, fontFamily: 'var(--font-subheading)', letterSpacing: '0.08em', color: 'var(--text-primary)' }}>
-          Skills &amp; Stack
-        </h2>
-      </motion.div>
+      <SectionHeading
+        pageLabel="CAPABILITY_INDEX"
+        title="Technical Arsenal"
+        subtitle="Tools mastered for full-stack and security operations."
+        metaLines={[
+          { label: "> CORE PROFICIENCY:", value: "Systems Programming" },
+          { label: "> LEARNING:", value: "eBPF & Kernel Tracing" }
+        ]}
+        accent="var(--accent-primary)"
+        cursor={true}
+        animate={true}
+      />
 
       {/* Terminal panel */}
       <motion.div

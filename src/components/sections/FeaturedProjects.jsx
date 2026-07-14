@@ -248,23 +248,24 @@ function SmallCard({ delay = 0, codename, exe, title, subtitle, description, sta
   );
 }
 
+import SectionHeading from '../SectionHeading';
+
 /* ── Main Export ─────────────────────────────────────────── */
 export default function FeaturedProjects() {
   return (
     <section id="featured-projects" className="section-container">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        style={{ marginBottom: '3rem' }}
-      >
-        <div className="terminal-label" style={{ marginBottom: 8 }}>// ARCHIVE_RETRIEVAL</div>
-        <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', letterSpacing: '0.08em', fontWeight: 800, fontFamily: 'var(--font-subheading)', color: 'var(--text-primary)' }}>
-          Featured Projects
-        </h2>
-      </motion.div>
+      <SectionHeading
+        pageLabel="PRIORITY_ASSETS"
+        title="Mission Critical"
+        subtitle="High-impact systems engineered for resilience."
+        metaLines={[
+          { label: "> DEPLOYED NODES:", value: "5 Active Environments" },
+          { label: "> PRIMARY STACK:", value: "Python, React, TypeScript" }
+        ]}
+        accent="var(--accent-violet)"
+        cursor={true}
+        animate={true}
+      />
 
       {/* Featured — Sentinel IDS */}
       <SentinelCard />

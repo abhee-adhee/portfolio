@@ -2,28 +2,25 @@ import { motion } from 'framer-motion';
 
 import { Mail, Github, Linkedin } from 'lucide-react';
 
+import SectionHeading from '../SectionHeading';
+
 export default function Contact() {
   return (
     <section id="contact" className="w-full py-32 flex flex-col items-center justify-center max-w-4xl mx-auto px-6 relative z-10 text-center">
 
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="font-mono text-accent-blue mb-4 tracking-widest uppercase text-sm"
-      >
-        What's Next?
-      </motion.p>
-
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.1 }}
-        className="text-5xl md:text-7xl font-bold text-white mb-6"
-      >
-        Let's Build Something.
-      </motion.h2>
+      <SectionHeading
+        pageLabel="SECURE_CHANNEL"
+        title="Initiate Handshake"
+        subtitle="Open for collaboration, security research, and engineering roles."
+        metaLines={[
+          { label: "> PROTOCOL:", value: "Asynchronous Comm" },
+          { label: "> RESPONSE TIME:", value: "< 24 Hours" }
+        ]}
+        accent="var(--accent-blue)"
+        align="center"
+        cursor={true}
+        animate={true}
+      />
 
       <motion.p
         initial={{ opacity: 0, y: 20 }}

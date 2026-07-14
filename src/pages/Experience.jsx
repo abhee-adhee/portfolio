@@ -6,6 +6,7 @@ import PageTransition from '../components/PageTransition';
 import GlitchText from '../components/GlitchText';
 import SectionDivider from '../components/SectionDivider';
 import BackButton from '../components/BackButton';
+import SectionHeading from '../components/SectionHeading';
 import { useSound } from '../context/SoundContext';
 
 import { usePortfolioData } from '../context/PortfolioDataContext';
@@ -283,36 +284,52 @@ export default function Experience() {
 
       <div className="page-container">
         <BackButton />
-        {/* Page header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          style={{ marginBottom: '4rem' }}
-        >
-          <div className="terminal-label" style={{ marginBottom: 10 }}>// CREDENTIALS_MANIFEST | CLEARANCE: VERIFIED</div>
-          <GlitchText
-            text="Experience"
-            as="h1"
-            style={{
-              fontSize: 'clamp(2rem, 6vw, 3.5rem)',
-              fontWeight: 900,
-              fontFamily: 'var(--font-heading)',
-              color: 'var(--text-primary)',
-            }}
-          />
-        </motion.div>
+        <SectionHeading
+          pageLabel="FIELD_OPERATIONS"
+          title="Experience"
+          subtitle="Practical execution and industry exposure in real environments."
+          metaLines={[
+            { label: "> ENGAGEMENTS:", value: `${EXPERIENCE.length} Active Roles` },
+            { label: "> CERTS EARNED:", value: `${CERTS.length} Verified` }
+          ]}
+          accent="var(--accent-primary)"
+          cursor={true}
+          animate={true}
+        />
 
-        {/* ── SECTION 1: CERTIFICATES ───────── */}
+        {/* ── SECTION 1: EXPERIENCE ───────── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           style={{ marginBottom: '1.5rem' }}
         >
+          <div className="terminal-label" style={{ marginBottom: 10 }}>// MISSION_LOG</div>
+          <h2 style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.05em', fontWeight: 700, fontSize: 'clamp(1.4rem, 3.3vw, 2.1rem)', color: 'var(--text-primary)', marginBottom: '2.5rem' }}>
+            Work Experience
+          </h2>
+        </motion.div>
+
+
+        {/* Timeline */}
+        <div>
+          {EXPERIENCE.map((exp, i) => (
+            <ExpCard key={exp.id} exp={exp} index={i} />
+          ))}
+        </div>
+
+        <SectionDivider label="EXP_LOADED" />
+
+        {/* ── SECTION 2: CERTIFICATES ─────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          style={{ margin: '3.5rem 0 2rem' }}
+        >
           <div className="terminal-label" style={{ marginBottom: 10 }}>// CERTIFICATIONS_VAULT</div>
           <h2 style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.05em', fontWeight: 700, fontSize: 'clamp(1.4rem, 3.3vw, 2.1rem)', color: 'var(--text-primary)', marginBottom: '2rem' }}>
-            Certificates
+            Credentials
           </h2>
         </motion.div>
 
@@ -325,28 +342,6 @@ export default function Experience() {
         }}>
           {CERTS.map((cert, i) => (
             <CertCard key={cert.id} cert={cert} index={i} />
-          ))}
-        </div>
-
-        <SectionDivider label="CERTS_LOADED" />
-
-        {/* ── SECTION 2: EXPERIENCE ─────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={{ margin: '3.5rem 0 2rem' }}
-        >
-          <div className="terminal-label" style={{ marginBottom: 10 }}>// MISSION_LOG</div>
-          <h2 style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.05em', fontWeight: 700, fontSize: 'clamp(1.4rem, 3.3vw, 2.1rem)', color: 'var(--text-primary)', marginBottom: '2.5rem' }}>
-            Work Experience
-          </h2>
-        </motion.div>
-
-        {/* Timeline */}
-        <div>
-          {EXPERIENCE.map((exp, i) => (
-            <ExpCard key={exp.id} exp={exp} index={i} />
           ))}
         </div>
 

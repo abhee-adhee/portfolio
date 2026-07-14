@@ -111,31 +111,25 @@ const statusConfig = {
   PLANNED:     { label: 'UNDER_PLANNING', color: '#6366f1', bg: 'rgba(99,102,241,0.08)',   border: 'rgba(99,102,241,0.3)' },
 };
 
+import SectionHeading from '../SectionHeading';
+
 export default function Projects() {
   return (
     <section id="projects" className="w-full py-24 flex items-center justify-center max-w-6xl mx-auto px-6 relative z-10">
       <div className="w-full">
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          className="flex items-end justify-between mb-16"
-        >
-          <div>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.15em', color: 'var(--accent-violet)', marginBottom: 8 }}>
-              // ARCHIVE_RETRIEVAL
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Featured Work</h2>
-            <div className="h-[2px] w-24 bg-accent-purple rounded-full" />
-          </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--text-muted)', letterSpacing: '0.1em', textAlign: 'right' }}>
-            <div>TOTAL_MODULES: {projectsData.length}</div>
-            <div style={{ color: '#4ade80' }}>DEPLOYED: {projectsData.filter(p => p.status === 'DEPLOYED').length}</div>
-            <div style={{ color: '#f59e0b' }}>IN_PROGRESS: {projectsData.filter(p => p.status === 'IN_PROGRESS').length}</div>
-          </div>
-        </motion.div>
+        <SectionHeading
+          pageLabel="SYSTEM_DEPLOYMENTS"
+          title="Engineered Solutions"
+          subtitle="Solving hard problems with scalable architectures."
+          metaLines={[
+            { label: "> RECENT BUILD:", value: "Sentinel IDS Engine" },
+            { label: "> ARCHITECTURE:", value: "Event-Driven & Real-Time" }
+          ]}
+          accent="var(--accent-violet)"
+          cursor={true}
+          animate={true}
+        />
 
         {/* Cards */}
         <div className="flex flex-col gap-8">

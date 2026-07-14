@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import PageTransition from '../components/PageTransition';
 import RadialSkillWeb from '../components/RadialSkillWeb';
 import BackButton from '../components/BackButton';
+import SectionHeading from '../components/SectionHeading';
 import { usePortfolioData } from '../context/PortfolioDataContext';
 
 const FUN_FACTS = [
@@ -81,13 +82,18 @@ export default function About() {
       </Helmet>
       <div className="page-container">
         <BackButton />
-        {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: '3rem' }}>
-          <div className="terminal-label" style={{ marginBottom: 8 }}>// IDENTITY_MANIFEST</div>
-          <h1 style={{ fontSize: 'clamp(2.2rem, 5.5vw, 3.3rem)', letterSpacing: '0.05em', fontWeight: 800, fontFamily: 'var(--font-heading)', color: 'var(--text-primary)' }}>
-            About Me
-          </h1>
-        </motion.div>
+        <SectionHeading
+          pageLabel="ARCHITECT_PROFILE"
+          title="About Me"
+          subtitle="Mindset, Philosophy, and Background."
+          metaLines={[
+            { label: "> ALIAS:", value: "Aadhi" },
+            { label: "> BASE:", value: "Chennai, IND" }
+          ]}
+          accent="var(--accent-primary)"
+          cursor={true}
+          animate={true}
+        />
 
         {/* 3-Column Layout */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr 1fr', gap: '3rem', marginBottom: '3rem', alignItems: 'start' }} className="about-grid">

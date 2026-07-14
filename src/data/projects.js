@@ -76,7 +76,7 @@ export const projects = [
     codename: 'SENTINEL_03',
     title: 'Sentinel IDS',
     subtitle: 'Python Network Intrusion Detection System',
-    status: 'ACTIVE',
+    status: 'IN_PROGRESS',
     progress: 82,
     tags: ['CYBERSEC', 'WEB', 'PYTHON'],
     stack: [
@@ -152,7 +152,7 @@ export const projects = [
     codename: 'SANDBOX_05',
     title: 'Policy-Based Execution Sandbox',
     subtitle: 'Secure Runtime for Autonomous AI Agents',
-    status: 'IN_PROGRESS',
+    status: 'PLANNING',
     progress: 12,
     tags: ['CYBERSEC', 'RESEARCH', 'LINUX'],
     stack: [

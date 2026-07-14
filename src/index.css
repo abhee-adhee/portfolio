@@ -85,12 +85,12 @@
 .page-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 8rem clamp(1.5rem, 5vw, 4rem) 4rem;
+  padding: 4rem clamp(1.5rem, 5vw, 4rem) 8rem;
 }
 .section-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 4rem clamp(1.5rem, 5vw, 4rem) 5rem;
+  padding: 4rem clamp(1.5rem, 5vw, 4rem) 8rem;
 }
 
 html {

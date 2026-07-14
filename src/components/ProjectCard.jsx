@@ -317,13 +317,17 @@ export default function ProjectCard({ project, index = 0, isFeatured = false }) 
                     borderRadius: 2,
                     letterSpacing: '0.08em',
                     cursor: 'pointer',
-                    display: 'inline-block',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    whiteSpace: 'nowrap',
+                    flexShrink: 0,
                     background: isFeatured ? 'var(--accent-cyan)' : 'transparent',
                     color: isFeatured ? '#0a0a0f' : 'var(--accent-cyan)',
                     fontWeight: isFeatured ? 800 : 600,
                   }}
                 >
-                  {isClassified ? '[UNLOCK]' : '[OPEN_MODULE]  '}
+                  {isClassified ? '[UNLOCK]' : '[OPEN_MODULE]'}
                 </Link>
               </div>
 

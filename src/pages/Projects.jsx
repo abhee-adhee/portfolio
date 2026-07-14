@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import ProjectCard from '../components/ProjectCard';
 import PageTransition from '../components/PageTransition';
 import BackButton from '../components/BackButton';
+import SectionHeading from '../components/SectionHeading';
 import { useSound } from '../context/SoundContext';
 import { usePortfolioData } from '../context/PortfolioDataContext';
 
@@ -75,22 +76,18 @@ function ProjectHero({ count }) {
         gap: '3rem',
         alignItems: 'center',
       }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <div className="terminal-label">// DEPLOYED_MODULES</div>
-          <h1 style={{
-            fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 900,
-            fontFamily: 'var(--font-heading)', color: 'var(--text-primary)',
-            letterSpacing: '0.05em', lineHeight: 1, margin: 0,
-          }}>
-            Projects
-          </h1>
-          <div style={{
-            fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
-            color: 'var(--accent-primary)', letterSpacing: '0.1em',
-          }}>
-            DATABASE_ENTRIES: {count}
-          </div>
-        </div>
+        <SectionHeading
+          pageLabel="MODULE_ARCHIVE"
+          title="Projects"
+          subtitle="All active and classified systems."
+          metaLines={[
+            { label: "> DATABASE_ENTRIES:", value: String(count) },
+            { label: "> QUERY_STATUS:", value: "OK" }
+          ]}
+          accent="var(--accent-primary)"
+          cursor={false}
+          animate={true}
+        />
 
         <div style={{
           background: 'rgba(10,10,15,0.6)',

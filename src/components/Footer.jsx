@@ -130,7 +130,7 @@ export default function Footer() {
               // OPEN_CHANNELS
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <button onClick={copyEmail} className="footer-connect-link" style={{ background: 'transparent', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer' }}>
+              <button onClick={copyEmail} aria-label="Copy Email Address" className="footer-connect-link" style={{ background: 'transparent', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer' }}>
                 <Mail size={16} /> <span style={{ flex: 1 }}>EMAIL</span> <ArrowRight size={14} className="arrow" />
               </button>
               <a href="https://github.com/abhee-adhee" target="_blank" rel="noreferrer" className="footer-connect-link">

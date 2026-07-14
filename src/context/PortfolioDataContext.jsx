@@ -25,7 +25,7 @@ const defaultAbout = {
 };
 
 const defaultContact = {
-  email: "youremail@example.com",
+  email: "abinavaaditya@gmail.com",
   github: "https://github.com/abhee-adhee",
   linkedin: "https://www.linkedin.com/in/abinav-aaditya-86a952305/"
 };
@@ -159,7 +159,7 @@ const defaultCertificates = [
     platform: 'AWS',
     date: 'Feb 2026',
     color: '#ff9900',
-    url: '#'
+    url: 'https://www.aws.training/'
   }
 ];
 
@@ -180,7 +180,7 @@ const defaultEducation = [
     institution: 'AVM Rajeshwari Matriculation Higher Secondary School',
     level: 'Higher Secondary (Class 12)',
     stream: '[Computer Science ]',
-    year: '2023',
+    year: '2022 — 2024',
     score: '[79%]',
   },
   {
