@@ -177,6 +177,67 @@ export default function ProjectDetail() {
           ))}
         </motion.div>
 
+        {/* Architecture */}
+        {project.architecture && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.36 }}
+            className="glass-card"
+            style={{ padding: '1.5rem', borderRadius: 8, marginBottom: '2rem' }}
+          >
+            <div className="terminal-label" style={{ marginBottom: 12 }}>// ARCHITECTURE</div>
+            <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: '0.9rem' }}>
+              {project.architecture}
+            </p>
+          </motion.div>
+        )}
+
+        {/* Workflow */}
+        {project.workflow && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.37 }}
+            className="glass-card"
+            style={{ padding: '1.5rem', borderRadius: 8, marginBottom: '2rem' }}
+          >
+            <div className="terminal-label" style={{ marginBottom: 12 }}>// WORKFLOW</div>
+            <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: '0.9rem' }}>
+              {project.workflow}
+            </p>
+          </motion.div>
+        )}
+
+        {/* Future Improvements */}
+        {project.futureImprovements && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.38 }}
+            className="glass-card"
+            style={{ padding: '1.5rem', borderRadius: 8, marginBottom: '2rem' }}
+          >
+            <div className="terminal-label" style={{ marginBottom: 16 }}>// FUTURE_IMPROVEMENTS</div>
+            {project.futureImprovements.map((imp, i) => (
+              <div
+                key={i}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.78rem',
+                  color: 'var(--text-secondary)',
+                  marginBottom: 10,
+                  display: 'flex',
+                  gap: 8,
+                }}
+              >
+                <span style={{ color: '#f59e0b', flexShrink: 0 }}>&gt; UPGRADE_PATH_{String(i + 1).padStart(2, '0')}:</span>
+                <span>{imp}</span>
+              </div>
+            ))}
+          </motion.div>
+        )}
+
         {/* Action buttons */}
         <motion.div
           initial={{ opacity: 0 }}

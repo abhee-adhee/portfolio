@@ -275,6 +275,19 @@ export default function FeaturedProjects() {
 
         <SmallCard
           delay={0}
+          codename="[ REC_AI_06 ]"
+          exe="AI_RECRUITER.exe"
+          title="AI Recruiter Copilot"
+          subtitle="Hack2Skill's India Runs - Intelligent Hiring Assistant"
+          description="An AI-powered candidate intelligence platform that ranks resumes using semantic embeddings, technical capability analysis, behavioral scoring, and explainable AI."
+          stack={['Streamlit', 'Python', 'ML', 'NLP', 'Sentence Transformers']}
+          status="DEPLOYED"
+          to="/projects/ai-recruiter-copilot"
+          color="violet"
+        />
+
+        <SmallCard
+          delay={0}
           codename="[ VSOC_02 ]"
           exe="VOICE_FOR_ALL.exe"
           title="VoiceForAll"
@@ -343,7 +356,7 @@ export default function FeaturedProjects() {
           [ VIEW_ALL_MODULES ]
         </Link>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: 'var(--text-muted)', letterSpacing: '0.08em' }}>
-          TOTAL_PROJECTS: 5 | ACTIVE: 2 | DEPLOYED: 3 | PLANNING: 1
+          TOTAL_PROJECTS: 6 | ACTIVE: 2 | DEPLOYED: 4 | PLANNING: 1
         </div>
       </motion.div>
 

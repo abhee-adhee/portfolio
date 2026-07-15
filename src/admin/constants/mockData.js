@@ -1,5 +1,5 @@
 export const ADMIN_STATS = [
-  { label: 'Total Projects', value: '14', trend: '+2 this month', positive: true },
+  { label: 'Total Projects', value: '15', trend: '+3 this month', positive: true },
   { label: 'Profile Views', value: '1,284', trend: '+12% vs last week', positive: true },
   { label: 'Active Skills', value: '28', trend: 'Updated 2 days ago', positive: null },
   { label: 'Uptime', value: '99.9%', trend: 'All systems operational', positive: true },
@@ -13,6 +13,7 @@ export const RECENT_ACTIVITY = [
 ];
 
 export const PROJECTS_DATA = [
+  { id: 'ai-recruiter', codename: 'REC_AI_06', title: 'AI Recruiter Copilot', status: 'DEPLOYED', tags: ['AI', 'ML', 'WEB'], lastUpdated: '2026-07-15', description: 'Intelligent candidate ranking platform using semantic embeddings and explainable AI.' },
   { id: '1', codename: 'PS_43', title: 'Intrusion Detection System', status: 'DEPLOYED', tags: ['ML', 'CYBERSEC'], lastUpdated: '2026-07-01', description: 'Advanced AI-driven intrusion detection system designed to monitor network traffic in real-time.' },
   { id: '2', codename: 'GHOSt_02', title: 'Project Ghost', status: 'CLASSIFIED', tags: ['WEB'], lastUpdated: '2026-06-25', description: 'Confidential web application architecture exploring zero-knowledge proofs.' },
   { id: '3', codename: 'NOVA_03', title: 'Project Nova', status: 'IN_PROGRESS', tags: ['WEB', 'ML'], lastUpdated: '2026-07-03', description: 'Next-generation recommendation engine integrating predictive machine learning models.' },

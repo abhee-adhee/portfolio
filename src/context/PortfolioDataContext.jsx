@@ -211,7 +211,7 @@ const INITIAL_STATE = {
 };
 
 const STORAGE_KEY = 'aadhi_portfolio_state';
-const STORAGE_VERSION = 6;
+const STORAGE_VERSION = 8;
 
 function loadInitialData() {
   try {
@@ -237,7 +237,7 @@ function loadInitialData() {
       };
     }
 
-    if (parsed.__version === 2 || parsed.__version === 3 || parsed.__version === 4 || parsed.__version === 5) {
+    if (parsed.__version >= 2 && parsed.__version <= 7) {
       return {
         ...INITIAL_STATE,
         ...parsed,

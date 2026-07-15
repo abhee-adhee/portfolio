@@ -179,5 +179,54 @@ export const projects = [
       'Security analytics dashboard'
     ],
     screenshots: []
+  },
+  {
+    id: 'ai-recruiter-copilot',
+    codename: 'REC_AI_06',
+    title: 'AI Recruiter Copilot',
+    subtitle: "Hack2Skill's India Runs - Intelligent Hiring Assistant",
+    status: 'DEPLOYED',
+    tags: ['AI', 'ML', 'NLP', 'WEB'],
+    stack: [
+      'Streamlit',
+      'Python',
+      'Sentence Transformers',
+      'Scikit-learn',
+      'Pandas',
+      'NumPy'
+    ],
+    description:
+      'An AI-powered candidate intelligence platform that ranks resumes using semantic embeddings, technical capability analysis, behavioral scoring, and explainable AI.',
+    shortDesc:
+      'AI-powered candidate intelligence platform for resume ranking and analysis.',
+    fullDesc:
+      'AI Recruiter Copilot is an intelligent hiring assistant that streamlines resume screening by combining semantic search, technical skill extraction, behavioral signals, and explainable AI. Recruiters can upload a job description and candidate dataset, automatically rank applicants, analyze technical fit, identify skill gaps, generate hiring insights, and export interview-ready reports. The platform focuses on transparency by explaining WHY candidates receive their rankings rather than acting as a black-box AI system.',
+    features: [
+      'AI-powered resume ranking',
+      'Semantic similarity matching using embeddings',
+      'Technical capability scoring',
+      'Behavioral scoring',
+      'Explainable AI recommendations',
+      'Candidate deep-dive analysis',
+      'Skill gap detection',
+      'Recruiter analytics dashboard',
+      'Hiring insights visualization',
+      'CSV export for shortlisted candidates',
+      'Blind screening mode',
+      'Interactive charts and reports'
+    ],
+    architecture: 'The system is built on a Python backend with a Streamlit frontend. It utilizes Sentence Transformers for generating semantic embeddings of resumes and job descriptions, enabling high-accuracy vector similarity search. The ML pipeline includes scikit-learn for supplementary analysis, Pandas for data processing, and JSON for localized database operations.',
+    workflow: 'Users upload a job description and candidate dataset. The backend processes the text, extracts semantic embeddings, and runs similarity algorithms alongside technical and behavioral scoring models. The results are visualized on a Streamlit dashboard, providing explainable rankings and insights.',
+    futureImprovements: [
+      'Integration with external ATS platforms via APIs',
+      'Support for direct PDF/Word resume parsing',
+      'Advanced bias detection and mitigation algorithms'
+    ],
+    screenshots: [],
+    repository: 'https://github.com/abhee-adhee/Interviewer-AI',
+    demo: 'https://interviewer-ai-hack.streamlit.app/',
+    problem: 'Resume screening is time-consuming, prone to bias, and often relies on simplistic keyword matching that misses strong candidates and lacks transparency.',
+    approach: 'Developed an AI recruiter using semantic embeddings for deep context matching, explicitly providing explainable AI (XAI) insights to recruiters on why candidates rank highly.',
+    outcome: 'Successfully deployed a comprehensive dashboard that accelerates screening while maintaining human-in-the-loop oversight through explainable rankings and granular analytics.'
   }
 ];
