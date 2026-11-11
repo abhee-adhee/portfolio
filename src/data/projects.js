@@ -44,8 +44,8 @@ export const projects = [
       'Incident report generator outputting PDF & TXT summaries',
       'Offline PCAP analysis mode for historical incident replay'
     ],
-    screenshot: null, // Set to '/projects/sentinel-ids.png' to use an image from public/projects/
-    screenshots: [],
+    screenshot: '/projects/sentinel-ids.png',
+    screenshots: ['/projects/sentinel-ids.png'],
     repository: 'https://github.com/abhee-adhee/Network-IDS',
     demo: null,
     approach:
@@ -96,8 +96,8 @@ export const projects = [
       'Persistent SQLite storage with ISO-8601 timestamp integrity',
       'Exportable CSV and PDF grievance records'
     ],
-    screenshot: null, // Set to '/projects/voice-for-all.png' to use an image from public/projects/
-    screenshots: [],
+    screenshot: '/projects/voice-for-all.png',
+    screenshots: ['/projects/voice-for-all.png'],
     repository: 'https://github.com/abhee-adhee/voice-forall-access',
     demo: 'https://voice-for-all-phi.vercel.app/',
     approach:
@@ -157,8 +157,8 @@ export const projects = [
       'Support for direct multi-page PDF/DOCX resume parsing',
       'Fine-tuned domain-specific embeddings for cybersecurity and systems engineering'
     ],
-    screenshot: null, // Set to '/projects/ai-recruiter-copilot.png' to use an image from public/projects/
-    screenshots: [],
+    screenshot: '/projects/ai-recruiter-copilot.png',
+    screenshots: ['/projects/ai-recruiter-copilot.png'],
     repository: 'https://github.com/abhee-adhee/Interviewer-AI',
     demo: 'https://interviewer-ai-hack.streamlit.app/',
     approach:
@@ -207,8 +207,8 @@ export const projects = [
       'Structured CSV/JSON alert logging for offline analysis',
       'Simulated threat execution harness to validate detection rules'
     ],
-    screenshot: null, // Set to '/projects/mini-soc.png' to use an image from public/projects/
-    screenshots: [],
+    screenshot: '/projects/mini-soc.png',
+    screenshots: ['/projects/mini-soc.png'],
     repository: 'https://github.com/sectechsociety/CloudSEC-Sandbox/tree/Mini-SOC',
     demo: null,
     approach:
@@ -256,8 +256,8 @@ export const projects = [
       'Context-aware scaffolded hints triggered on sustained frustration states',
       'Post-session affective engagement timeline reports'
     ],
-    screenshot: null, // Set to '/projects/edumate.png' to use an image from public/projects/
-    screenshots: [],
+    screenshot: '/projects/edumate.png',
+    screenshots: ['/projects/edumate.png'],
     repository: 'https://github.com/nishanthrs0312/emotion-aware-learning-companion',
     demo: 'https://emotion-aware-learning-companion.vercel.app',
     approach:
@@ -309,8 +309,8 @@ export const projects = [
       'Docker containerized ephemeral execution harnesses',
       'Audit log generation recording blocked operations and violation rationales'
     ],
-    screenshot: null, // Set to '/projects/policy-sandbox.png' to use an image from public/projects/
-    screenshots: []
+    screenshot: '/projects/policy-sandbox.png',
+    screenshots: ['/projects/policy-sandbox.png']
   },
 
   /* ─────────────────────────────────────────────────────────
@@ -361,8 +361,8 @@ export const projects = [
       'Session authentication audit logging and lockout logic',
       'Protected digital vault interface unlocked exclusively on verified credentials'
     ],
-    screenshot: null, // Set to '/projects/securegest.png' to use an image from public/projects/
-    screenshots: [],
+    screenshot: '/projects/securegest.png',
+    screenshots: ['/projects/securegest.png'],
     repository: null,
     demo: null,
     approach:
@@ -431,8 +431,8 @@ export const projects = [
       'Evidence and entailment validation via NLI-MiniLM2-L6-H768',
       'Generates explainable competency profiles and rankings for recruiters'
     ],
-    screenshot: null, // Set to '/projects/competencyfirst.png' to use an image from public/projects/
-    screenshots: [],
+    screenshot: '/projects/competencyfirst.png',
+    screenshots: ['/projects/competencyfirst.png'],
     repository: null,
     demo: null,
     approach:

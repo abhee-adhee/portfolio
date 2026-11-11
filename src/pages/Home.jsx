@@ -994,7 +994,7 @@ export default function Home() {
                 }}
               >
                 {/* Visual Header Graphic */}
-                <ProjectVisual id={p.id} />
+                <ProjectVisual id={p.id} screenshot={p.screenshot} />
 
                 {/* Card Meta Content */}
                 <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

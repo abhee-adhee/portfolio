@@ -215,7 +215,7 @@ const INITIAL_STATE = {
 };
 
 const STORAGE_KEY = 'aadhi_portfolio_state';
-const STORAGE_VERSION = 15;
+const STORAGE_VERSION = 16;
 
 function loadInitialData() {
   try {

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function ProjectVisual({ id, screenshot = null, height = '100%' }) {
+  const [imgError, setImgError] = useState(false);
+
   const localScreenshot =
     screenshot ||
     (() => {
@@ -13,7 +15,7 @@ export default function ProjectVisual({ id, screenshot = null, height = '100%' }
       }
     })();
 
-  if (localScreenshot) {
+  if (localScreenshot && !imgError) {
     return (
       <div
         style={{
@@ -28,6 +30,7 @@ export default function ProjectVisual({ id, screenshot = null, height = '100%' }
         <img
           src={localScreenshot}
           alt={`Project ${id}`}
+          onError={() => setImgError(true)}
           style={{
             width: '100%',
             height: '100%',
