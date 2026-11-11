@@ -1,271 +1,322 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion,  AnimatePresence } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import ProjectCard from '../components/ProjectCard';
 import PageTransition from '../components/PageTransition';
 import BackButton from '../components/BackButton';
-import SectionHeading from '../components/SectionHeading';
 import { useSound } from '../context/SoundContext';
 import { usePortfolioData } from '../context/PortfolioDataContext';
 
-const FILTERS = ['ALL', 'ML', 'WEB', 'CYBERSEC', 'IN_PROGRESS'];
-
-function ProjectHero({ count }) {
-  const [lines, setLines] = useState([]);
-
-  useEffect(() => {
-    const sequence = [
-      '> SCANNING_PROJECT_DATABASE...',
-      `> ${count} MODULES FOUND`,
-      '> CLEARANCE: GRANTED',
-      '> DISPLAYING_RESULTS...'
-    ];
-    let i = 0;
-    const interval = setInterval(() => {
-      setLines(prev => [...prev, sequence[i]]);
-      i++;
-      if (i >= sequence.length) clearInterval(interval);
-    }, 600);
-    return () => clearInterval(interval);
-  }, [count]);
-
-  return (
-    <div style={{
-      position: 'relative',
-      minHeight: 280,
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: '1rem',
-      borderBottom: '1px solid var(--border-color)',
-      paddingTop: '2rem',
-      paddingBottom: '2rem',
-    }}>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 0.04, scale: 1 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-        style={{
-          position: 'absolute', inset: 0,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 'clamp(3rem, 10vw, 8rem)', fontFamily: 'var(--font-heading)',
-          fontWeight: 900, color: 'var(--text-primary)', whiteSpace: 'nowrap',
-          pointerEvents: 'none', userSelect: 'none', zIndex: 0,
-          overflow: 'hidden',
-        }}
-      >
-        DEPLOYED_MODULES
-      </motion.div>
-
-      <motion.div
-        initial={{ top: '-5%' }}
-        animate={{ top: '110%' }}
-        transition={{ duration: 2.5, ease: 'linear' }}
-        style={{
-          position: 'absolute', left: 0, right: 0, height: 3,
-          background: 'var(--accent-secondary)',
-          boxShadow: '0 0 20px 4px var(--accent-secondary)',
-          zIndex: 2, pointerEvents: 'none'
-        }}
-      />
-
-      <div className="project-hero-grid" style={{
-        position: 'relative', zIndex: 1, width: '100%',
-        display: 'grid',
-        gridTemplateColumns: 'minmax(200px, 1fr) minmax(260px, 1fr)',
-        gap: '3rem',
-        alignItems: 'center',
-      }}>
-        <SectionHeading
-          pageLabel="MODULE_ARCHIVE"
-          title="Projects"
-          subtitle="All active and classified systems."
-          metaLines={[
-            { label: "> DATABASE_ENTRIES:", value: String(count) },
-            { label: "> QUERY_STATUS:", value: "OK" }
-          ]}
-          accent="var(--accent-primary)"
-          cursor={false}
-          animate={true}
-        />
-
-        <div style={{
-          background: 'rgba(10,10,15,0.6)',
-          border: '1px solid var(--accent-border)',
-          borderRadius: 6, padding: '1.25rem',
-          fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
-          color: 'var(--accent-secondary)', lineHeight: 1.9,
-          boxShadow: '0 0 30px rgba(124,58,237,0.05)',
-          backdropFilter: 'blur(8px)',
-        }}>
-          {lines.map((l, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {l}
-            </motion.div>
-          ))}
-          {lines.length < 4 && <span className="blink">▋</span>}
-        </div>
-      </div>
-    </div>
-  );
-}
+const FILTERS = [
+  { key: 'ALL', label: 'All Projects' },
+  { key: 'CYBERSEC', label: 'Cybersecurity' },
+  { key: 'WEB', label: 'Web & Systems' },
+  { key: 'ML', label: 'Machine Learning' },
+  { key: 'IN_PROGRESS', label: 'In Progress' },
+];
 
 export default function Projects() {
   const { data } = usePortfolioData();
-  const projects = data.projects;
-  const [active, setActive] = useState('ALL');
-  const [searchParams] = useSearchParams();
+  const projects = data.projects || [];
+  const [activeFilter, setActiveFilter] = useState('ALL');
+  const [searchParams, setSearchParams] = useSearchParams();
   const { playSound } = useSound();
 
   const skillFilter = searchParams.get('skill');
 
+  // Filter project database
   const filtered = (() => {
-    let base = active === 'ALL'
-      ? projects
-      : active === 'IN_PROGRESS'
-        ? projects.filter(p => p.status === 'IN_PROGRESS')
-        : projects.filter(p => p.tags.includes(active));
+    let base =
+      activeFilter === 'ALL'
+        ? projects
+        : activeFilter === 'IN_PROGRESS'
+        ? projects.filter((p) => p.status === 'IN_PROGRESS')
+        : projects.filter((p) => p.tags?.includes(activeFilter));
+
     if (skillFilter) {
-      base = base.filter(p =>
-        p.stack.some(s => s.toLowerCase().includes(skillFilter.toLowerCase()))
+      base = base.filter((p) =>
+        p.stack?.some((s) => s.toLowerCase().includes(skillFilter.toLowerCase()))
       );
     }
     return base;
   })();
 
+  // Separate Main Projects vs Sidequests
+  const mainProjects = filtered.filter((p) => !p.isSidequest && p.category !== 'sidequest');
+  const sidequestProjects = filtered.filter((p) => p.isSidequest || p.category === 'sidequest');
+
   return (
     <PageTransition>
       <Helmet>
-        <title>Projects | ABINAV.SYS</title>
-        <meta name="description" content="View all active modules, classified archives, and ongoing operations by Abinav." />
+        <title>Projects &amp; Builds &mdash; Abinav Aaditya</title>
+        <meta
+          name="description"
+          content="Practical software engineering, defensive security systems, and machine learning projects by Abinav Aaditya."
+        />
+        <meta property="og:title" content="Projects & Builds — Abinav Aaditya" />
+        <meta
+          property="og:description"
+          content="Practical software engineering, defensive security systems, and machine learning projects by Abinav Aaditya."
+        />
       </Helmet>
 
-      <div className="page-container">
-        <BackButton />
-        <ProjectHero count={projects.length} />
+      <div
+        className="page-container projects-page-container"
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '2.5rem 1.5rem 7rem',
+        }}
+      >
+        <BackButton label="Home" />
 
-        {/* Filter bar */}
-        <div style={{
-          position: 'sticky', top: 0, zIndex: 50,
-          display: 'flex', gap: 10, flexWrap: 'wrap',
-          padding: '1rem 0',
-          background: 'rgba(10,10,15,0.85)',
-          backdropFilter: 'blur(16px)',
-          borderBottom: '1px solid var(--border-color)',
-          marginBottom: '2.5rem',
-        }}>
-          {FILTERS.map(f => {
-            const cnt = f === 'ALL' ? projects.length
-              : f === 'IN_PROGRESS' ? projects.filter(p => p.status === 'IN_PROGRESS').length
-                : projects.filter(p => p.tags.includes(f)).length;
-            const isActive = active === f;
-            return (
-              <button
-                key={f}
-                onClick={() => { playSound('click'); setActive(f); }}
-                onMouseEnter={() => playSound('hover')}
-                style={{
-                  position: 'relative',
-                  fontFamily: 'var(--font-mono)', fontSize: '0.68rem',
-                  letterSpacing: '0.1em', padding: '7px 14px', borderRadius: 4,
-                  border: `1px solid ${isActive ? 'var(--accent-primary)' : 'var(--border-color)'}`,
-                  cursor: 'pointer',
-                  background: isActive ? 'var(--accent-subtle)' : 'transparent',
-                  color: isActive ? 'var(--accent-primary)' : 'var(--text-secondary)',
-                  fontWeight: isActive ? 700 : 400,
-                  transition: 'all 0.2s',
-                  display: 'flex', alignItems: 'center', gap: 6,
-                }}
-              >
-                [ {f} <span style={{ opacity: 0.6 }}>· {cnt}</span> ]
-                {isActive && (
-                  <motion.div
-                    layoutId="activeFilterUnderline"
-                    style={{
-                      position: 'absolute', bottom: -1, left: 0, right: 0,
-                      height: 2, background: 'var(--accent-primary)',
-                      boxShadow: 'var(--accent-glow)',
-                    }}
-                  />
-                )}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* 4 cards per row grid */}
-        <motion.div
-          layout
-          className="projects-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(12, 1fr)',
-            gap: '1.25rem',
-            marginBottom: '4rem',
-            alignItems: 'start',
-          }}
-        >
-          <AnimatePresence>
-            {filtered.map((project, i) => (
-              <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                onMouseEnter={() => playSound('hover')}
-                className="project-card-wrapper"
-                style={{
-                  gridColumn: 'span 3',
-                  minWidth: 0,
-                  height: 440, // Fixed height to prevent collapse from absolute children
-                }}
-              >
-                <ProjectCard
-                  project={project}
-                  index={i}
-                  isFeatured={false}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {filtered.length === 0 && (
-          <div style={{
-            textAlign: 'center', padding: '4rem',
-            fontFamily: 'var(--font-mono)',
-            color: 'var(--text-muted)', fontSize: '0.8rem',
-          }}>
-            &gt; NO_MODULES_FOUND FOR FILTER: {active}
+        {/* Page Header */}
+        <header style={{ marginBottom: '2.5rem' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              gap: '10px',
+              marginBottom: '0.75rem',
+              flexWrap: 'wrap',
+            }}
+          >
+            <h1
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(2rem, 4vw, 2.75rem)',
+                fontWeight: 800,
+                color: 'var(--text-primary)',
+                letterSpacing: '-0.03em',
+                margin: 0,
+              }}
+            >
+              Projects &amp; Builds
+            </h1>
+            <span style={{ color: 'var(--text-muted)' }}>-</span>
+            <span
+              style={{
+                fontFamily: 'var(--font-handwriting)',
+                fontSize: '1.4rem',
+                color: 'var(--text-secondary)',
+                letterSpacing: '0.02em',
+              }}
+            >
+              Curated engineering work &amp; systems
+            </span>
           </div>
+
+          <p
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '1rem',
+              color: 'var(--text-secondary)',
+              maxWidth: '680px',
+              lineHeight: 1.6,
+              margin: '0 0 1.75rem 0',
+            }}
+          >
+            A collection of practical software systems, intrusion detection engines, accessibility platforms, and experimental prototypes. Click any project to inspect its complete architecture and implementation details.
+          </p>
+
+          {/* Filter Pills */}
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '0.5rem',
+              alignItems: 'center',
+            }}
+          >
+            {FILTERS.map((f) => {
+              const isSelected = activeFilter === f.key;
+              return (
+                <button
+                  key={f.key}
+                  onClick={() => {
+                    playSound('click');
+                    setActiveFilter(f.key);
+                    if (skillFilter) setSearchParams({});
+                  }}
+                  onMouseEnter={() => playSound('hover')}
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.82rem',
+                    fontWeight: isSelected ? 600 : 500,
+                    padding: '6px 14px',
+                    borderRadius: '9999px',
+                    border: `1px solid ${
+                      isSelected ? 'var(--accent-primary)' : 'var(--border-color)'
+                    }`,
+                    backgroundColor: isSelected ? 'var(--bg-subtle)' : 'var(--bg-surface)',
+                    color: isSelected ? 'var(--text-primary)' : 'var(--text-secondary)',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  {f.label}
+                </button>
+              );
+            })}
+
+            {skillFilter && (
+              <button
+                onClick={() => setSearchParams({})}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.74rem',
+                  padding: '5px 12px',
+                  borderRadius: '9999px',
+                  backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                  border: '1px solid var(--accent-primary)',
+                  color: 'var(--accent-primary)',
+                  cursor: 'pointer',
+                }}
+              >
+                Clear skill filter: {skillFilter} &times;
+              </button>
+            )}
+          </div>
+        </header>
+
+        {/* SECTION 1: Featured Systems & Projects */}
+        <section style={{ marginBottom: '4rem' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: '1.5rem',
+              borderBottom: '1px solid var(--border-color)',
+              paddingBottom: '0.75rem',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: 'var(--accent-primary)',
+                }}
+              />
+              <h2
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '1.15rem',
+                  fontWeight: 700,
+                  color: 'var(--text-primary)',
+                  margin: 0,
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                Featured Projects
+              </h2>
+            </div>
+
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                color: 'var(--text-muted)',
+              }}
+            >
+              {mainProjects.length} systems
+            </span>
+          </div>
+
+          {mainProjects.length === 0 ? (
+            <div
+              style={{
+                padding: '3rem 1rem',
+                textAlign: 'center',
+                color: 'var(--text-muted)',
+                fontFamily: 'var(--font-sans)',
+              }}
+            >
+              No projects found matching the selected filter.
+            </div>
+          ) : (
+            <div className="projects-responsive-grid">
+              {mainProjects.map((p) => (
+                <div key={p.id} style={{ minHeight: '380px' }}>
+                  <ProjectCard project={p} />
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* SECTION 2: Sidequests & Experimental Prototypes */}
+        {sidequestProjects.length > 0 && (
+          <section>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '1.5rem',
+                borderBottom: '1px solid var(--border-color)',
+                paddingBottom: '0.75rem',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    backgroundColor: '#a855f7',
+                  }}
+                />
+                <h2
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '1.15rem',
+                    fontWeight: 700,
+                    color: 'var(--text-primary)',
+                    margin: 0,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  Sidequests &amp; Prototypes
+                </h2>
+              </div>
+
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.75rem',
+                  color: 'var(--text-muted)',
+                }}
+              >
+                {sidequestProjects.length} prototypes
+              </span>
+            </div>
+
+            <p
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '0.88rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.6,
+                margin: '0 0 1.5rem 0',
+                maxWidth: '620px',
+              }}
+            >
+              Experimental exploratory builds, hackathon prototypes, and sidequests investigating niche intersections of computer vision, cryptography, and local machine learning models.
+            </p>
+
+            <div className="projects-responsive-grid">
+              {sidequestProjects.map((p) => (
+                <div key={p.id} style={{ minHeight: '380px' }}>
+                  <ProjectCard project={p} />
+                </div>
+              ))}
+            </div>
+          </section>
         )}
-
-        {/* Footer line */}
-        <div style={{
-          textAlign: 'center', paddingBottom: '3rem',
-          fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-          color: 'var(--text-muted)', letterSpacing: '0.1em',
-          lineHeight: 2,
-        }}>
-          <div>&gt; END_OF_DATABASE</div>
-          <div>TOTAL_MODULES: {projects.length} | LAST_UPDATED: {new Date().toISOString().split('T')[0]}</div>
-        </div>
       </div>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .project-hero-grid { grid-template-columns: 1fr !important; }
-          .projects-grid { display: flex !important; flex-direction: column !important; }
-          .project-card-wrapper { grid-column: auto !important; width: 100% !important; }
-        }
-      `}</style>
     </PageTransition>
   );
 }

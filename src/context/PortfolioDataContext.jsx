@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { projects as defaultProjects } from '../data/projects';
 import { skillGroups as defaultSkillGroups } from '../data/skills';
+import { eventsData as defaultEvents } from '../data/events';
 
 // Extract defaults from public pages
 const defaultHero = {
-  name: "ABINAV.SYS",
-  roles: ['Pentester', 'ML Engineer', 'Cybersecurity Researcher', 'Hackathon Builder'],
-  statusText: "SYSTEM_ONLINE",
-  cta1: { text: "ACCESS_PROJECTS", link: "/projects" },
-  cta2: { text: "DOWNLOAD_RESUME", link: "/resume.pdf" }
+  name: "Abinav Aaditya",
+  roles: ['Security Researcher', 'Machine Learning Builder', 'Full-Stack Developer', 'Computer Science Undergrad'],
+  statusText: "Available for internships & research collaborations",
+  cta1: { text: "Explore Work", link: "/projects" },
+  cta2: { text: "Curriculum Vitae", link: "/resume.pdf" }
 };
 
 const defaultAbout = {
@@ -69,16 +70,18 @@ const defaultExperience = [
   {
     id: 'EXP_03',
     status: 'ACTIVE',
-    role: 'Core Member — Mini SOC Initiative',
+    role: 'Joint Secretary — Cybersecurity Domain',
     org: 'Tech Society',
     duration: '2024 — Present',
+    description:
+      'As Joint Secretary of the Cybersecurity Domain at Tech Society, I help organize and conduct technical and non-technical events, coordinate cybersecurity-related activities, and collaborate with members on practical technical projects. I also support junior students in their academic learning by helping them understand technical concepts and develop their skills.',
     tasks: [
-      { id: '01', text: 'Building a mini Cloud Security Operations Center (SOC) for threat monitoring and analysis' },
-      { id: '02', text: 'Implementing network traffic inspection and anomaly detection techniques' },
-      { id: '03', text: 'Working with cybersecurity tools to simulate real-world attack detection scenarios' },
-      { id: '04', text: 'Collaborating with team members to design scalable and secure cloud-based systems' },
+      { id: '01', text: 'Organizing and conducting cybersecurity events, workshops, and technical activities.' },
+      { id: '02', text: 'Collaborating with club members to plan and develop practical technical projects.' },
+      { id: '03', text: 'Supporting and mentoring juniors in academic subjects and technical concepts.' },
+      { id: '04', text: 'Encouraging peer learning, technical participation, and collaboration within the cybersecurity domain.' },
     ],
-    stack: ['Python', 'Linux', 'Networking', 'Scapy', 'Cloud Computing'],
+    stack: ['Cybersecurity', 'Technical Events', 'Mentorship', 'Leadership', 'Project Planning'],
   }
 ];
 
@@ -207,11 +210,12 @@ const INITIAL_STATE = {
   experience: defaultExperience,
   certificates: defaultCertificates,
   education: defaultEducation,
-  eduCerts: defaultEduCerts
+  eduCerts: defaultEduCerts,
+  events: defaultEvents
 };
 
 const STORAGE_KEY = 'aadhi_portfolio_state';
-const STORAGE_VERSION = 8;
+const STORAGE_VERSION = 15;
 
 function loadInitialData() {
   try {
@@ -221,6 +225,18 @@ function loadInitialData() {
     const parsed = JSON.parse(saved);
     if (!parsed) return INITIAL_STATE;
 
+    // Reset if it holds old cyber text
+    if (parsed.hero?.name === 'ABINAV.SYS') {
+      parsed.hero = INITIAL_STATE.hero;
+    }
+
+    const cleanExperience = (parsed.experience || INITIAL_STATE.experience).map((exp) => {
+      if (exp.id === 'EXP_03' || exp.org === 'Tech Society') {
+        return INITIAL_STATE.experience.find((e) => e.id === 'EXP_03') || exp;
+      }
+      return exp;
+    });
+
     if (parsed.__version === STORAGE_VERSION) {
       return {
         ...INITIAL_STATE,
@@ -228,32 +244,20 @@ function loadInitialData() {
         hero: parsed.hero || INITIAL_STATE.hero,
         about: parsed.about || INITIAL_STATE.about,
         contact: parsed.contact || INITIAL_STATE.contact,
-        projects: parsed.projects || INITIAL_STATE.projects,
-        skills: parsed.skills || INITIAL_STATE.skills,
-        experience: parsed.experience || INITIAL_STATE.experience,
+        projects: INITIAL_STATE.projects,
+        skills: INITIAL_STATE.skills,
+        experience: cleanExperience,
         certificates: parsed.certificates || INITIAL_STATE.certificates,
         education: parsed.education || INITIAL_STATE.education,
         eduCerts: parsed.eduCerts || INITIAL_STATE.eduCerts,
+        events: INITIAL_STATE.events,
       };
     }
 
-    if (parsed.__version >= 2 && parsed.__version <= 7) {
-      return {
-        ...INITIAL_STATE,
-        ...parsed,
-        hero: parsed.hero || INITIAL_STATE.hero,
-        about: parsed.about || INITIAL_STATE.about,
-        contact: parsed.contact || INITIAL_STATE.contact,
-        projects: INITIAL_STATE.projects, // Force refresh projects
-        skills: INITIAL_STATE.skills,
-        experience: parsed.experience || INITIAL_STATE.experience,
-        certificates: parsed.certificates || INITIAL_STATE.certificates,
-        education: INITIAL_STATE.education, // Force refresh education
-        eduCerts: parsed.eduCerts || INITIAL_STATE.eduCerts,
-      };
-    }
-
-    return INITIAL_STATE;
+    return {
+      ...INITIAL_STATE,
+      experience: cleanExperience,
+    };
   } catch (err) {
     console.error('Failed to load portfolio state', err);
     return INITIAL_STATE;

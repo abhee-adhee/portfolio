@@ -1,189 +1,364 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 
 import PageTransition from '../components/PageTransition';
-import { showTransmissionToast } from '../components/Toast';
 import BackButton from '../components/BackButton';
 import SectionHeading from '../components/SectionHeading';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 import { useSound } from '../context/SoundContext';
-import GlitchText from '../components/GlitchText';
-
-const EMAIL = 'abinavaaditya@gmail.com';
-const SOCIALS = [
-  { label: 'GITHUB', url: 'https://github.com/abhee-adhee' },
-  { label: 'LINKEDIN', url: 'https://www.linkedin.com/in/abinav-aaditya-86a952305/' },
-];
 
 export default function Contact() {
-  const [input, setInput] = useState('');
+  const { data } = usePortfolioData();
   const { playSound } = useSound();
+  const { email = 'abinavaaditya@gmail.com', github, linkedin } = data.contact || {};
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    playSound('click');
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  const topics = [
+    {
+      num: '01',
+      title: 'Security Engineering & Internships',
+      desc: 'Exploring summer & fall 2026 internships in offensive security, vulnerability assessment, and threat detection.',
+    },
+    {
+      num: '02',
+      title: 'Network Defense & Systems Architecture',
+      desc: 'Collaborations around packet inspection, custom intrusion detection rules, and security operations center tooling.',
+    },
+    {
+      num: '03',
+      title: 'Applied Machine Learning & Hackathons',
+      desc: 'Interdisciplinary hackathon initiatives spanning computer vision verification, accessibility tools, and NLP.',
+    },
+  ];
 
   return (
     <PageTransition>
       <Helmet>
-        <title>Contact | ABINAV.SYS</title>
-        <meta name="description" content="Get in touch with Abinav for internships, freelance work, or hackathon collaborations." />
+        <title>Contact &mdash; Abinav Aaditya</title>
+        <meta
+          name="description"
+          content="Get in touch with Abinav Aaditya for cybersecurity internships, software engineering opportunities, or collaborative research."
+        />
+        <meta property="og:title" content="Contact — Abinav Aaditya" />
+        <meta
+          property="og:description"
+          content="Get in touch with Abinav Aaditya for cybersecurity internships and software engineering opportunities."
+        />
       </Helmet>
-      <div className="page-container">
-        {/* Decorative elements */}
+
+      <div
+        className="page-container"
+        style={{
+          maxWidth: '1240px',
+          margin: '0 auto',
+          padding: '2.5rem var(--page-gutter) 6rem',
+        }}
+      >
         <BackButton />
-        {/* Split Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }} className="contact-grid">
 
-          {/* LEFT: Heading, Desc & CTA */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-          <SectionHeading
-            pageLabel="SECURE_CHANNEL"
-            title="Get in Touch"
-            subtitle="Open to internships, freelance work, and hackathon collabs."
-            metaLines={[
-              { label: "> PROTOCOL:", value: "Async Communication" },
-              { label: "> RESPONSE TIME:", value: "< 24 Hours" }
-            ]}
-            accent="var(--accent-primary)"
-            cursor={true}
-            animate={false}
-          />
+        <SectionHeading
+          pageLabel="Correspondence // Contact"
+          title="Let's discuss systems, opportunities, or research."
+          subtitle="Currently based in Chennai, India (IST / UTC+5:30) and available for 2026 security engineering and software development internships."
+        />
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.3 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ type: 'spring', damping: 12, stiffness: 200, delay: 0.2 }}
+        {/* Two-Column Editorial Contact Grid */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+            gap: '3.5rem',
+            alignItems: 'start',
+          }}
+        >
+          {/* LEFT: Direct Communication Channels */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            {/* Primary Email Card */}
+            <div
+              style={{
+                padding: '2rem',
+                background: 'var(--surface-primary)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: '2px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.25rem',
+              }}
             >
-              <a
-                href={`mailto:${EMAIL}`}
-                className="btn-interactive btn-filled"
-                onClick={() => { playSound('click'); playSound('success'); showTransmissionToast(); }}
-                onMouseEnter={() => playSound('hover')}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 'clamp(0.8rem, 2vw, 1rem)',
-                  letterSpacing: '0.08em',
-                  color: '#0a0a0f',
-                  background: 'var(--accent-primary)',
-                  padding: '16px 32px',
-                  borderRadius: 4,
-                  textDecoration: 'none',
-                  fontWeight: 700,
-                  boxShadow: 'var(--accent-glow)',
-                }}
-              >
-                ✉ SEND_TRANSMISSION
-              </a>
-            </motion.div>
-          </div>
-
-          {/* RIGHT: Socials & Terminal */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-
-            {/* Social links */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.25 }}
-              style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
-            >
-              {SOCIALS.map(({ label, url }) => (
-                <a
-                  key={label}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-interactive icon-link"
+              <div>
+                <span
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.7rem',
-                    letterSpacing: '0.12em',
-                    color: 'var(--text-secondary)',
-                    background: 'transparent',
-                    border: '1px solid var(--border-color)',
-                    padding: '12px 24px',
-                    borderRadius: 3,
-                    textDecoration: 'none',
+                    fontSize: '0.68rem',
+                    color: 'var(--accent-primary)',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
                   }}
-                  onMouseEnter={() => playSound('hover')}
-                  onClick={() => playSound('click')}
                 >
-                  [ {label} ] →
-                </a>
-              ))}
-            </motion.div>
+                  Direct Email Dispatch
+                </span>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '1.35rem',
+                    fontWeight: 600,
+                    color: 'var(--text-primary)',
+                    marginTop: '0.35rem',
+                    marginBottom: 0,
+                  }}
+                >
+                  {email}
+                </h3>
+              </div>
 
-            {/* Aesthetic terminal input widget */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-              className="glass-card"
-              style={{ padding: 0, borderRadius: 8, overflow: 'hidden' }}
-            >
-              <div
+              <p
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 8,
-                  padding: '12px 16px', background: 'rgba(0,0,0,0.3)',
-                  borderBottom: '1px solid var(--border-color)',
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '0.9rem',
+                  color: 'var(--text-secondary)',
+                  lineHeight: 1.6,
+                  margin: 0,
                 }}
               >
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ef4444' }} />
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#f59e0b' }} />
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#4ade80' }} />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--text-muted)', marginLeft: 8, letterSpacing: '0.1em' }}>
-                  SECURE_CHANNEL — message.sh
-                </span>
-              </div>
+                Direct email is the most reliable channel for project inquiries, recruitment, or research
+                questions. I typically reply within 24 hours.
+              </p>
 
-              <div style={{ padding: '1.5rem' }}>
-                <div
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <a
+                  href={`mailto:${email}`}
+                  onMouseEnter={() => playSound('hover')}
+                  onClick={() => playSound('click')}
                   style={{
-                    fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
-                    color: 'var(--text-muted)', marginBottom: 16, letterSpacing: '0.08em', lineHeight: 1.6
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    padding: '0.75rem 1.4rem',
+                    background: 'var(--accent-primary)',
+                    color: '#ffffff',
+                    fontWeight: 600,
+                    fontSize: '0.86rem',
+                    borderRadius: '2px',
+                    textDecoration: 'none',
                   }}
                 >
-                  &gt; ESTABLISHING_SECURE_CHANNEL... OK<br />
-                  &gt; TYPE YOUR MESSAGE:
-                </div>
-                <div
+                  <span>Compose Email</span>
+                  <span>&rarr;</span>
+                </a>
+
+                <button
+                  onClick={handleCopy}
+                  onMouseEnter={() => playSound('hover')}
                   style={{
-                    display: 'flex', alignItems: 'center', gap: 10,
-                    padding: '12px 16px', background: 'rgba(0,0,0,0.4)',
-                    borderRadius: 4, border: '1px solid var(--accent-border)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    padding: '0.75rem 1.25rem',
+                    background: 'transparent',
+                    color: 'var(--text-primary)',
+                    border: '1px solid var(--border-strong)',
+                    fontSize: '0.86rem',
+                    fontWeight: 500,
+                    borderRadius: '2px',
+                    cursor: 'pointer',
                   }}
                 >
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--accent-primary)', flexShrink: 0 }}>$</span>
-                  <input
-                    value={input}
-                    onChange={e => { setInput(e.target.value); playSound('keyTick'); }}
-                    placeholder="// message content..."
-                    style={{
-                      background: 'transparent', border: 'none', outline: 'none',
-                      fontFamily: 'var(--font-mono)', fontSize: '0.8rem',
-                      color: 'var(--text-secondary)', flex: 1, cursor: 'none',
-                    }}
-                  />
-                  <span className="blink" style={{ color: 'var(--accent-primary)', fontFamily: 'var(--font-mono)' }}>█</span>
-                </div>
-                <div
-                  style={{
-                    fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-                    color: 'var(--text-muted)', marginTop: 14, letterSpacing: '0.08em',
-                  }}
-                >
-                  // This is an aesthetic widget — to actually reach me, use the button above.
-                </div>
+                  <span>{copied ? '✓ Copied to Clipboard' : 'Copy Address'}</span>
+                </button>
               </div>
-            </motion.div>
+            </div>
+
+            {/* Social & Code Profiles */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.75rem',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.68rem',
+                  color: 'var(--text-muted)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                }}
+              >
+                Network &amp; Code Repositories
+              </span>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                {linkedin && (
+                  <a
+                    href={linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => playSound('hover')}
+                    style={{
+                      padding: '1rem 1.25rem',
+                      background: 'var(--surface-muted)',
+                      border: '1px solid var(--border-subtle)',
+                      borderRadius: '2px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      textDecoration: 'none',
+                      color: 'var(--text-primary)',
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: '0.92rem',
+                    }}
+                  >
+                    <span>LinkedIn &mdash; Professional Profile</span>
+                    <span style={{ color: 'var(--text-muted)' }}>&nearr;</span>
+                  </a>
+                )}
+
+                {github && (
+                  <a
+                    href={github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => playSound('hover')}
+                    style={{
+                      padding: '1rem 1.25rem',
+                      background: 'var(--surface-muted)',
+                      border: '1px solid var(--border-subtle)',
+                      borderRadius: '2px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      textDecoration: 'none',
+                      color: 'var(--text-primary)',
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: '0.92rem',
+                    }}
+                  >
+                    <span>GitHub &mdash; @abhee-adhee</span>
+                    <span style={{ color: 'var(--text-muted)' }}>&nearr;</span>
+                  </a>
+                )}
+
+                <a
+                  href="/resume.pdf"
+                  download
+                  onMouseEnter={() => playSound('hover')}
+                  style={{
+                    padding: '1rem 1.25rem',
+                    background: 'var(--surface-muted)',
+                    border: '1px solid var(--border-subtle)',
+                    borderRadius: '2px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    textDecoration: 'none',
+                    color: 'var(--text-primary)',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.92rem',
+                  }}
+                >
+                  <span>Curriculum Vitae (PDF)</span>
+                  <span style={{ color: 'var(--text-muted)' }}>&darr;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT: Discussion Areas & Location */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.7rem',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--text-muted)',
+                paddingBottom: '0.5rem',
+                borderBottom: '1px solid var(--border-subtle)',
+              }}
+            >
+              Primary Areas of Collaboration
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {topics.map((t) => (
+                <div
+                  key={t.num}
+                  style={{
+                    padding: '1.5rem',
+                    background: 'var(--surface-primary)',
+                    border: '1px solid var(--border-subtle)',
+                    borderRadius: '2px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.4rem',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <h4
+                      style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontWeight: 600,
+                        fontSize: '0.98rem',
+                        color: 'var(--text-primary)',
+                        margin: 0,
+                      }}
+                    >
+                      {t.title}
+                    </h4>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.72rem',
+                        color: 'var(--accent-primary)',
+                      }}
+                    >
+                      {t.num}
+                    </span>
+                  </div>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: '0.86rem',
+                      color: 'var(--text-secondary)',
+                      lineHeight: 1.6,
+                      margin: 0,
+                    }}
+                  >
+                    {t.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Geographical & Academic Base */}
+            <div
+              style={{
+                padding: '1.25rem',
+                background: 'var(--surface-muted)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: '2px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                color: 'var(--text-muted)',
+              }}
+            >
+              <span>CHENNAI, TAMIL NADU, INDIA</span>
+              <span>UTC+5:30 (IST)</span>
+            </div>
           </div>
         </div>
-
-        <style>{`
-          @media (max-width: 768px) {
-            .contact-grid { grid-template-columns: 1fr !important; }
-          }
-        `}</style>
       </div>
     </PageTransition>
   );

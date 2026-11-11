@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function SectionHeading({
@@ -16,22 +17,21 @@ export default function SectionHeading({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.12 },
+      transition: { staggerChildren: 0.1 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
+    hidden: { opacity: 0, y: 14 },
     visible: {
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
   const Wrapper = animate ? motion.div : 'div';
-  const Item   = animate ? motion.div : 'div';
+  const Item = animate ? motion.div : 'div';
 
   return (
     <Wrapper
@@ -44,64 +44,70 @@ export default function SectionHeading({
         flexDirection: 'column',
         alignItems: isCenter ? 'center' : 'flex-start',
         textAlign: isCenter ? 'center' : 'left',
-        marginBottom: '3.5rem',
+        marginBottom: '2.5rem',
         width: '100%',
       }}
     >
-      {/* Small Identifier */}
-      <Item
-        variants={itemVariants}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem',
-          marginBottom: '1.25rem',
-        }}
-      >
-        <div style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.62rem',
-          letterSpacing: '0.25em',
-          color: 'rgba(168, 85, 247, 0.55)',
-          textTransform: 'uppercase',
-          fontWeight: 600,
-        }}>
-          // {pageLabel}
-        </div>
-        <div style={{
-          height: '1px',
-          width: '60px',
-          background: `linear-gradient(90deg, ${accent}, transparent)`,
-          opacity: 0.45,
-          flexShrink: 0,
-        }} />
-      </Item>
+      {/* Category / Section Eyebrow */}
+      {pageLabel && (
+        <Item
+          variants={itemVariants}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            marginBottom: '0.75rem',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.72rem',
+              letterSpacing: '0.12em',
+              color: 'var(--accent-primary)',
+              textTransform: 'uppercase',
+              fontWeight: 600,
+            }}
+          >
+            {pageLabel.replace(/^\/\/\s*/, '')}
+          </span>
+          <span
+            style={{
+              display: 'inline-block',
+              width: '28px',
+              height: '1px',
+              background: 'var(--border-strong)',
+            }}
+          />
+        </Item>
+      )}
 
-      {/* Large Title */}
+      {/* Main Headline */}
       <Item
         variants={itemVariants}
         style={{
-          fontFamily: 'var(--font-heading), Rajdhani, sans-serif',
-          fontSize: 'clamp(2.4rem, 6vw, 4.5rem)',
-          fontWeight: 900,
-          color: '#ffffff',
-          lineHeight: 1.0,
+          fontFamily: 'var(--font-heading)',
+          fontSize: 'clamp(1.85rem, 3.8vw, 2.75rem)',
+          fontWeight: 600,
+          color: 'var(--text-primary)',
+          lineHeight: 1.15,
           letterSpacing: '-0.02em',
-          display: 'flex',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '0.4rem',
-          marginBottom: '0.75rem',
+          marginBottom: subtitle ? '0.75rem' : '1.5rem',
+          maxWidth: '820px',
         }}
       >
         {title}
         {cursor && (
-          <span style={{
-            animation: 'blinkCursor 1.2s step-end infinite',
-            color: accent,
-            fontWeight: 300,
-            marginLeft: '0.1rem',
-          }}>_</span>
+          <span
+            style={{
+              color: accent,
+              fontWeight: 300,
+              marginLeft: '0.2rem',
+              animation: 'editorialPulse 1.8s ease-in-out infinite',
+            }}
+          >
+            .
+          </span>
         )}
       </Item>
 
@@ -110,62 +116,56 @@ export default function SectionHeading({
         <Item
           variants={itemVariants}
           style={{
-            fontFamily: 'var(--font-heading), Rajdhani, sans-serif',
-            fontSize: 'clamp(0.95rem, 2.2vw, 1.3rem)',
-            fontWeight: 500,
-            color: 'rgba(168, 85, 247, 0.75)',
-            letterSpacing: '0.015em',
-            maxWidth: '640px',
-            lineHeight: 1.5,
-            marginBottom: '1.75rem',
+            fontFamily: 'var(--font-sans)',
+            fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+            fontWeight: 400,
+            color: 'var(--text-secondary)',
+            letterSpacing: '-0.01em',
+            maxWidth: '680px',
+            lineHeight: 1.6,
+            marginBottom: '1.5rem',
           }}
         >
           {subtitle}
         </Item>
       )}
 
-      {/* Thin animated accent rule */}
-      <Item
-        variants={itemVariants}
-        style={{
-          width: '100%',
-          height: '1px',
-          background: `linear-gradient(90deg, ${accent}55, transparent 60%)`,
-          marginBottom: '2rem',
-          opacity: 0.4,
-        }}
-      />
-
-      {/* Meta Information — max 2 lines */}
+      {/* Meta Information row if provided */}
       {metaLines && metaLines.length > 0 && (
         <Item
           variants={itemVariants}
           style={{
             display: 'flex',
             justifyContent: isCenter ? 'center' : 'flex-start',
-            gap: '3rem',
+            gap: '2.5rem',
             flexWrap: 'wrap',
+            paddingTop: '1rem',
+            borderTop: '1px solid var(--border-subtle)',
+            width: '100%',
           }}
         >
           {metaLines.map((line, idx) => (
-            <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-              <div style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.58rem',
-                letterSpacing: '0.18em',
-                color: 'rgba(255, 255, 255, 0.3)',
-                textTransform: 'uppercase',
-              }}>
+            <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.65rem',
+                  letterSpacing: '0.12em',
+                  color: 'var(--text-muted)',
+                  textTransform: 'uppercase',
+                }}
+              >
                 {line.label}
               </div>
               {line.value && (
-                <div style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.82rem',
-                  letterSpacing: '0.04em',
-                  color: 'rgba(255,255,255,0.85)',
-                  fontWeight: 500,
-                }}>
+                <div
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.88rem',
+                    color: 'var(--text-primary)',
+                    fontWeight: 500,
+                  }}
+                >
                   {line.value}
                 </div>
               )}
@@ -175,9 +175,9 @@ export default function SectionHeading({
       )}
 
       <style>{`
-        @keyframes blinkCursor {
+        @keyframes editorialPulse {
           0%, 100% { opacity: 1; }
-          50%       { opacity: 0; }
+          50% { opacity: 0.2; }
         }
       `}</style>
     </Wrapper>

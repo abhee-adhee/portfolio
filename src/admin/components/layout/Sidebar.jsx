@@ -94,7 +94,7 @@ export function Sidebar({ isCollapsed, onToggle, className }) {
                 </div>
                 <div className="flex flex-col min-w-0">
                   <span className="text-xs font-semibold text-white truncate font-sans">Admin User</span>
-                  <span className="text-[10px] text-white/40 truncate font-mono">admin@aadhi.dev</span>
+                  <span className="text-[10px] text-white/40 truncate font-mono">abinavaaditya@gmail.com</span>
                 </div>
               </div>
               <button 

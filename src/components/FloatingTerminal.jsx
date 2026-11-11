@@ -27,7 +27,7 @@ const COMMANDS = {
     '  Based in Chennai, IND.',
     '  Currently: Open to internships & freelance.',
     '  Clearance Level: 3 / Building real-world ML systems.',
-    '  Contact: youremail@example.com',
+    '  Contact: abinavaaditya@gmail.com',
   ],
   'cat skills.txt': () => [
     '  === SKILL_MANIFEST.txt ===',
