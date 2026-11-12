@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 
-export default function ProjectVisual({ id, screenshot = null, height = '100%' }) {
+export default function ProjectVisual({
+  id,
+  screenshot = null,
+  showScreenshot = true,
+  height = '100%',
+}) {
   const [imgError, setImgError] = useState(false);
 
-  const localScreenshot =
-    screenshot ||
-    (() => {
-      try {
-        return typeof window !== 'undefined'
-          ? localStorage.getItem(`project_screenshot_${id}`)
-          : null;
-      } catch {
-        return null;
-      }
-    })();
+  const localScreenshot = showScreenshot
+    ? (screenshot ||
+       (() => {
+         try {
+           return typeof window !== 'undefined'
+             ? localStorage.getItem(`project_screenshot_${id}`)
+             : null;
+         } catch {
+           return null;
+         }
+       })())
+    : null;
 
   if (localScreenshot && !imgError) {
     return (

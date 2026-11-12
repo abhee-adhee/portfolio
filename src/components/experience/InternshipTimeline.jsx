@@ -1,19 +1,83 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
+import { Calendar, ChevronDown, ChevronUp, CheckCircle2 } from 'lucide-react';
 import { useSound } from '../../context/SoundContext';
+
+function OrgLogo({ org }) {
+  const getInitials = (name) => {
+    if (!name) return 'EX';
+    if (name.includes('BugBustersLab')) return 'BBL';
+    if (name.includes('AssureFM')) return 'AFM';
+    if (name.includes('Tech Society')) return 'TS';
+    return name
+      .split(' ')
+      .slice(0, 3)
+      .map((w) => w[0])
+      .join('')
+      .toUpperCase();
+  };
+
+  const getSubtleColor = (name) => {
+    if (name.includes('BugBustersLab')) {
+      return {
+        bg: 'rgba(34, 197, 94, 0.1)',
+        border: 'rgba(34, 197, 94, 0.3)',
+        text: 'var(--accent-primary)',
+      };
+    }
+    if (name.includes('AssureFM')) {
+      return {
+        bg: 'rgba(59, 130, 246, 0.1)',
+        border: 'rgba(59, 130, 246, 0.3)',
+        text: '#3b82f6',
+      };
+    }
+    if (name.includes('Tech Society')) {
+      return {
+        bg: 'rgba(168, 85, 247, 0.1)',
+        border: 'rgba(168, 85, 247, 0.3)',
+        text: '#a855f7',
+      };
+    }
+    return {
+      bg: 'var(--bg-subtle)',
+      border: 'var(--border-color)',
+      text: 'var(--accent-primary)',
+    };
+  };
+
+  const colors = getSubtleColor(org);
+
+  return (
+    <div
+      style={{
+        width: '48px',
+        height: '48px',
+        borderRadius: '12px',
+        backgroundColor: colors.bg,
+        border: `1px solid ${colors.border}`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.85rem',
+        fontWeight: 700,
+        color: colors.text,
+        letterSpacing: '-0.01em',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.15)',
+      }}
+    >
+      {getInitials(org)}
+    </div>
+  );
+}
 
 function InternshipCard({ exp, index, total }) {
   const { playSound } = useSound();
-  const [expanded, setExpanded] = useState(true);
   const [hovered, setHovered] = useState(false);
 
   const isActive = exp.status === 'ACTIVE';
-
-  const toggleExpand = () => {
-    playSound('click');
-    setExpanded((prev) => !prev);
-  };
 
   return (
     <div
@@ -30,7 +94,7 @@ function InternshipCard({ exp, index, total }) {
         alignItems: 'flex-start',
       }}
     >
-      {/* Node marker & connector */}
+      {/* Node marker & connector rail */}
       <div
         style={{
           display: 'flex',
@@ -38,16 +102,21 @@ function InternshipCard({ exp, index, total }) {
           alignItems: 'center',
           flexShrink: 0,
           width: 36,
-          marginTop: 18,
+          marginTop: 24,
         }}
       >
         <div
           style={{
-            width: 11,
-            height: 11,
+            width: 12,
+            height: 12,
             borderRadius: '50%',
-            background: isActive ? 'var(--accent-primary)' : hovered ? 'var(--text-primary)' : 'var(--surface-primary)',
-            border: `2px solid ${isActive ? 'var(--accent-primary)' : 'var(--border-strong)'}`,
+            backgroundColor: isActive
+              ? 'var(--accent-primary)'
+              : hovered
+              ? 'var(--text-primary)'
+              : 'var(--bg-surface)',
+            border: `2px solid ${isActive ? 'var(--accent-primary)' : 'var(--border-color)'}`,
+            boxShadow: isActive ? '0 0 10px rgba(34, 197, 94, 0.6)' : 'none',
             transition: 'all 0.2s ease',
           }}
         />
@@ -57,9 +126,9 @@ function InternshipCard({ exp, index, total }) {
             style={{
               width: 1,
               flex: 1,
-              minHeight: 80,
+              minHeight: 120,
               marginTop: 12,
-              background: 'var(--border-strong)',
+              backgroundColor: 'var(--border-color)',
             }}
           />
         )}
@@ -70,198 +139,249 @@ function InternshipCard({ exp, index, total }) {
         className="experience-timeline-card"
         style={{
           flex: 1,
-          borderRadius: '2px',
-          padding: '1.75rem',
-          marginBottom: '2rem',
-          background: 'var(--surface-primary)',
+          borderRadius: '16px',
+          padding: '2rem',
+          marginBottom: '2.5rem',
+          backgroundColor: 'var(--bg-surface)',
           border: '1px solid',
-          borderColor: hovered ? 'var(--border-strong)' : 'var(--border-subtle)',
-          transition: 'border-color 0.2s ease',
+          borderColor: hovered ? 'var(--border-hover)' : 'var(--border-color)',
+          boxShadow: hovered ? '0 8px 30px rgba(0, 0, 0, 0.35)' : '0 4px 20px rgba(0, 0, 0, 0.2)',
+          transition: 'all 0.2s ease',
         }}
       >
-        {/* Header */}
+        {/* Header Section */}
         <div
           style={{
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: 8,
-            marginBottom: '1rem',
-            paddingBottom: '0.75rem',
+            gap: '1.25rem',
+            paddingBottom: '1.25rem',
             borderBottom: '1px solid var(--border-subtle)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.7rem',
-                color: 'var(--accent-primary)',
-                fontWeight: 600,
-                letterSpacing: '0.04em',
-              }}
-            >
-              {exp.org}
-            </span>
+          {/* Left: Organization Logo + Role Title & Org Name */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              minWidth: '240px',
+              flex: '1 1 auto',
+            }}
+          >
+            <OrgLogo org={exp.org} />
+            <div>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: 'clamp(1.15rem, 2.2vw, 1.35rem)',
+                  fontWeight: 700,
+                  color: 'var(--text-primary)',
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.25,
+                  margin: '0 0 4px 0',
+                }}
+              >
+                {exp.role}
+              </h3>
+              <div
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '0.94rem',
+                  fontWeight: 600,
+                  color: 'var(--accent-primary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}
+              >
+                <span>{exp.org}</span>
+              </div>
+            </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {/* Right: Date Duration + Status Pill */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              flexWrap: 'wrap',
+            }}
+          >
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.76rem',
+                color: 'var(--text-secondary)',
+                backgroundColor: 'var(--bg-subtle)',
+                padding: '4px 10px',
+                borderRadius: '6px',
+                border: '1px solid var(--border-color)',
+              }}
+            >
+              <Calendar size={13} style={{ color: 'var(--accent-primary)' }} />
+              <span>{exp.duration}</span>
+            </div>
+
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.72rem',
-                color: 'var(--text-muted)',
-              }}
-            >
-              {exp.duration}
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.65rem',
-                padding: '0.15rem 0.45rem',
-                borderRadius: '2px',
-                background: 'var(--surface-muted)',
-                border: '1px solid var(--border-subtle)',
-                color: isActive ? 'var(--accent-primary)' : 'var(--text-muted)',
                 fontWeight: 600,
+                padding: '4px 10px',
+                borderRadius: '9999px',
+                backgroundColor: isActive ? 'rgba(34, 197, 94, 0.12)' : 'var(--bg-subtle)',
+                border: `1px solid ${isActive ? 'rgba(34, 197, 94, 0.35)' : 'var(--border-color)'}`,
+                color: isActive ? 'var(--accent-primary)' : 'var(--text-muted)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
               }}
             >
-              {isActive ? 'Current' : 'Completed'}
+              {isActive && (
+                <span
+                  style={{
+                    width: '6px',
+                    height: '6px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--accent-primary)',
+                    boxShadow: '0 0 6px var(--accent-primary)',
+                  }}
+                />
+              )}
+              {isActive ? 'Current Role' : 'Completed'}
             </span>
           </div>
         </div>
 
-        {/* Role */}
-        <h4
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: '1.25rem',
-            fontWeight: 600,
-            color: 'var(--text-primary)',
-            marginBottom: '0.65rem',
-          }}
-        >
-          {exp.role}
-        </h4>
-
-        {/* Description */}
+        {/* Narrative Description (if present) */}
         {exp.description && (
-          <p
+          <div
             style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: '0.9rem',
+              fontSize: '0.88rem',
               color: 'var(--text-secondary)',
               lineHeight: 1.65,
-              marginBottom: '1rem',
+              marginTop: '1.25rem',
+              padding: '0.9rem 1.1rem',
+              backgroundColor: 'var(--bg-subtle)',
+              borderRadius: '8px',
+              borderLeft: '3px solid var(--accent-primary)',
             }}
           >
             {exp.description}
-          </p>
+          </div>
         )}
 
-        {/* Responsibilities toggle */}
-        <div style={{ marginBottom: '0.85rem' }}>
-          <button
-            onClick={toggleExpand}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              background: 'transparent',
-              border: 'none',
-              color: 'var(--accent-primary)',
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.8rem',
-              fontWeight: 500,
-              cursor: 'pointer',
-              padding: 0,
-            }}
-          >
-            {expanded ? (
-              <>
-                <ChevronUp size={14} />
-                <span>Hide key responsibilities</span>
-              </>
-            ) : (
-              <>
-                <ChevronDown size={14} />
-                <span>View key responsibilities ({exp.tasks?.length || 0})</span>
-              </>
-            )}
-          </button>
-        </div>
-
-        {/* Tasks */}
-        <AnimatePresence>
-          {expanded && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              style={{ overflow: 'hidden', marginBottom: '1.25rem' }}
+        {/* Key Responsibilities & Deliverables (Clean separated bullet points) */}
+        {exp.tasks && exp.tasks.length > 0 && (
+          <div style={{ marginTop: '1.25rem' }}>
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.68rem',
+                fontWeight: 600,
+                color: 'var(--text-muted)',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                marginBottom: '0.85rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
             >
-              <ul
-                style={{
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: 0,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.55rem',
-                }}
-              >
-                {exp.tasks.map((task) => (
-                  <li
-                    key={task.id}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'baseline',
-                      gap: '0.65rem',
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '0.88rem',
-                      color: 'var(--text-secondary)',
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    <span style={{ color: 'var(--accent-primary)', flexShrink: 0 }}>&bull;</span>
-                    <span>{task.text}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <CheckCircle2 size={13} style={{ color: 'var(--accent-primary)' }} />
+              <span>Key Responsibilities &amp; Deliverables</span>
+            </div>
 
-        {/* Tech stack */}
+            <ul
+              style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.65rem',
+              }}
+            >
+              {exp.tasks.map((task) => (
+                <li
+                  key={task.id}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '0.75rem',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.9rem',
+                    color: 'var(--text-primary)',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      backgroundColor: 'var(--accent-primary)',
+                      flexShrink: 0,
+                      marginTop: '9px',
+                    }}
+                  />
+                  <span>{task.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Technologies & Core Competencies Tags */}
         {exp.stack && exp.stack.length > 0 && (
           <div
             style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '0.35rem',
-              paddingTop: '0.85rem',
+              marginTop: '1.5rem',
+              paddingTop: '1.15rem',
               borderTop: '1px solid var(--border-subtle)',
             }}
           >
-            {exp.stack.map((tech) => (
-              <span
-                key={tech}
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.68rem',
-                  padding: '0.15rem 0.45rem',
-                  borderRadius: '2px',
-                  background: 'var(--surface-muted)',
-                  border: '1px solid var(--border-subtle)',
-                  color: 'var(--text-secondary)',
-                }}
-              >
-                {tech}
-              </span>
-            ))}
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.65rem',
+                fontWeight: 600,
+                color: 'var(--text-muted)',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                marginBottom: '0.65rem',
+              }}
+            >
+              Technologies &amp; Skill Competencies
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+              {exp.stack.map((tech) => (
+                <span
+                  key={tech}
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.72rem',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    backgroundColor: 'var(--bg-subtle)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-secondary)',
+                    transition: 'border-color 0.15s ease',
+                  }}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
           </div>
         )}
       </div>

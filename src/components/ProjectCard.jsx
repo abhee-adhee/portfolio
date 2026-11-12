@@ -45,7 +45,7 @@ export default function ProjectCard({ project }) {
     >
       {/* Visual Thumbnail */}
       <div style={{ width: '100%', overflow: 'hidden' }}>
-        <ProjectVisual id={project.id} screenshot={project.screenshot} />
+        <ProjectVisual id={project.id} screenshot={project.screenshot} showScreenshot={true} />
       </div>
 
       {/* Card Content */}

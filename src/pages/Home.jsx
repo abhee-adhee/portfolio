@@ -115,24 +115,28 @@ export default function Home() {
       title: 'Sentinel IDS',
       category: 'Network Intrusion Detection & Socket Analysis',
       stack: ['Python', 'Scapy', 'SQLite'],
+      screenshot: '/projects/sentinel-ids.png',
     },
     {
       id: 'voice-for-all',
       title: 'VoiceForAll',
       category: 'Civic Accessibility Platform & NLP Sentiment Mapping',
       stack: ['Python', 'Streamlit', 'TextBlob', 'Plotly'],
+      screenshot: '/projects/voice-for-all.png',
     },
     {
       id: 'mini-soc',
       title: 'Mini SOC',
       category: 'Endpoint Security Monitoring & Event Correlation',
       stack: ['Python', 'PowerShell', 'Windows Defender'],
+      screenshot: '/projects/mini-soc.png',
     },
     {
       id: 'edumate',
       title: 'EduMate',
       category: 'Facial Expression Recognition & Adaptive Learning',
       stack: ['Python', 'OpenCV', 'Machine Learning', 'React'],
+      screenshot: '/projects/edumate.png',
     },
   ];
 
