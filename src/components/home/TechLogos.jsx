@@ -149,17 +149,62 @@ export const TECH_ICONS = {
       </svg>
     ),
   },
+  springboot: {
+    name: 'Spring Boot',
+    color: '#6DB33F',
+    svg: (
+      <svg viewBox="0 0 128 128" width="28" height="28" fill="currentColor">
+        <path d="M116.452 6.643a59.104 59.104 0 01-6.837 12.136A64.249 64.249 0 0064.205-.026C28.984-.026 0 28.982 0 64.242a64.316 64.316 0 0019.945 46.562l2.368 2.1a64.22 64.22 0 0041.358 15.122c33.487 0 61.637-26.24 64.021-59.683 1.751-16.371-3.051-37.077-11.24-61.7zM29.067 111.17a5.5 5.5 0 01-4.269 2.034c-3.018 0-5.487-2.484-5.487-5.502 0-3.017 2.485-5.501 5.487-5.501 1.25 0 2.485.433 3.452 1.234 2.351 1.9 2.718 5.384.817 7.735zm87.119-19.238c-15.843 21.122-49.68 14.003-71.376 15.02 0 0-3.852.234-7.721.867 0 0 1.45-.617 3.335-1.334 15.226-5.301 22.43-6.335 31.685-11.086 17.427-8.869 34.654-28.274 38.24-48.463-6.637 19.422-26.75 36.11-45.077 42.895-12.557 4.635-35.238 9.136-35.238 9.136l-.917-.484c-15.442-7.518-15.91-40.977 12.157-51.78 12.291-4.735 24.048-2.134 37.323-5.302 14.175-3.367 30.568-14.004 37.238-27.874 7.471 22.19 16.46 56.932.35 78.405z" />
+      </svg>
+    ),
+  },
+  mern: {
+    name: 'MERN Stack',
+    color: '#00ED64',
+    svg: (
+      <svg viewBox="0 0 24 24" width="28" height="28">
+        <path
+          d="M5.5 1.2c-.2.6-1.7 2.6-1.7 4.8 0 1.8 1.1 3.2 2.5 3.5.2-1.1.5-2 1.1-2.8-.5 1-.3 1.9.2 2.7 1.4-.3 2.4-1.7 2.4-3.4 0-2.2-1.5-4.2-1.7-4.8-.4.7-.7 1.3-1.1 1.6-.3-.3-.7-.9-.9-1.6z"
+          fill="#47A248"
+        />
+        <path
+          d="M23 9.4c-.4.1-.7 0-1-.3-.6-.8-1.2-1.6-1.8-2.4-.1-.1-.2-.2-.3-.3-1 .9-1.7 1.8-2.4 2.7-.2.3-.5.5-.9.4l2.7-3.6-2.5-3.3c.4-.1.7 0 1 .3.6.8 1.2 1.6 1.8 2.5.6-.8 1.3-1.6 1.9-2.5.2-.3.5-.5.9-.3-.3.4-.6.8-1 1.3-.4.5-.8 1.1-1.3 1.7-.2.2-.1.3 0 .5.9 1.1 1.7 2.2 2.6 3.3zm-12.4-3.6c.1-.4.1-.7.2-1.1.6-2.1 3-3 4.7-1.7 1.1.8 1.4 1.9 1.3 3.1h-5.5c-.1 2.2 1.5 3.5 3.5 2.8.7-.2 1.1-.8 1.3-1.5.1-.3.3-.4.6-.3-.2.9-.5 1.6-1.3 2-1.2.7-2.9.5-3.8-.5-.8-.8-1-1.5-1.1-2.3 0-.1 0-.2-.1-.4q0-.3 0-.6zm.6-.1h4.9c0-1.6-1-2.7-2.3-2.7-1.5 0-2.5 1.1-2.6 2.7z"
+          fill="currentColor"
+        />
+        <g fill="none" stroke="#61DAFB" strokeWidth="0.8">
+          <circle cx="5.5" cy="18" r="1.1" fill="#61DAFB" />
+          <ellipse cx="5.5" cy="18" rx="4.5" ry="1.6" />
+          <ellipse cx="5.5" cy="18" rx="4.5" ry="1.6" transform="rotate(60 5.5 18)" />
+          <ellipse cx="5.5" cy="18" rx="4.5" ry="1.6" transform="rotate(120 5.5 18)" />
+        </g>
+        <path
+          d="M18 13.5l3.8 2.2v4.5l-3.8 2.2-3.8-2.2v-4.5z"
+          fill="none"
+          stroke="#5FA04E"
+          strokeWidth="1.2"
+        />
+        <path
+          d="M18 16.2v3.6"
+          stroke="#5FA04E"
+          strokeWidth="1"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
 };
 
 export default function TechLogos() {
   const techList = [
     TECH_ICONS.python,
     TECH_ICONS.java,
+    TECH_ICONS.springboot,
     TECH_ICONS.javascript,
-    TECH_ICONS.c,
     TECH_ICONS.react,
+    TECH_ICONS.mern,
     TECH_ICONS.fastapi,
     TECH_ICONS.streamlit,
+    TECH_ICONS.c,
     TECH_ICONS.sql,
     TECH_ICONS.sqlite,
     TECH_ICONS.git,
@@ -184,28 +229,12 @@ export default function TechLogos() {
         <div
           key={item.name}
           title={item.name}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.45rem',
-            padding: '0.65rem 0.5rem',
-            borderRadius: '10px',
-            color: 'var(--text-secondary)',
-            transition: 'transform 0.18s ease, color 0.18s ease, background-color 0.18s ease',
-            cursor: 'default',
-            width: '100%',
-          }}
-          onMouseOver={(e) => {
+          className="tech-logo-item"
+          onMouseEnter={(e) => {
             e.currentTarget.style.color = item.color;
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.backgroundColor = 'var(--bg-subtle)';
           }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.color = 'var(--text-secondary)';
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.backgroundColor = 'transparent';
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = '';
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

@@ -248,6 +248,7 @@ export default function Home() {
           >
             {/* Top Right: Country & IST Clock */}
             <div
+              className="home-cover-badge"
               style={{
                 position: 'absolute',
                 top: '1rem',
@@ -275,6 +276,7 @@ export default function Home() {
 
             {/* Bottom Right: Availability Indicator */}
             <div
+              className="home-cover-badge"
               style={{
                 position: 'absolute',
                 bottom: '1rem',
@@ -321,6 +323,7 @@ export default function Home() {
           >
             {/* Profile Avatar */}
             <div
+              className="home-avatar-container"
               style={{
                 width: '104px',
                 height: '104px',
@@ -405,24 +408,9 @@ export default function Home() {
                 <a
                   href="/resume.pdf"
                   download
+                  className="home-btn-resume"
                   onClick={() => playSound('click')}
                   onMouseEnter={() => playSound('hover')}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '7px',
-                    padding: '8px 18px',
-                    borderRadius: '9999px',
-                    backgroundColor: '#ffffff',
-                    color: '#0d0d10',
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.85rem',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    transition: 'opacity 0.15s ease, transform 0.15s ease',
-                  }}
-                  onMouseOver={(e) => (e.currentTarget.style.opacity = '0.9')}
-                  onMouseOut={(e) => (e.currentTarget.style.opacity = '1')}
                 >
                   <FileText size={15} />
                   <span>View Resume</span>
@@ -430,31 +418,9 @@ export default function Home() {
 
                 <Link
                   to="/contact"
+                  className="home-btn-contact"
                   onClick={() => playSound('click')}
                   onMouseEnter={() => playSound('hover')}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '7px',
-                    padding: '8px 18px',
-                    borderRadius: '9999px',
-                    backgroundColor: 'var(--bg-surface)',
-                    color: 'var(--text-primary)',
-                    border: '1px solid var(--border-color)',
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.85rem',
-                    fontWeight: 500,
-                    textDecoration: 'none',
-                    transition: 'background-color 0.15s ease, border-color 0.15s ease',
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--text-primary)';
-                    e.currentTarget.style.backgroundColor = 'var(--bg-subtle)';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--border-color)';
-                    e.currentTarget.style.backgroundColor = 'var(--bg-surface)';
-                  }}
                 >
                   <Send size={14} />
                   <span>Get in touch</span>
@@ -462,22 +428,15 @@ export default function Home() {
               </div>
 
               {/* Social Icons */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <a
                   href="https://github.com/abhee-adhee"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
+                  className="home-social-link"
                   onClick={() => playSound('click')}
                   onMouseEnter={() => playSound('hover')}
-                  style={{
-                    color: 'var(--text-muted)',
-                    transition: 'color 0.15s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                  onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                  onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
                 >
                   <Github size={18} />
                 </a>
@@ -487,16 +446,9 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
+                  className="home-social-link"
                   onClick={() => playSound('click')}
                   onMouseEnter={() => playSound('hover')}
-                  style={{
-                    color: 'var(--text-muted)',
-                    transition: 'color 0.15s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                  onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                  onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
                 >
                   <Linkedin size={18} />
                 </a>
@@ -506,16 +458,9 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Portfolio"
+                  className="home-social-link"
                   onClick={() => playSound('click')}
                   onMouseEnter={() => playSound('hover')}
-                  style={{
-                    color: 'var(--text-muted)',
-                    transition: 'color 0.15s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                  onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                  onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
                 >
                   <Globe size={18} />
                 </a>
@@ -523,16 +468,9 @@ export default function Home() {
                 <a
                   href="mailto:abinavaaditya@gmail.com"
                   aria-label="Email"
+                  className="home-social-link"
                   onClick={() => playSound('click')}
                   onMouseEnter={() => playSound('hover')}
-                  style={{
-                    color: 'var(--text-muted)',
-                    transition: 'color 0.15s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                  onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                  onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
                 >
                   <Mail size={18} />
                 </a>
@@ -556,6 +494,7 @@ export default function Home() {
             }}
           >
             <span
+              className="home-section-number"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.76rem',
@@ -596,15 +535,7 @@ export default function Home() {
 
           {/* Combined Dark Showcase Card */}
           <div
-            style={{
-              borderRadius: '20px',
-              backgroundColor: 'var(--bg-surface)',
-              border: '1px solid var(--border-color)',
-              padding: '1.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.3)',
-            }}
+            className="home-showcase-card"
           >
             {/* Top Part: GitHub Contribution Calendar */}
             <GithubActivity />
@@ -638,6 +569,7 @@ export default function Home() {
             }}
           >
             <span
+              className="home-section-number"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.76rem',
@@ -722,6 +654,7 @@ export default function Home() {
                       {/* Organization & Role */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         <div
+                          className="home-exp-badge"
                           style={{
                             width: '38px',
                             height: '38px',
@@ -788,6 +721,7 @@ export default function Home() {
                           {exp.tags.map((tag) => (
                             <span
                               key={tag}
+                              className="home-tag-pill"
                               style={{
                                 fontFamily: 'var(--font-mono)',
                                 fontSize: '0.68rem',
@@ -840,22 +774,7 @@ export default function Home() {
                       <div>
                         <button
                           onClick={() => toggleExp(exp.id)}
-                          style={{
-                            background: 'transparent',
-                            border: 'none',
-                            color: 'var(--text-secondary)',
-                            fontFamily: 'var(--font-sans)',
-                            fontSize: '0.82rem',
-                            fontWeight: 500,
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '5px',
-                            cursor: 'pointer',
-                            padding: 0,
-                            transition: 'color 0.15s ease',
-                          }}
-                          onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                          onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+                          className="home-details-btn"
                         >
                           {isExpanded ? (
                             <>
@@ -925,6 +844,7 @@ export default function Home() {
             }}
           >
             <span
+              className="home-section-number"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.76rem',
@@ -975,27 +895,9 @@ export default function Home() {
               <Link
                 key={p.id}
                 to={`/projects/${p.id}`}
+                className="home-project-card"
                 onClick={() => playSound('click')}
                 onMouseEnter={() => playSound('hover')}
-                style={{
-                  borderRadius: '20px',
-                  backgroundColor: 'var(--bg-surface)',
-                  border: '1px solid var(--border-color)',
-                  overflow: 'hidden',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  transition: 'transform 0.2s ease, border-color 0.2s ease',
-                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.borderColor = 'var(--border-hover)';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = 'var(--border-color)';
-                }}
               >
                 {/* Visual Header Graphic */}
                 <ProjectVisual id={p.id} screenshot={p.screenshot} />
@@ -1014,7 +916,7 @@ export default function Home() {
                     >
                       {p.title}
                     </h3>
-                    <ArrowUpRight size={17} style={{ color: 'var(--text-muted)' }} />
+                    <ArrowUpRight size={17} className="home-card-arrow" />
                   </div>
 
                   <p
@@ -1063,26 +965,12 @@ export default function Home() {
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
             <Link
               to="/projects"
+              className="home-explore-all-btn"
               onClick={() => playSound('click')}
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.88rem',
-                fontWeight: 600,
-                color: 'var(--text-primary)',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '8px 20px',
-                borderRadius: '9999px',
-                backgroundColor: 'var(--bg-surface)',
-                border: '1px solid var(--border-color)',
-              }}
-              onMouseOver={(e) => (e.currentTarget.style.borderColor = 'var(--text-primary)')}
-              onMouseOut={(e) => (e.currentTarget.style.borderColor = 'var(--border-color)')}
+              onMouseEnter={() => playSound('hover')}
             >
               <span>Explore all documented systems &amp; sidequests</span>
-              <ArrowUpRight size={15} />
+              <ArrowUpRight size={15} className="home-explore-arrow" />
             </Link>
           </div>
         </section>
@@ -1102,6 +990,7 @@ export default function Home() {
             }}
           >
             <span
+              className="home-section-number"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.76rem',
@@ -1153,21 +1042,7 @@ export default function Home() {
               return (
                 <div
                   key={rec.id}
-                  style={{
-                    borderRadius: '20px',
-                    backgroundColor: 'var(--bg-surface)',
-                    border: '1px solid var(--border-color)',
-                    padding: '1.75rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    minHeight: '220px',
-                    position: 'relative',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
-                    transition: 'border-color 0.18s ease',
-                  }}
-                  onMouseOver={(e) => (e.currentTarget.style.borderColor = 'var(--border-hover)')}
-                  onMouseOut={(e) => (e.currentTarget.style.borderColor = 'var(--border-color)')}
+                  className="home-recognition-card"
                 >
                   {/* Card Top */}
                   <div>
@@ -1196,18 +1071,7 @@ export default function Home() {
                         </p>
                       </div>
 
-                      <div
-                        style={{
-                          width: '32px',
-                          height: '32px',
-                          borderRadius: '8px',
-                          backgroundColor: 'var(--bg-subtle)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'var(--text-secondary)',
-                        }}
-                      >
+                      <div className="home-rec-icon-box">
                         <Icon size={16} />
                       </div>
                     </div>
@@ -1345,14 +1209,7 @@ export default function Home() {
                 href="https://github.com/abhee-adhee"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.84rem',
-                  color: 'var(--text-secondary)',
-                  textDecoration: 'none',
-                }}
-                onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+                className="home-footer-link"
               >
                 GitHub
               </a>
@@ -1361,28 +1218,14 @@ export default function Home() {
                 href="https://www.linkedin.com/in/abinav-aaditya-86a952305/"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.84rem',
-                  color: 'var(--text-secondary)',
-                  textDecoration: 'none',
-                }}
-                onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+                className="home-footer-link"
               >
                 LinkedIn
               </a>
 
               <a
                 href="mailto:abinavaaditya@gmail.com"
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.84rem',
-                  color: 'var(--text-secondary)',
-                  textDecoration: 'none',
-                }}
-                onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+                className="home-footer-link"
               >
                 abinavaaditya@gmail.com
               </a>

@@ -47,6 +47,8 @@ export const skillGroups = [
     icon: '◈',
     skills: [
       { name: 'React', role: 'Modular client architecture, hooks & responsive interface state' },
+      { name: 'Spring Boot', role: 'Enterprise Java microservices, REST APIs, and backend architectures' },
+      { name: 'MERN Stack', role: 'Full-stack engineering with MongoDB, Express.js, React, and Node.js' },
       { name: 'FastAPI & Flask', role: 'High-performance Python REST APIs and asynchronous endpoints' },
       { name: 'Streamlit', role: 'Rapid analytical dashboard prototyping and machine learning UI' },
       { name: 'Tailwind CSS', role: 'Utility-first typographic and structural design systems' },

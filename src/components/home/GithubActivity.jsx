@@ -73,9 +73,16 @@ export default function GithubActivity() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
+            transition: 'color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
-          onMouseOver={(e) => (e.currentTarget.style.color = '#22c55e')}
-          onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = 'var(--accent-primary)';
+            e.currentTarget.style.transform = 'translateX(2px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'var(--text-primary)';
+            e.currentTarget.style.transform = 'translateX(0)';
+          }}
         >
           <span>@abhee-adhee</span>
         </a>
@@ -129,8 +136,10 @@ export default function GithubActivity() {
                       borderRadius: '2px',
                       backgroundColor: color,
                       cursor: 'pointer',
-                      transition: 'transform 0.1s ease',
-                      transform: hoveredDay?.date === day.date ? 'scale(1.3)' : 'scale(1)',
+                      transition: 'transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease',
+                      transform: hoveredDay?.date === day.date ? 'scale(1.35)' : 'scale(1)',
+                      boxShadow: hoveredDay?.date === day.date ? '0 0 8px rgba(34, 197, 94, 0.45)' : 'none',
+                      zIndex: hoveredDay?.date === day.date ? 2 : 1,
                     }}
                   />
                 );

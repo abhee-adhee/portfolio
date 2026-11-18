@@ -36,6 +36,7 @@ export default function ProjectVisual({
         <img
           src={localScreenshot}
           alt={`Project ${id}`}
+          className="project-visual-img"
           onError={() => setImgError(true)}
           style={{
             width: '100%',
