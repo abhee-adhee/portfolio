@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import {
@@ -24,10 +25,25 @@ import TechLogos from '../components/home/TechLogos';
 import ProjectVisual from '../components/home/ProjectVisual';
 import { useSound } from '../context/SoundContext';
 
+const MotionDiv = motion.div;
+
 export default function Home() {
   const { playSound } = useSound();
   const [istTime, setIstTime] = useState('');
   const [expandedExp, setExpandedExp] = useState({});
+
+  // Experience Timeline Scroll Animation
+  const timelineRef = useRef(null);
+  const { scrollYProgress: timelineProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 75%', 'end 65%'],
+  });
+  const smoothTimelineProgress = useSpring(timelineProgress, {
+    stiffness: 120,
+    damping: 24,
+    mass: 0.2,
+    restDelta: 0.001,
+  });
 
   // Live IST Clock
   useEffect(() => {
@@ -609,8 +625,12 @@ export default function Home() {
           </div>
 
           {/* Timeline Container with Vertical Green Line */}
-          <div className="home-timeline-container" style={{ position: 'relative', paddingLeft: '4rem' }}>
-            {/* Vertical Rail */}
+          <div
+            ref={timelineRef}
+            className="home-timeline-container"
+            style={{ position: 'relative', paddingLeft: '4rem' }}
+          >
+            {/* Vertical Rail (Base Track + Animated Extending Green Line) */}
             <div
               className="home-timeline-rail"
               style={{
@@ -619,10 +639,23 @@ export default function Home() {
                 top: '0.5rem',
                 bottom: '1rem',
                 width: '2px',
-                backgroundColor: '#22c55e',
+                backgroundColor: 'rgba(34, 197, 94, 0.18)',
                 borderRadius: '1px',
+                overflow: 'hidden',
               }}
-            />
+            >
+              <MotionDiv
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: '#22c55e',
+                  borderRadius: '1px',
+                  transformOrigin: 'top',
+                  scaleY: smoothTimelineProgress,
+                  boxShadow: '0 0 10px rgba(34, 197, 94, 0.7)',
+                }}
+              />
+            </div>
 
             {/* Timeline Items */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
