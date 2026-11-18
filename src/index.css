@@ -813,5 +813,38 @@ html, body, #root {
   transform: translateY(-1.5px);
 }
 
+/* ── Cloud Certification Card ── */
+.home-cert-card {
+  border-radius: 20px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 1.75rem 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.24s ease;
+}
+
+.home-cert-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 153, 0, 0.45);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(255, 153, 0, 0.12);
+}
+
+.home-cert-badge-glow {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
+}
+
+.home-cert-card:hover .home-cert-badge-glow {
+  transform: scale(1.06);
+  box-shadow: 0 0 18px rgba(255, 153, 0, 0.35);
+}
+
+@media (max-width: 640px) {
+  .home-cert-card {
+    padding: 1.35rem 1.15rem !important;
+  }
+}
+
 
 
